@@ -1,4 +1,4 @@
-#Tue Aug 20 18:33:36 ART 2019
-base.0=/home/alewachu/AndroidStudioProjects/flutter_app/build/app/intermediates/transforms/dexMerger/debug/0
+#Tue Sep 10 17:50:18 ART 2019
+base.0=C\:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
