@@ -8,5 +8,9 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/login': (BuildContext context) => new LoginPage(),
     '/register': (BuildContext context) => new RegisterPage(),
     '/contraolvidada': (BuildContext context) => new ContraOlvidadaPage(),
+    '/verperfil': (BuildContext context) => new VerPerfilPage(),
+    '/vertrabajos': (BuildContext context) => new VerTrabajosPage(),
+    '/creartrabajo': (BuildContext context) => new CrearTrabajoPage(),
+    '/crearperfil': (BuildContext context) => new CrearPerfilPage(),
   };
 }

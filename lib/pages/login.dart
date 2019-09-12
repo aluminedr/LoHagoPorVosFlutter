@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/behavior/hiddenScrollBehavior.dart';
 import 'package:http/http.dart' as http;
@@ -16,19 +15,18 @@ class _LoginPageState extends State<LoginPage>{
   var _claveUsuarioController = new TextEditingController();
   var data;
 
-
-              Future<String> getData(String mailUsuario) async {
-                var response = await http.get(
-                    Uri.encodeFull(
-                        "http://192.168.200.142/www/FlutterTraining/Login.php?mailUsuario=${mailUsuario}"),
-                    headers: {"Accept": "application/json"});
-
-                print(response.body);
-                setState(() {
-                  var convertDataToJson = json.decode(response.body);
-                  data = convertDataToJson['result'];
-                });
-              }
+  Future<String> getData(String mailUsuario) async {
+    var response = await http.get(
+      Uri.encodeFull(
+        "http://192.168.200.142/www/FlutterTraining/Login.php?mailUsuario=${mailUsuario}"),
+        headers: {"Accept": "application/json"});
+        print(response.body);
+        setState(() {
+            var convertDataToJson = json.decode(response.body);
+            data = convertDataToJson['result'];
+        });                                      
+  }                                         
+              
 
   @override
   Widget build(BuildContext context) {
