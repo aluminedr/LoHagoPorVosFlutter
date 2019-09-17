@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage>{
   String mensajeError='';
 
   Future<List> login() async {
-    final respuesta = await http.post("http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Login.php",
+    final respuesta = await http.post("http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/Login.php",
         body: {
           "mailUsuario": mailUsuarioController.text,
           "claveUsuario": claveUsuarioController.text,
@@ -41,6 +41,9 @@ class _LoginPageState extends State<LoginPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: new Text("Ingreso"),
+      ),
       resizeToAvoidBottomPadding: false,
       body: Form(
         child: Container(
@@ -134,11 +137,11 @@ class _LoginPageState extends State<LoginPage>{
                     ),
                   ),
                   Spacer(),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child:new RaisedButton(
-                          child: new Text('Ingresar'),
+                  new RaisedButton(
+                          child: new Text(
+                            '       Ingresar      ',
+                            style: TextStyle(fontSize: 20.0),
+                          ),
                           color: Colors.green,
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
@@ -148,21 +151,21 @@ class _LoginPageState extends State<LoginPage>{
                             Navigator.pop(context);
                           },
                         ),
-                      ),
-                      Expanded(
-                        child: FlatButton(
+                     
+            new RaisedButton(
                           color: Colors.green,
-                          padding: EdgeInsets.all(8.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)
+                          ),
                           onPressed: () {
                             Navigator.pushReplacementNamed(context, '/register');
                           },
                           child: Text(
-                            "No tengo una cuenta",
+                            "   Registrarme   ",
                             style: TextStyle(fontSize: 20.0),
                           ),
                         ),
-                      ),
-                ]),
+                
               Text(mensajeError)
               ]),
             )

@@ -3,7 +3,7 @@
 
 
 $nombreUsuario= 'unNombre';
-$mailUaurio=$_POST['mailUsuario'];
+$mailUsuario=$_POST['mailUsuario'];
 $authKey='jfhkjhgfh';
 $claveUsuario=$_POST['claveUsuario'];
 $idRol=1;

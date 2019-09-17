@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/rutas.dart';
 import 'package:flutter_app/theme.dart';
@@ -12,7 +13,7 @@ class NuestraApp extends StatefulWidget{
 
 class _NuestraAppState extends State<NuestraApp>{
 
-  Widget paginaInicio = LoginPage();
+  Widget paginaInicio = CrearTrabajoPage();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
