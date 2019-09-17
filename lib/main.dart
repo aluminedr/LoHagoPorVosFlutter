@@ -19,11 +19,36 @@ class _NuestraAppState extends State<NuestraApp>{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lo Hago Por Vos',
-      home: paginaInicio,
+      home:paginaInicio, /*Scaffold(
+        appBar: AppBar(
+          title: Text("Lo Hago Por Vos"),
+        ),
+        drawer: MenuLateral(),
+      ),*/
       routes: buildAppRoutes(),
       theme: buildAppTheme(),
     );
 
   }
 
+}
+
+class MenuLateral extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return new Drawer(
+      child: ListView(
+        children: <Widget>[
+          new UserAccountsDrawerHeader(
+            accountEmail: Text("aluminede@gmail.com"), 
+            accountName: Text("AlumineDr"),
+          ),
+          new ListTile(
+
+          ),
+        ],
+      ),
+    );
+  }
+  
 }

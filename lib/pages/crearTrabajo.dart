@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 class CrearTrabajoPage extends StatefulWidget{
@@ -13,13 +15,13 @@ class CrearTrabajoPage extends StatefulWidget{
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
 
-  Future<List> traerCategorias() async {
-    final respuesta = await http.post("http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php",
-                                                                              
-
-    var datosUsuario= json.decode(respuesta.body);
-    return datosUsuario;
+  Future<List> traerCategorias() async{
+    var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php";
+    final response= await http.get(url);
+    var categorias=json.decode(response.body);
+    return categorias;
   }
+
   void crear(){
     var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
     http.post(url,body:{
@@ -70,7 +72,7 @@ class CrearTrabajoPage extends StatefulWidget{
                                 height: 170,
                       ),
                         new ListTile(
-                          leading: const Icon(Icons.person, color: Colors.black,),
+                          leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new TextFormField(
                             controller: descripcionController,
                             validator:descripcionValidator,
@@ -80,7 +82,7 @@ class CrearTrabajoPage extends StatefulWidget{
                           ),
                         ),
                         new ListTile(
-                          leading: const Icon(Icons.mail, color: Colors.black,),
+                          leading: const Icon(Icons.monetization_on, color: Colors.black,),
                           title: new TextFormField(
                             controller: montoController,
                             validator:montoValidator,
@@ -89,6 +91,9 @@ class CrearTrabajoPage extends StatefulWidget{
                               labelText: "Monto",
                             ),
                           ),
+                        ),
+                        Padding(padding: EdgeInsets.only(top: .0),
+
                         ),
                         new RaisedButton(
                           child: new Text("  Publicar  "),
@@ -104,12 +109,13 @@ class CrearTrabajoPage extends StatefulWidget{
                           },
                         ),
                         new RaisedButton(
-                          child: new Text("  Borrar  "),
+                          child: new Text("    Borrar    "),
                           color: Colors.green,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
+                            print(traerCategorias());
                             Navigator.pushReplacementNamed(context,"/creartrabajo");
                           },
                         ),
