@@ -1,97 +1,175 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/behavior/hiddenScrollBehavior.dart';
 import 'package:http/http.dart' as http;
 
+String mailUsuario;
 class LoginPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 
 
 }
+ 
 
 class _LoginPageState extends State<LoginPage>{
-  var _mailUsuarioController = new TextEditingController();
-  var _claveUsuarioController = new TextEditingController();
-  var data;
+  TextEditingController mailUsuarioController = new TextEditingController();
+  TextEditingController  claveUsuarioController = new TextEditingController();
+  String mensajeError='';
 
-  Future<String> getData(String mailUsuario) async {
-    var response = await http.get(
-      Uri.encodeFull(
-        "http://192.168.200.142/www/FlutterTraining/Login.php?mailUsuario=${mailUsuario}"),
-        headers: {"Accept": "application/json"});
-        print(response.body);
-        setState(() {
-            var convertDataToJson = json.decode(response.body);
-            data = convertDataToJson['result'];
-        });                                      
-  }                                         
-              
+  Future<List> login() async {
+    final respuesta = await http.post("http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Login.php",
+        body: {
+          "mailUsuario": mailUsuarioController.text,
+          "claveUsuario": claveUsuarioController.text,
+        });                                                                       
+
+    var datosUsuario= json.decode(respuesta.body);
+
+    if(datosUsuario.length == 0){
+      setState(() {
+        mensajeError="Mail o contraseña incorrectos" ;
+      });
+    }else{
+      Navigator.pushReplacementNamed(context, '/vertrabajos');
+      setState(() {
+        mailUsuario = datosUsuario[0]['mailUsuario'];
+      });
+    }     
+    return datosUsuario;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-          return Scaffold(
-           appBar: AppBar(
-             title: Text('Ingresar'),
-           ),
-           body: Container(
-             padding: EdgeInsets.all(20.0),
-               child: ScrollConfiguration(
-                 behavior: HiddenScrollBehavior(),
-                 child: Form(
-                   child: ListView(
-                     children: <Widget>[
-                       TextFormField(
-                         controller: _mailUsuarioController,
-                         autocorrect: false,
-                         keyboardType: TextInputType.emailAddress,
-                         decoration: InputDecoration(
-                           labelText: 'Mail'
-                         ),
-                       ),
-                       TextFormField(
-                         controller: _claveUsuarioController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Contraseña'
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Form(
+        child: Container(
+        child: Column(
+          children: <Widget>[
+            new Container(
+              padding: EdgeInsets.only(top: 77.0),
+              child: new CircleAvatar(
+                backgroundColor: Color(0xf81f7f3),
+                child: new Image(
+                  width: 135,
+                  height: 135,
+                  image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
+                ),
+              ),
+              width: 170,
+              height: 170,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(top:93),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    padding: EdgeInsets.only(
+                      top: 4,right: 16,left: 16,bottom: 4
+                      ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                    child: TextFormField(
+                      controller: mailUsuarioController,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.black,
+                        ),
+                        hintText: 'Mail',
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Text('Bienvenido a ¡Lo Hago Por Vos!'),
+                  Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                    child: TextField(
+                      controller: claveUsuarioController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.vpn_key,
+                          color: Colors.black,
+                        ),
+                      hintText: 'Contraseña',
+                      ),
+                    ),
                   ),
-                  FlatButton(
-                    child: Text('Olvide mi contraseña'),
-                    onPressed: (){
-                      Navigator.of(context).pushNamed('/contraolvidada');
-                    },
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 6,
+                        right: 32,
+                      ),
+                      child: Text(
+                        'Olvide mi contraseña',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
                   ),
-                  FlatButton(
-                    child: Text('Registrarme'),
-                    onPressed: (){
-                      Navigator.of(context).pushNamed('/register');
-                    },
-                  )
-                ],
-              ),
-            ),
+                  Spacer(),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child:new RaisedButton(
+                          child: new Text('Ingresar'),
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)
+                          ),
+                          onPressed: (){
+                            login();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: FlatButton(
+                          color: Colors.green,
+                          padding: EdgeInsets.all(8.0),
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/register');
+                          },
+                          child: Text(
+                            "No tengo una cuenta",
+                            style: TextStyle(fontSize: 20.0),
+                          ),
+                        ),
+                      ),
+                ]),
+              Text(mensajeError)
+              ]),
+            )
+          ],
+        ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          getData(_mailUsuarioController.text);
-        },
-        child: Icon(Icons.account_circle),
-      ),
-      persistentFooterButtons: <Widget>[
-        FlatButton(
-          onPressed: (){
-            Navigator.of(context).pop();
-          },
-          child: Text('No tengo una cuenta. ¡Registrarme!'),
-        )
-      ],
-      );
+    );
   }
 }

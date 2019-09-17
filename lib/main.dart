@@ -16,6 +16,7 @@ class _NuestraAppState extends State<NuestraApp>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Lo Hago Por Vos',
       home: paginaInicio,
       routes: buildAppRoutes(),

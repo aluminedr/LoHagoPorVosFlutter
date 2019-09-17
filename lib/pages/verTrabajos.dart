@@ -13,7 +13,6 @@ class VerTrabajosPage extends StatefulWidget{
   class _VerTrabajosPageState extends State<VerTrabajosPage>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+    return new Container();
   }
 }
