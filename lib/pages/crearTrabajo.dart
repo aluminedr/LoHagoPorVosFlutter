@@ -21,6 +21,8 @@ class CrearTrabajoPage extends StatefulWidget{
     var categorias=json.decode(response.body);
     return categorias;
   }
+  String _mySelection;
+  List<Map> _myJson = traerCategorias() as List<Map>;
 
   void crear(){
     var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
@@ -92,6 +94,30 @@ class CrearTrabajoPage extends StatefulWidget{
                             ),
                           ),
                         ),
+                        new ListTile(
+                          leading: const Icon(Icons.monetization_on, color: Colors.black,),
+                          title: new DropdownButton<String>(
+                            isDense: true,
+                            hint: new Text("Select"),
+                            value: _mySelection,
+                            onChanged: (String newValue) {
+
+                              setState(() {
+                                _mySelection = newValue;
+                              });
+
+                              print (_mySelection);
+                            },
+                            items: _myJson.map((Map map) {
+                              return new DropdownMenuItem<String>(
+                                value: map["idCategoriaTrabajo"].toString(),
+                                child: new Text(
+                                  map["nombreCategoriaTrabajo"],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
@@ -115,7 +141,6 @@ class CrearTrabajoPage extends StatefulWidget{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            print(traerCategorias());
                             Navigator.pushReplacementNamed(context,"/creartrabajo");
                           },
                         ),
