@@ -10,7 +10,10 @@ class CrearPerfilPage extends StatefulWidget{
   class _CrearPerfilPageState extends State<CrearPerfilPage>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Crear Perfil"),
+      ),
+    );
   }
 }

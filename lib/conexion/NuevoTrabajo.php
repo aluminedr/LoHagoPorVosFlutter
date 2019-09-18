@@ -1,6 +1,6 @@
 <?php
  require_once 'Connexion.php';
-print_R($_POST);
+
 
 $idTipoTrabajo= 1;
 $idCategoriaTrabajo=$_POST['idCategoriaTrabajo'];

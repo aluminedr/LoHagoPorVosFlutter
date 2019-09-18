@@ -29,7 +29,7 @@ class CrearTrabajoPage extends StatefulWidget{
   Future<Null> listarCategorias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
+       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -44,26 +44,16 @@ class CrearTrabajoPage extends StatefulWidget{
     for(var i=0; i<listaCategorias.length;i++){ // Seteamos los valores
       listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
     }
-    _dropdownValue=null;
+    _dropdownValue=listarCategoriaM[listaCategorias[0]['idCategoriaTrabajo']];
   }
-
-// funcion devuelve el id (la clave) de la categoria seleccionada
-  String  mostrarIdCategoria()
-{
-var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValue, //Devuelve la clave del obj
-orElse: ()=>null
-);
-return usdKey;
-}
-
 
 
   void crear(){
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
+    var url="http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
     http.post(url,body:{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
-      "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
+      "idCategoriaTrabajo":_dropdownValue,
     });
   }
     
@@ -132,8 +122,8 @@ return usdKey;
                         new ListTile(
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new DropdownButton<String>(
+                            hint: new Text("Seleccione una categoria...                                      "),
                             value: _dropdownValue,
-                            hint: Text("Seleccione una categoria..."),
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValue = newValue;
