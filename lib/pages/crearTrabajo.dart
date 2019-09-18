@@ -14,6 +14,7 @@ class CrearTrabajoPage extends StatefulWidget{
   class _CrearTrabajoPageState extends State<CrearTrabajoPage>{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController  montoController = new TextEditingController();
+  //TextEditingController  idCategoriaTrabajoController = new TextEditingController();
   
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
@@ -36,7 +37,7 @@ class CrearTrabajoPage extends StatefulWidget{
     });
   imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
   }
-  String _dropdownValue = null;  // seteamos por defecto a null
+  String _dropdownValue;  // seteamos por defecto a null
   Map<String ,String>listarCategoriaM=Map(); // Lo mapeamos
 
   void imprimirCategorias(){
@@ -52,7 +53,7 @@ class CrearTrabajoPage extends StatefulWidget{
     http.post(url,body:{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
-      //"idCategoriaTrabajo":idCategoriaTrabajoController.text,
+      "idCategoriaTrabajo":_dropdownValue,
     });
   }
     
@@ -121,8 +122,8 @@ class CrearTrabajoPage extends StatefulWidget{
                         new ListTile(
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new DropdownButton<String>(
-                            hint: Text("Seleccione una categoria...                                      "),
-                            //value: _dropdownValue,
+                            hint: new Text("Seleccione una categoria...                                      "),
+                            value: _dropdownValue,
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValue = newValue;
