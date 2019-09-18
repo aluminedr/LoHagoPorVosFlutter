@@ -48,13 +48,12 @@ class CrearTrabajoPage extends StatefulWidget{
   }
 
 // funcion devuelve el id (la clave) de la categoria seleccionada
-  String  mostrarIdCategoria()
-{
-var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValue, //Devuelve la clave del obj
-orElse: ()=>null
-);
-return usdKey;
-}
+  String  mostrarIdCategoria(){
+    var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValue, //Devuelve la clave del obj
+      orElse: ()=>null
+    );
+    return usdKey;
+  }
 
 
 
