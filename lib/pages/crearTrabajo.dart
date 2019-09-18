@@ -17,21 +17,18 @@ class CrearTrabajoPage extends StatefulWidget{
   
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
-  //var _currencies = traerCategorias();
-  var _currencies = ['Hola','Je','Re piola','se'];
-  var _currentItemSelected = ['Hola'];
+  
   @override
-  void initState() // Se setea inicio
-  {
-super.initState(); // se super setea inicio
-listarCategorias(); // llamamos a la funcion listar categorias
+  void initState(){ // Se setea inicio
+    super.initState(); // se super setea inicio
+    listarCategorias(); // llamamos a la funcion listar categorias
   }
 
   List listaCategorias;
   Future<Null> listarCategorias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
+       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -42,21 +39,20 @@ listarCategorias(); // llamamos a la funcion listar categorias
   String _dropdownValue = null;  // seteamos por defecto a null
   Map<String ,String>listarCategoriaM=Map(); // Lo mapeamos
 
-  void imprimirCategorias()
-{
-  for(var i=0; i<listaCategorias.length;i++) // Seteamos los valores
-  {
-   listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
+  void imprimirCategorias(){
+    for(var i=0; i<listaCategorias.length;i++){ // Seteamos los valores
+      listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
+    }
+    _dropdownValue=listarCategoriaM[listaCategorias[0]['idCategoriaTrabajo']];
   }
-_dropdownValue=listarCategoriaM[listaCategorias[0]['idCategoriaTrabajo']];
-}
 
 
   void crear(){
-    var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
+    var url="http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
     http.post(url,body:{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
+      //"idCategoriaTrabajo":idCategoriaTrabajoController.text,
     });
   }
     
@@ -122,22 +118,27 @@ _dropdownValue=listarCategoriaM[listaCategorias[0]['idCategoriaTrabajo']];
                             ),
                           ),
                         ),
-                        DropdownButton<String>(
-                          value: _dropdownValue,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              _dropdownValue = newValue;
-                            });
-                          },
-                          items: listarCategoriaM.values
-                            .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            })
-                            .toList(),
+                        new ListTile(
+                          leading: const Icon(Icons.text_fields, color: Colors.black,),
+                          title: new DropdownButton<String>(
+                            hint: Text("Seleccione una categoria...                                      "),
+                            //value: _dropdownValue,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                _dropdownValue = newValue;
+                              });
+                            },
+                            items: listarCategoriaM.values
+                              .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              })
+                              .toList(),
+                          ),
                         ),
+                        
 
                         Padding(padding: EdgeInsets.only(top: .0),
 

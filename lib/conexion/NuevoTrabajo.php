@@ -3,7 +3,7 @@
 
 
 $idTipoTrabajo= 1;
-$idCategoriaTrabajo=1;
+$idCategoriaTrabajo=$_POST['idCategoriaTrabajo'];
 $descripcion=$_POST['descripcion'];
 $monto=$_POST['monto'];
 $eliminado=0;
