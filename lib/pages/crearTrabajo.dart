@@ -1,28 +1,56 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+
 class CrearTrabajoPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _CrearTrabajoPageState();
   
   
   }
-  
+
   class _CrearTrabajoPageState extends State<CrearTrabajoPage>{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController  montoController = new TextEditingController();
+  
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
-
-  Future<List> traerCategorias() async{
-    var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php";
-    final response= await http.get(url);
-    var categorias=json.decode(response.body);
-    return categorias;
+  //var _currencies = traerCategorias();
+  var _currencies = ['Hola','Je','Re piola','se'];
+  var _currentItemSelected = ['Hola'];
+  @override
+  void initState() // Se setea inicio
+  {
+super.initState(); // se super setea inicio
+listarCategorias(); // llamamos a la funcion listar categorias
   }
-  String _mySelection;
-  List<Map> _myJson = traerCategorias() as List<Map>;
+
+  List listaCategorias;
+  Future<Null> listarCategorias() async {
+    var respuesta;
+    final response = await http.post(
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
+        body: {});
+    setState(() {
+      respuesta = json.decode(response.body); // decode
+      listaCategorias = respuesta;
+    });
+  imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
+  }
+  String _dropdownValue = null;  // seteamos por defecto a null
+  Map<String ,String>listarCategoriaM=Map(); // Lo mapeamos
+
+  void imprimirCategorias()
+{
+  for(var i=0; i<listaCategorias.length;i++) // Seteamos los valores
+  {
+   listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
+  }
+_dropdownValue=listarCategoriaM[listaCategorias[0]['idCategoriaTrabajo']];
+}
+
 
   void crear(){
     var url="http://192.168.1.39/LoHagoPorVosFlutter/lib/conexion/NuevoTrabajo.php";
@@ -94,30 +122,23 @@ class CrearTrabajoPage extends StatefulWidget{
                             ),
                           ),
                         ),
-                        new ListTile(
-                          leading: const Icon(Icons.monetization_on, color: Colors.black,),
-                          title: new DropdownButton<String>(
-                            isDense: true,
-                            hint: new Text("Select"),
-                            value: _mySelection,
-                            onChanged: (String newValue) {
-
-                              setState(() {
-                                _mySelection = newValue;
-                              });
-
-                              print (_mySelection);
-                            },
-                            items: _myJson.map((Map map) {
-                              return new DropdownMenuItem<String>(
-                                value: map["idCategoriaTrabajo"].toString(),
-                                child: new Text(
-                                  map["nombreCategoriaTrabajo"],
-                                ),
+                        DropdownButton<String>(
+                          value: _dropdownValue,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _dropdownValue = newValue;
+                            });
+                          },
+                          items: listarCategoriaM.values
+                            .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
                               );
-                            }).toList(),
-                          ),
+                            })
+                            .toList(),
                         ),
+
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
