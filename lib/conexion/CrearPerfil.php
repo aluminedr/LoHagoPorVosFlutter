@@ -7,7 +7,7 @@ $apellidoPersona=$_POST['apellidoPersona'];
 $dniPersona=$_POST['dniPersona'];
 $telefonoPersona=$_POST['telefonoPersona'];
 $idLocalidad=$_POST['idLocalidad'];
-$idUsuario=1;
+$idUsuario=2;
 $eliminado=0;
   
 $query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, idUsuario, eliminado)
