@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
@@ -60,7 +61,7 @@ class MenuLateral extends StatelessWidget{
             onTap: (){
               Navigator.of(context).pop();
               Navigator.push(context, new MaterialPageRoute(
-                builder: (BuildContext context)=> new VerPerfilPage()
+                builder: (BuildContext context)=> new CrearPerfilPage()
               ));
             },
           ),
