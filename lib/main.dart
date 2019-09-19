@@ -1,10 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
+import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:flutter_app/rutas.dart';
 import 'package:flutter_app/theme.dart';
+
 
 void main()=> runApp(new NuestraApp());
 
@@ -13,8 +15,10 @@ class NuestraApp extends StatefulWidget{
   State<StatefulWidget> createState()=>_NuestraAppState();
 }
 
-class _NuestraAppState extends State<NuestraApp>{
+  
 
+class _NuestraAppState extends State<NuestraApp>{
+  
   Widget paginaInicio = CrearTrabajoPage();
   @override
   Widget build(BuildContext context) {
@@ -99,9 +103,23 @@ class MenuLateral extends StatelessWidget{
               ));
             },
           ),
+          new Divider(
+            color: Colors.deepPurple,
+            height: 5.0,
+          ),
+          new ListTile(
+            title: new Text("Trabajos"),
+            onTap: (){
+              Navigator.of(context).pop();
+              Navigator.push(context, new MaterialPageRoute(
+                builder: (BuildContext context)=> new ListarTrabajosPage()
+              ));
+            },
+          ),
+
         ],
       ),
     );
   }
-  
 }
+
