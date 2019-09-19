@@ -25,9 +25,32 @@ class CrearPerfilPage extends StatefulWidget{
   @override
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
+    listarProvincias();
     listarLocalidades(); // llamamos a la funcion listar Localidades
   }
+//Listando provincias
+ List listaProvincias;
+  Future<Null> listarProvincias() async {
+    var respuesta;
+    final response = await http.post(
+       "http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/ListarProvincias.php", // script que trae los datos
+        body: {});
+    setState(() {
+      respuesta = json.decode(response.body); // decode
+      listaProvincias = respuesta;
+    });
+  imprimirProvincias(); // Llamamos a la funcion que va a imprimir los datos del select
+  }
+  String _dropdownValuePro;  // seteamos por defecto a null
+  Map<String ,String>listarProvinciaM=Map(); // Lo mapeamos
 
+  void imprimirProvincias(){
+    for(var i=0; i<listaProvincias.length;i++){ // Seteamos los valores
+      listarProvinciaM[listaProvincias[i]['idProvincia']]=listaProvincias[i]['nombreProvincia'];
+    }
+    _dropdownValuePro=null;
+  }
+  //Listando localidades
   List listaLocalidades;
   Future<Null> listarLocalidades() async {
     var respuesta;
@@ -45,7 +68,7 @@ class CrearPerfilPage extends StatefulWidget{
 
   void imprimirLocalidades(){
     for(var i=0; i<listaLocalidades.length;i++){ // Seteamos los valores
-      listarLocalidadM[listaLocalidades[i]['idProvincia']]=listaLocalidades[i]['nombreProvincia'];
+      listarLocalidadM[listaLocalidades[i]['idLocalidad']]=listaLocalidades[i]['nombreLocalidad'];
     }
     _dropdownValue=null;
   }
@@ -169,14 +192,14 @@ class CrearPerfilPage extends StatefulWidget{
                         new ListTile(
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new DropdownButton<String>(
-                            value: _dropdownValue,
-                            hint: Text("Seleccione una Localidad..."),
+                            value: _dropdownValuePro,
+                            hint: Text("Seleccione una provincia..."),
                             onChanged: (String newValue) {
                               setState(() {
-                                _dropdownValue = newValue;
+                                _dropdownValuePro = newValue;
                               });
                             },
-                            items: listarLocalidadM.values
+                            items: listarProvinciaM.values
                               .map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
@@ -186,7 +209,7 @@ class CrearPerfilPage extends StatefulWidget{
                               .toList(),
                           ),
                         ),
-                        
+                        _addSecondDropdown(),
 
                         Padding(padding: EdgeInsets.only(top: .0),
 
@@ -222,5 +245,22 @@ class CrearPerfilPage extends StatefulWidget{
             ),
         
     );
+  }
+  Widget _addSecondDropdown() {
+    return _dropdownValuePro != null
+        ? DropdownButton<String>(
+            value: _dropdownValue,
+            items: listarLocalidadM.values
+                              .map((value) =>DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value)
+                              ))
+                              .toList(),
+            onChanged: (newValue) {
+              setState(() {
+                _dropdownValue = newValue;
+              });
+            })
+        : Container(); // Return an empty Container instead.
   }
 }
