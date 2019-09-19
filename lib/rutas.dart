@@ -14,7 +14,7 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/register': (BuildContext context) => new RegisterPage(),
     '/contraolvidada': (BuildContext context) => new ContraOlvidadaPage(),
     '/verperfil': (BuildContext context) => new VerPerfilPage(),
-    '/vertrabajos': (BuildContext context) => new VerTrabajosPage(),
+    '/vertrabajos': (BuildContext context) => new ListarTrabajosPage(),
     '/creartrabajo': (BuildContext context) => new CrearTrabajoPage(),
     '/crearperfil': (BuildContext context) => new CrearPerfilPage(),
     '/vercategorias': (BuildContext context) => new VerCategoriasPage(),

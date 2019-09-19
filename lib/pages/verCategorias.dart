@@ -8,16 +8,17 @@ class VerCategoriasPage extends StatefulWidget{
   
   
   }
-  
+
   class _VerCategoriasPageState extends State<VerCategoriasPage>{
   //funcion que trae el listado de categorias en formato json para luego decodificarlo
   Future<List> getCategorias() async {
-    final response = await http.get("http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php");
+    final response = await http.get("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php");
     return json.decode(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Categorias"),
@@ -66,11 +67,22 @@ class ItemList extends StatelessWidget {
                     fontSize: 20.0, 
                     color: Colors.purpleAccent[400],
                   ),
-                ),
+                ),onTap: (){
+                    void elQueSeTeCanteElForroDelOrto($idCategoriaTrabajo){
+                      
+                      Navigator.pushReplacementNamed(context, '/login');
+                    }
+                    
+                  elQueSeTeCanteElForroDelOrto(list[i]['idCategoriaTrabajo']);
+                  
+                },
               ),
             ),
         );
       },
     );
   }
+  
 }
+
+
