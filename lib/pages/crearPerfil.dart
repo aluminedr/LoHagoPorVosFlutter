@@ -56,7 +56,9 @@ class CrearPerfilPage extends StatefulWidget{
     var respuesta;
     final response = await http.post(
        "http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/ListarLocalidades.php", // script que trae los datos
-        body: {});
+        body: {
+          "idProvincia": "20",
+        });
     setState(() {
       respuesta = json.decode(response.body); // decode
       listaLocalidades = respuesta;
