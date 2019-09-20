@@ -16,7 +16,7 @@ class _RegisterPageState extends State<RegisterPage>{
   var _formkey= GlobalKey<FormState>();
 
   void register(){
-    var url="http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/NewUser.php";
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/NewUser.php";
     http.post(url,body:{
       "mailUsuario":mailUsuarioController.text,
       "claveUsuario":claveUsuarioController.text,

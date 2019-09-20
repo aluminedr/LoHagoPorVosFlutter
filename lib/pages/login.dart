@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage>{
   String mensajeError='';
 
   Future<List> login() async {
-    final respuesta = await http.post("http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/Login.php",
+    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Login.php",
         body: {
           "mailUsuario": mailUsuarioController.text,
           "claveUsuario": claveUsuarioController.text,

@@ -21,19 +21,20 @@ class CrearPerfilPage extends StatefulWidget{
   
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
+  var idProvincia=0;
   
   @override
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
     listarProvincias();
-    listarLocalidades(); // llamamos a la funcion listar Localidades
+  //  listarLocalidades(idProvincia); // llamamos a la funcion listar Localidades
   }
 //Listando provincias
  List listaProvincias;
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/ListarProvincias.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -52,12 +53,19 @@ class CrearPerfilPage extends StatefulWidget{
   }
   //Listando localidades
   List listaLocalidades;
-  Future<Null> listarLocalidades() async {
+  Future<Null> listarLocalidades(idProvincia) async {
+    print("antes=");
+    print(idProvincia);
+    if (idProvincia==0 || idProvincia==null){
+      print("entra if");
+     idProvincia = "20";
+    }
+    print("modificado");print(idProvincia);
     var respuesta;
     final response = await http.post(
-       "http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/ListarLocalidades.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarLocalidades.php", // script que trae los datos
         body: {
-          "idProvincia": "20",
+          "idProvincia": idProvincia,
         });
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -83,10 +91,17 @@ class CrearPerfilPage extends StatefulWidget{
     return usdKey;
   }
 
+  String  mostrarIdProvincia(){
+    var usdKey=listarProvinciaM.keys.firstWhere((K)=> listarProvinciaM[K]== _dropdownValuePro, //Devuelve la clave del obj
+      orElse: ()=>null
+    );
+    return usdKey;
+  }
+
 
 
   void crear(){
-    var url="http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/CrearPerfil.php";
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/CrearPerfil.php";
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
@@ -195,10 +210,13 @@ class CrearPerfilPage extends StatefulWidget{
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new DropdownButton<String>(
                             value: _dropdownValuePro,
-                            hint: Text("Seleccione una provincia..."),
+                            hint: Text("Seleccione una provincia."),
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValuePro = newValue;
+                                var mostrarIdProvincia2 = mostrarIdProvincia();
+                                        print(mostrarIdProvincia2);
+                              listarLocalidades(mostrarIdProvincia2);
                               });
                             },
                             items: listarProvinciaM.values
@@ -249,7 +267,8 @@ class CrearPerfilPage extends StatefulWidget{
     );
   }
   Widget _addSecondDropdown() {
-    return _dropdownValuePro != null
+              
+        return _dropdownValuePro != null
         ? DropdownButton<String>(
             value: _dropdownValue,
             items: listarLocalidadM.values

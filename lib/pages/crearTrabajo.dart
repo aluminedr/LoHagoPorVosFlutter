@@ -29,7 +29,7 @@ class CrearTrabajoPage extends StatefulWidget{
   Future<Null> listarCategorias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarCategorias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
