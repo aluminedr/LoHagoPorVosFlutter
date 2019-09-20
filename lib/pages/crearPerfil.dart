@@ -54,13 +54,9 @@ class CrearPerfilPage extends StatefulWidget{
   //Listando localidades
   List listaLocalidades;
   Future<Null> listarLocalidades(idProvincia) async {
-    print("antes=");
-    print(idProvincia);
-    if (idProvincia==0 || idProvincia==null){
-      print("entra if");
+    if (idProvincia==0 || idProvincia==null){ // Si recibe null o cero, muestra por defecto las localidades de la provincia 20 (neuquen). si no le pasamos ningun idProvincia se rompe porque en el query hace where idProv=null
      idProvincia = "20";
     }
-    print("modificado");print(idProvincia);
     var respuesta;
     final response = await http.post(
        "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/ListarLocalidades.php", // script que trae los datos
@@ -77,6 +73,7 @@ class CrearPerfilPage extends StatefulWidget{
   Map<String ,String>listarLocalidadM=Map(); // Lo mapeamos
 
   void imprimirLocalidades(){
+    listarLocalidadM.clear(); // Limpiamos el map para que imprima las localidades desde 0
     for(var i=0; i<listaLocalidades.length;i++){ // Seteamos los valores
       listarLocalidadM[listaLocalidades[i]['idLocalidad']]=listaLocalidades[i]['nombreLocalidad'];
     }

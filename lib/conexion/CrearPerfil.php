@@ -7,11 +7,13 @@ $apellidoPersona=$_POST['apellidoPersona'];
 $dniPersona=$_POST['dniPersona'];
 $telefonoPersona=$_POST['telefonoPersona'];
 $idLocalidad=$_POST['idLocalidad'];
+$imagenPersona='jaj';
+
 $idUsuario=2;
 $eliminado=0;
   
-$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, idUsuario, eliminado)
-	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$idUsuario','$eliminado')";
+$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado)
+	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$imagenPersona','$idUsuario','$eliminado')";
   	$exeQuery = mysqli_query($con, $query) ;
 
 	if($exeQuery) {
