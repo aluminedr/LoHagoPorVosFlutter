@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
+import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MenuLateral extends StatefulWidget {
+  State<StatefulWidget> createState() => _MenuLateralState();
+}
 
 
-class MenuLateral extends StatelessWidget{
-  @override
+  class _MenuLateralState extends State<MenuLateral>{
+    String _mailUsuario = "";
+    
+    @override
+  void initState() {
+    readData();
+        super.initState();
+      }
+      @override
   Widget build(BuildContext context) {
     return new Drawer(
       child: ListView(
@@ -16,7 +29,7 @@ class MenuLateral extends StatelessWidget{
               color: Colors.deepPurple[400],
             ),
             accountEmail: Text("aluminede@gmail.com"), 
-            accountName: Text("AlumineDr"),
+            accountName: Text("$mailUsuario"),
             currentAccountPicture: new CircleAvatar(
               backgroundImage: new NetworkImage("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/cc/cc1b5c41b82f09ebfcb72790dd689d8d68c48f7a.jpg"),
             ),
@@ -87,6 +100,11 @@ class MenuLateral extends StatelessWidget{
       ),
     );
   }
+  readData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState((){
+      mailUsuario = prefs.getString("mailUsuario");
+    });
+  }
+
 }
-
-

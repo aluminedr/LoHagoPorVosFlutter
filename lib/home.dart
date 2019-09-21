@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/MenuLateral.dart';
 
@@ -13,10 +14,10 @@ class HomePage extends StatefulWidget {
 
   class _HomePageState extends State<HomePage>{
     String _mailUsuario = "";
-
+    
     @override
   void initState() {
-    getMailUsuarioPreference().then(updateMailUsuario);
+    readData();
         super.initState();
       }
     
@@ -27,7 +28,7 @@ class HomePage extends StatefulWidget {
           // TODO: Pass Category variable to AsymmetricView (104)
           return Scaffold(
             appBar : AppBar(
-              title: Text('Lo Hago por Vos'),
+              title: Text("$mailUsuario"),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(
@@ -62,6 +63,12 @@ class HomePage extends StatefulWidget {
           
         });
   }
-}
+  readData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState((){
+      mailUsuario = prefs.getString("mailUsuario");
+    });
+  }
 
+}
 
