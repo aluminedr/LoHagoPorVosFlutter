@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 String mailUsuario;
+
+
 class LoginPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -17,7 +20,7 @@ class _LoginPageState extends State<LoginPage>{
   String mensajeError='';
 
   Future<List> login() async {
-    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Login.php",
+    final respuesta = await http.post("http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
         body: {
           "mailUsuario": mailUsuarioController.text,
           "claveUsuario": claveUsuarioController.text,
@@ -147,32 +150,56 @@ class _LoginPageState extends State<LoginPage>{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: (){
-                            login();
-                            Navigator.pop(context);
-                          },
-                        ),
-                     
-            new RaisedButton(
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
-                          ),
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/register');
-                          },
-                          child: Text(
-                            "   Registrarme   ",
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        ),
-                
-              Text(mensajeError)
-              ]),
-            )
-          ],
-        ),
-        ),
-      ),
-    );
-  }
+                            saveMailUsuario();
+                                                        login();
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                 
+                                        new RaisedButton(
+                                                      color: Colors.green,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: new BorderRadius.circular(30.0)
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pushReplacementNamed(context, '/register');
+                                                      },
+                                                      child: Text(
+                                                        "   Registrarme   ",
+                                                        style: TextStyle(fontSize: 20.0),
+                                                      ),
+                                                    ),
+                                            
+                                          Text(mensajeError)
+                                          ]),
+                                        )
+                                      ],
+                                    ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            
+                              void saveMailUsuario() {
+                                String mailUsuario = mailUsuarioController.text;
+                                saveMailUsuarioPreference(mailUsuario).then((bool committed){
+                                  Navigator.of(context).pushNamed('/home');
+                                });
+                              }
+  
 }
+
+Future<bool> saveMailUsuarioPreference(String mailUsuario) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString("mailUsuario",mailUsuario);
+  return prefs.commit();
+}
+
+Future<String> getMailUsuarioPreference() async {
+  
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String mailUsuario = prefs.getString("mailUsuario");
+  return mailUsuario;
+  
+}
+

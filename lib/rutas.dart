@@ -7,6 +7,8 @@ import 'package:flutter_app/pages/register.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
+import 'app/MenuLateral.dart';
+import 'home.dart';
 
 Map <String, WidgetBuilder> buildAppRoutes(){
   return{
@@ -18,5 +20,9 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/creartrabajo': (BuildContext context) => new CrearTrabajoPage(),
     '/crearperfil': (BuildContext context) => new CrearPerfilPage(),
     '/vercategorias': (BuildContext context) => new VerCategoriasPage(),
+    '/home': (BuildContext context) => new HomePage(),
+    '/menulateral': (BuildContext context) => new MenuLateral(),
+    
+
   };
 }
