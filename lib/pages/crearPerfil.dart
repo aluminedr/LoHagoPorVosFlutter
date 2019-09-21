@@ -34,7 +34,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -59,7 +59,7 @@ class CrearPerfilPage extends StatefulWidget{
     }
     var respuesta;
     final response = await http.post(
-       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
         body: {
           "idProvincia": idProvincia,
         });
@@ -98,7 +98,7 @@ class CrearPerfilPage extends StatefulWidget{
 
 
   void crear(){
-    var url="http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
@@ -162,7 +162,24 @@ class CrearPerfilPage extends StatefulWidget{
                                 width: 170,
                                 height: 170,
                       ),
-                        new ListTile(
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new TextFormField(
                             controller: nombrePersonaController,
@@ -172,7 +189,25 @@ class CrearPerfilPage extends StatefulWidget{
                             ),
                           ),
                         ),
-                        new ListTile(
+                      ),
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
                           leading: const Icon(Icons.text_fields, color: Colors.black,),
                           title: new TextFormField(
                             controller: apellidoPersonaController,
@@ -182,7 +217,25 @@ class CrearPerfilPage extends StatefulWidget{
                             ),
                           ),
                         ),
-                        new ListTile(
+                      ),
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
                           leading: const Icon(Icons.credit_card, color: Colors.black,),
                           title: new TextFormField(
                             controller: dniPersonaController,
@@ -193,7 +246,25 @@ class CrearPerfilPage extends StatefulWidget{
                             ),
                           ),
                         ),
-                        new ListTile(
+                      ),
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
                           leading: const Icon(Icons.phone_android, color: Colors.black,),
                           title: new TextFormField(
                             controller: telefonoPersonaController,
@@ -203,11 +274,31 @@ class CrearPerfilPage extends StatefulWidget{
                             ),
                           ),
                         ),
-                        new ListTile(
-                          leading: const Icon(Icons.text_fields, color: Colors.black,),
+                      ),
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 0,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
+                          leading: const Icon(Icons.map, color: Colors.black,),
                           title: new DropdownButton<String>(
+                            isExpanded: true,
+                            elevation: 1,
                             value: _dropdownValuePro,
-                            hint: Text("Seleccione una provincia."),
+                            hint: Text("Seleccione una provincia.."),
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValuePro = newValue;
@@ -226,6 +317,7 @@ class CrearPerfilPage extends StatefulWidget{
                               .toList(),
                           ),
                         ),
+                      ),
                         _addSecondDropdown(),
 
                         Padding(padding: EdgeInsets.only(top: .0),
@@ -265,20 +357,42 @@ class CrearPerfilPage extends StatefulWidget{
   }
   Widget _addSecondDropdown() {
               
-        return _dropdownValuePro != null
-        ? DropdownButton<String>(
-            value: _dropdownValue,
-            items: listarLocalidadM.values
-                              .map((value) =>DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value)
-                              ))
-                              .toList(),
-            onChanged: (newValue) {
-              setState(() {
-                _dropdownValue = newValue;
-              });
-            })
-        : Container(); // Return an empty Container instead.
+        return Container(
+          width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+          child: ListTile(
+                          leading: const Icon(Icons.map, color: Colors.black,),
+                          title: _dropdownValuePro != null
+          ? DropdownButton<String>(
+              value: _dropdownValue,
+              isExpanded: true,
+              hint:Text("Seleccione una localidad.."),
+              items: listarLocalidadM.values
+                                .map((value) =>DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value)
+                                ))
+                                .toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  _dropdownValue = newValue;
+                });
+              })
+          : Container(),
+        )); // Return an empty Container instead.
   }
 }

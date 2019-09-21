@@ -58,7 +58,7 @@ class CrearTrabajoPage extends StatefulWidget{
 
 
   void crear(){
-    var url="http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
     http.post(url,body:{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
@@ -89,67 +89,147 @@ class CrearTrabajoPage extends StatefulWidget{
       body: Form(
         key: _formkey,
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(5.0),
           child:  ListView(
                   children: <Widget>[
                     new Column(
                       children: <Widget>[
                         new Container(
-                                padding: EdgeInsets.only(top: 77.0),
+                                padding: EdgeInsets.only(top: 10.0),
                                 child: new CircleAvatar(
-                                  backgroundColor: Color(0xf81f7f3),
                                   child: new Image(
                                     width: 135,
                                     height: 135,
                                     image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
                                   ),
                                 ),
-                                width: 170,
-                                height: 170,
+                                width: 150,
+                                height: 150,
                       ),
-                        new ListTile(
-                          leading: const Icon(Icons.text_fields, color: Colors.black,),
-                          title: new TextFormField(
-                            controller: descripcionController,
-                            validator:descripcionValidator,
-                            decoration: new InputDecoration(
-                              labelText: "Descripcion",
+                      Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: 60,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                              ),
+                              padding: EdgeInsets.only(
+                                top: 4, left: 16,right: 16,bottom: 4
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                color: Colors.grey,
+                                boxShadow: [BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                                )]
+                              ),
+                              child: ListTile(
+                                leading: const Icon(Icons.text_fields, color: Colors.black,),
+                                title: new TextFormField(
+                                  controller: descripcionController,
+                                  validator:descripcionValidator,
+                                  decoration: new InputDecoration(
+                                    labelText: "Titulo",
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        new ListTile(
-                          leading: const Icon(Icons.monetization_on, color: Colors.black,),
-                          title: new TextFormField(
-                            controller: montoController,
-                            validator:montoValidator,
-                            decoration: new InputDecoration(
-                              hintText: "500",
-                              labelText: "Monto",
+                             Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: 60,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                              ),
+                              padding: EdgeInsets.only(
+                                top: 4, left: 16,right: 16,bottom: 4
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                color: Colors.grey,
+                                boxShadow: [BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                                )]
+                              ),
+                              child: ListTile(
+                                leading: const Icon(Icons.text_fields, color: Colors.black,),
+                                title: new TextFormField(
+                                  controller: descripcionController,
+                                  validator:descripcionValidator,
+                                  decoration: new InputDecoration(
+                                    labelText: "Descripcion",
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        new ListTile(
-                          leading: const Icon(Icons.text_fields, color: Colors.black,),
-                          title: new DropdownButton<String>(
-                            value: _dropdownValue,
-                            hint: Text("Seleccione una categoria..."),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                _dropdownValue = newValue;
-                              });
-                            },
-                            items: listarCategoriaM.values
-                              .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              })
-                              .toList(),
-                          ),
-                        ),
+                             Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: 60,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                              ),
+                              padding: EdgeInsets.only(
+                                top: 4, left: 16,right: 16,bottom: 4
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                color: Colors.grey,
+                                boxShadow: [BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                                )]
+                              ),
+                              child: ListTile(
+                                leading: const Icon(Icons.monetization_on, color: Colors.black,),
+                                title: new TextFormField(
+                                  controller: montoController,
+                                  validator:montoValidator,
+                                  decoration: new InputDecoration(
+                                    hintText: "500",
+                                    labelText: "Monto",
+                                  ),
+                                ),
+                              ),
+                            ),
+                             Container(
+                              width: MediaQuery.of(context).size.width/1.2,
+                              height: 60,
+                              margin: EdgeInsets.only(
+                                top: 10,
+                              ),
+                              padding: EdgeInsets.only(
+                                top: 4, left: 16,right: 16,bottom: 4
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                color: Colors.grey,
+                                boxShadow: [BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                                )]
+                              ),
+                              child: ListTile(
+                                leading: const Icon(Icons.text_fields, color: Colors.black,),
+                                title: new DropdownButton<String>(
+                                  value: _dropdownValue,
+                                  hint: Text("Seleccione una categoria..."),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _dropdownValue = newValue;
+                                    });
+                                  },
+                                  items: listarCategoriaM.values
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    })
+                                    .toList(),
+                                ),
+                              ),
+                            ),
                         
-
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
@@ -177,12 +257,10 @@ class CrearTrabajoPage extends StatefulWidget{
                           },
                         ),
                       ],
-                    )
-                  ]
-            ),
-              ),
-            ),
+                    ),
+                  ]),
+    )));
         
-    );
+
   }
 }
