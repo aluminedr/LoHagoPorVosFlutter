@@ -58,7 +58,7 @@ class CrearTrabajoPage extends StatefulWidget{
 
 
   void crear(){
-    var url="http://192.168.200.120/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
     http.post(url,body:{
       "descripcion":descripcionController.text,
       "monto":montoController.text,

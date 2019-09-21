@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage>{
   String mensajeError='';
 
   Future<List> login() async {
-    final respuesta = await http.post("http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
+    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
         body: {
           "mailUsuario": mailUsuarioController.text,
           "claveUsuario": claveUsuarioController.text,
@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage>{
         mensajeError="Mail o contraseña incorrectos" ;
       });
     }else{
+      saveMailUsuario();
       Navigator.pushReplacementNamed(context, '/vertrabajos');
       setState(() {
         mailUsuario = datosUsuario[0]['mailUsuario'];
@@ -150,7 +151,6 @@ class _LoginPageState extends State<LoginPage>{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: (){
-                            saveMailUsuario();
                                                         login();
                                                         Navigator.pop(context);
                                                       },
@@ -192,14 +192,7 @@ class _LoginPageState extends State<LoginPage>{
 Future<bool> saveMailUsuarioPreference(String mailUsuario) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString("mailUsuario",mailUsuario);
-  return prefs.commit();
-}
+  return prefs.setString("mailUsuario",mailUsuario);
 
-Future<String> getMailUsuarioPreference() async {
-  
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String mailUsuario = prefs.getString("mailUsuario");
-  return mailUsuario;
   
 }
-
