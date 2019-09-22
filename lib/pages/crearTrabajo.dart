@@ -20,12 +20,14 @@ class CrearTrabajoPage extends StatefulWidget{
   
   String mensajeError='';
   String idUsuario;
+  String idPersona;
   var _formkey= GlobalKey<FormState>();
   
   @override
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
     listarCategorias(); // llamamos a la funcion listar categorias
+    leerDatosUsuario(); //llamamos a la funcion que retorna el idUsuario
   }
 
   List listaCategorias;
@@ -58,8 +60,27 @@ class CrearTrabajoPage extends StatefulWidget{
     return usdKey;
   }
 
-
-
+buscarPersona() async {
+    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/buscarPersona.php",
+        body: {
+          "idUsuario":idUsuario,
+        });                                                                       
+    var datosUsuario= json.decode(respuesta.body);
+    setState(() {
+      idPersona= datosUsuario[0]['idPersona'];
+      guardarDatos(idPersona);
+    });
+    
+    return idPersona;
+}
+Future<bool> guardarDatos(String idPersona) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializo
+  // Asigno los valores
+  prefs.setString("idPersona",idPersona);
+ 
+    return true; // Retorno bool true
+  
+}
   void crear(){
     var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
     http.post(url,body:{
@@ -67,7 +88,7 @@ class CrearTrabajoPage extends StatefulWidget{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
       "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
-      "idUsuario":idUsuario,
+      "idPersona":idPersona,
     });
   }
     
@@ -278,12 +299,9 @@ class CrearTrabajoPage extends StatefulWidget{
   }
 
   leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
-                  final prefs = await SharedPreferences.getInstance();
-                  setState((){
-                    
-                    idUsuario = prefs.getString("idUsuario");
-                    print(idUsuario);
-                    
-                  });
-                }
+    final prefs = await SharedPreferences.getInstance();
+    setState((){            
+      idUsuario = prefs.getString("idUsuario");                  
+    });
+  }
 }
