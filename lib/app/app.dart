@@ -27,7 +27,7 @@ class _LoHagoPorVosState extends State<LoHagoPorVos>{
   }
 
   Route<dynamic> _getRoute(RouteSettings settings) {
-    if (settings.name != '/register') {
+    if (settings.name != '/login') {
       return null;
     }
 

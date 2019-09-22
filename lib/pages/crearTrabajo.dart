@@ -14,7 +14,8 @@ class CrearTrabajoPage extends StatefulWidget{
 
   class _CrearTrabajoPageState extends State<CrearTrabajoPage>{
   TextEditingController descripcionController = new TextEditingController();
-  TextEditingController  montoController = new TextEditingController();
+  TextEditingController tituloController = new TextEditingController();
+  TextEditingController montoController = new TextEditingController();
   //TextEditingController  idCategoriaTrabajoController = new TextEditingController();
   
   String mensajeError='';
@@ -62,6 +63,7 @@ class CrearTrabajoPage extends StatefulWidget{
   void crear(){
     var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
     http.post(url,body:{
+      "titulo":tituloController.text,
       "descripcion":descripcionController.text,
       "monto":montoController.text,
       "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
@@ -72,6 +74,13 @@ class CrearTrabajoPage extends StatefulWidget{
  Function(String) descripcionValidator = (String value){
    if(value.isEmpty){
      return "Ingrese una descripcion";
+   }
+   return null;
+ };
+
+ Function(String) tituloValidator = (String value){
+   if(value.isEmpty){
+     return "Ingrese un titulo";
    }
    return null;
  };
@@ -130,8 +139,8 @@ class CrearTrabajoPage extends StatefulWidget{
                               child: ListTile(
                                 leading: const Icon(Icons.text_fields, color: Colors.black,),
                                 title: new TextFormField(
-                                  controller: descripcionController,
-                                  validator:descripcionValidator,
+                                  controller: tituloController,
+                                  validator:tituloValidator,
                                   decoration: new InputDecoration(
                                     labelText: "Titulo",
                                   ),

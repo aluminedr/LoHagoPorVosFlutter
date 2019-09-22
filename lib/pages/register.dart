@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage>{
 
   void register(){
     var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Usuario/NuevoUsuario.php";
+    print(mailUsuarioController.text);
     http.post(url,body:{
       "mailUsuario":mailUsuarioController.text,
       "claveUsuario":claveUsuarioController.text,
