@@ -23,6 +23,5 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/home': (BuildContext context) => new HomePage(),
     '/menulateral': (BuildContext context) => new MenuLateral(),
     
-
   };
 }

@@ -28,7 +28,7 @@ class HomePage extends StatefulWidget {
           // TODO: Pass Category variable to AsymmetricView (104)
           return Scaffold(
             appBar : AppBar(
-              title: Text("$mailUsuario"),
+              title: Text("Lo Hago Por Vos"),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(

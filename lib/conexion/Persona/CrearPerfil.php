@@ -1,6 +1,8 @@
 <?php
 require_once '../Conexion.php';
 
+print_R($_POST);
+
 $nombrePersona= $_POST['nombrePersona'];
 $apellidoPersona=$_POST['apellidoPersona'];
 $dniPersona=$_POST['dniPersona'];

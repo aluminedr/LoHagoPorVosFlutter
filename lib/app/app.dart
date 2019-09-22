@@ -19,7 +19,7 @@ class _LoHagoPorVosState extends State<LoHagoPorVos>{
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
       debugShowCheckedModeBanner: false,
-      title: 'Lo Hago Por Vos',
+      title: 'LO HAGO POR VOS',
       home:HomePage(),
       routes: buildAppRoutes(),
       theme: buildAppTheme(),
@@ -27,7 +27,7 @@ class _LoHagoPorVosState extends State<LoHagoPorVos>{
   }
 
   Route<dynamic> _getRoute(RouteSettings settings) {
-    if (settings.name != '/login') {
+    if (settings.name != '/register') {
       return null;
     }
 

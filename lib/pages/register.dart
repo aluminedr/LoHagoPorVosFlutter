@@ -4,14 +4,13 @@ import 'package:http/http.dart' as http;
 class RegisterPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _RegisterPageState();
-
-  
-
 }
 
 class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController  claveUsuarioController = new TextEditingController();
+  TextEditingController  nombreUsuarioController = new TextEditingController();
+  
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
 
@@ -20,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage>{
     http.post(url,body:{
       "mailUsuario":mailUsuarioController.text,
       "claveUsuario":claveUsuarioController.text,
+      "nombreUsuario":nombreUsuarioController.text,
     });
   }
     
@@ -32,6 +32,13 @@ class _RegisterPageState extends State<RegisterPage>{
   Function(String) passValidator = (String value){
    if(value.isEmpty){
      return "Ingrese una contraseña";
+   }
+   return null;
+ };
+
+ Function(String) nombreUsuarioValidator = (String value){
+   if(value.isEmpty){
+     return "Ingrese un nombre de usuario";
    }
    return null;
  };
@@ -91,12 +98,12 @@ class _RegisterPageState extends State<RegisterPage>{
                                     ),
                                   ),
                                 ),
-                            ),
+                            ),                            
                             new Container(
                               width: MediaQuery.of(context).size.width/1.2,
                               height: 60,
                               margin: EdgeInsets.only(
-                                top: 32,
+                                top: 10,
                               ),
                               padding: EdgeInsets.only(
                                 top: 4, left: 16,right: 16,bottom: 4
@@ -110,17 +117,18 @@ class _RegisterPageState extends State<RegisterPage>{
                                 )]
                               ),
                                 child: ListTile(
-                                  leading: const Icon(Icons.person, color: Colors.black,),
+                                  leading: const Icon(Icons.mail, color: Colors.black,),
                                   title: new TextFormField(
-                                    controller: mailUsuarioController,
-                                    validator:mailValidator,
+                                    controller: nombreUsuarioController,
+                                    validator:nombreUsuarioValidator,
                                     decoration: new InputDecoration(
-                                      hintText: "mimail@gmail.com",
-                                      labelText: "Nombre de usuario",
+                                      hintText: "Juan Roman Riquelme",
+                                      labelText: "Nombre Usuario",
                                     ),
                                   ),
                                 ),
                             ),
+                            
                             new Container(
                               width: MediaQuery.of(context).size.width/1.2,
                               height: 60,
@@ -150,7 +158,6 @@ class _RegisterPageState extends State<RegisterPage>{
                                 ),
                               ),
                             ),
-                            Spacer(),
                               new RaisedButton(
                                 child: new Text("  Registrarme  "),
                                 color: Colors.green,

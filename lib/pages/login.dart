@@ -4,7 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 String mailUsuario;
-
+String nombreUsuario;
+String rememberToken;
+String idRol;
+String idUsuario;
 
 class LoginPage extends StatefulWidget{
   @override
@@ -33,8 +36,13 @@ class _LoginPageState extends State<LoginPage>{
         mensajeError="Mail o contraseña incorrectos" ;
       });
     }else{
-      saveMailUsuario();
-      Navigator.pushReplacementNamed(context, '/vertrabajos');
+      mailUsuario = datosUsuario[0]['mailUsuario'];
+      nombreUsuario = datosUsuario[0]['nombreUsuario'];
+      rememberToken = datosUsuario[0]['remember_token'];
+      idRol = datosUsuario[0]['idRol'];
+      idUsuario = datosUsuario[0]['idUsuario'];
+      guardarDatosUsuario(idUsuario,mailUsuario,nombreUsuario,rememberToken,idRol);
+      Navigator.pushReplacementNamed(context, '/home');
       setState(() {
         mailUsuario = datosUsuario[0]['mailUsuario'];
       });
@@ -179,20 +187,24 @@ class _LoginPageState extends State<LoginPage>{
                                   ),
                                 );
                               }
-                            
-                              void saveMailUsuario() {
-                                String mailUsuario = mailUsuarioController.text;
-                                saveMailUsuarioPreference(mailUsuario).then((bool committed){
+                              // Recibo por parametros los valores y llamo a la funcion donde lo guarda en preference. Una vez que haga todo, redirecciona a home
+                              void guardarDatosUsuario(idUsuario, mailUsuario,nombreUsuario,rememberToken,idRol) {
+                                guardarDatosUsuarioPreference(idUsuario, mailUsuario,nombreUsuario,rememberToken,idRol).then((bool committed){
                                   Navigator.of(context).pushNamed('/home');
                                 });
                               }
   
 }
 
-Future<bool> saveMailUsuarioPreference(String mailUsuario) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+Future<bool> guardarDatosUsuarioPreference(String mailUsuario, String nombreUsuario, String rememberToken, String idRol, String idUsuario) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializo
+  // Asigno los valores
   prefs.setString("mailUsuario",mailUsuario);
-  return prefs.setString("mailUsuario",mailUsuario);
-
+  prefs.setString("nombreUsuario",nombreUsuario);
+  prefs.setString("rememberToken",rememberToken);
+  prefs.setString("idRol", idRol);
+  prefs.setString("idUsuario", idUsuario);
+  
+    return true; // Retorno bool true
   
 }

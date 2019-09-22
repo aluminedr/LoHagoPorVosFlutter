@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CrearPerfilPage extends StatefulWidget{
@@ -22,6 +23,7 @@ class CrearPerfilPage extends StatefulWidget{
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
   var idProvincia=0;
+  String idUsuario;
   
   @override
   void initState(){ // Se setea inicio
@@ -104,6 +106,7 @@ class CrearPerfilPage extends StatefulWidget{
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
+      "idUsuario":idUsuario,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
       //"idUsuario":idUsuarioController.text,
     });
@@ -395,4 +398,14 @@ class CrearPerfilPage extends StatefulWidget{
           : Container(),
         )); // Return an empty Container instead.
   }
+
+   leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
+                  final prefs = await SharedPreferences.getInstance();
+                  setState((){
+                    
+                    idUsuario = prefs.getString("idUsuario");
+                    print(idUsuario);
+                    
+                  });
+                }
 }

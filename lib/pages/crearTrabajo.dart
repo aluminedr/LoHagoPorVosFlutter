@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CrearTrabajoPage extends StatefulWidget{
@@ -17,6 +18,7 @@ class CrearTrabajoPage extends StatefulWidget{
   //TextEditingController  idCategoriaTrabajoController = new TextEditingController();
   
   String mensajeError='';
+  String idUsuario;
   var _formkey= GlobalKey<FormState>();
   
   @override
@@ -63,6 +65,7 @@ class CrearTrabajoPage extends StatefulWidget{
       "descripcion":descripcionController.text,
       "monto":montoController.text,
       "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
+      "idUsuario":idUsuario,
     });
   }
     
@@ -97,6 +100,7 @@ class CrearTrabajoPage extends StatefulWidget{
                         new Container(
                                 padding: EdgeInsets.only(top: 10.0),
                                 child: new CircleAvatar(
+                                  backgroundColor: Colors.white,
                                   child: new Image(
                                     width: 135,
                                     height: 135,
@@ -263,4 +267,14 @@ class CrearTrabajoPage extends StatefulWidget{
         
 
   }
+
+  leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
+                  final prefs = await SharedPreferences.getInstance();
+                  setState((){
+                    
+                    idUsuario = prefs.getString("idUsuario");
+                    print(idUsuario);
+                    
+                  });
+                }
 }

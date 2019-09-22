@@ -68,8 +68,8 @@ class ItemList extends StatelessWidget {
             child: new Card(
               child: new ListTile(
                 title: new Text(
-                  list[i]['idCategoriaTrabajo'],
-                  style: TextStyle(fontSize: 20.0, color: Colors.red),
+                  list[i]['titulo'],
+                  style: TextStyle(fontSize: 20.0, color: Colors.purple),
                 ),
                 /*
                 leading: new Icon(
@@ -78,9 +78,10 @@ class ItemList extends StatelessWidget {
                   color: Colors.orangeAccent,
                 ),
                 */
-                subtitle: new Text(
-                  "Por : ${list[i]['descripcion']}",
-                  style: TextStyle(fontSize: 15.0, color: Colors.white),
+                subtitle: 
+                new Text(
+                  list[i]['descripcion'],
+                  style: TextStyle(fontSize: 15.0, color: Colors.black),
                 ),
               ),
             /*),*/
