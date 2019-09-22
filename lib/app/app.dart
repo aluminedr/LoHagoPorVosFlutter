@@ -16,7 +16,7 @@ class _LoHagoPorVosState extends State<LoHagoPorVos>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/register',
+      initialRoute: '/home',
       onGenerateRoute: _getRoute,
       debugShowCheckedModeBanner: false,
       title: 'LO HAGO POR VOS',

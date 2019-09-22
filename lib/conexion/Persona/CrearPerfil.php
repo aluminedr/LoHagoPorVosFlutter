@@ -1,7 +1,6 @@
 <?php
 require_once '../Conexion.php';
 
-print_R($_POST);
 
 $nombrePersona= $_POST['nombrePersona'];
 $apellidoPersona=$_POST['apellidoPersona'];
@@ -9,8 +8,7 @@ $dniPersona=$_POST['dniPersona'];
 $telefonoPersona=$_POST['telefonoPersona'];
 $idLocalidad=$_POST['idLocalidad'];
 $imagenPersona='jaj';
-
-$idUsuario=2;
+$idUsuario=$_POST['idUsuario'];
 $eliminado=0;
   
 $query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado)

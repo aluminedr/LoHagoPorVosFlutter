@@ -87,6 +87,7 @@ class CrearPerfilPage extends StatefulWidget{
     var usdKey=listarLocalidadM.keys.firstWhere((K)=> listarLocalidadM[K]== _dropdownValue, //Devuelve la clave del obj
       orElse: ()=>null
     );
+    
     return usdKey;
   }
 
@@ -99,8 +100,11 @@ class CrearPerfilPage extends StatefulWidget{
 
 
 
-  void crear(){
+  Future crear() async {
+    final prefs = await SharedPreferences.getInstance();
+    idUsuario = prefs.getString("idUsuario");
     var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+    
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
@@ -306,7 +310,6 @@ class CrearPerfilPage extends StatefulWidget{
                               setState(() {
                                 _dropdownValuePro = newValue;
                                 var mostrarIdProvincia2 = mostrarIdProvincia();
-                                        print(mostrarIdProvincia2);
                               listarLocalidades(mostrarIdProvincia2);
                               });
                             },
@@ -399,13 +402,4 @@ class CrearPerfilPage extends StatefulWidget{
         )); // Return an empty Container instead.
   }
 
-   leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
-                  final prefs = await SharedPreferences.getInstance();
-                  setState((){
-                    
-                    idUsuario = prefs.getString("idUsuario");
-                    print(idUsuario);
-                    
-                  });
-                }
 }
