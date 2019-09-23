@@ -10,9 +10,11 @@ $idLocalidad=$_POST['idLocalidad'];
 $imagenPersona='jaj';
 $idUsuario=$_POST['idUsuario'];
 $eliminado=0;
+$dateNow = date("Y-m-d H:i:s");
+
   
-$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado)
-	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$imagenPersona','$idUsuario','$eliminado')";
+$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado, created_at, updated_at)
+	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$imagenPersona','$idUsuario','$eliminado','$dateNow','$dateNow')";
   	$exeQuery = mysqli_query($con, $query) ;
 
 	if($exeQuery) {

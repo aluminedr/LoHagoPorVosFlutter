@@ -60,29 +60,12 @@ class CrearTrabajoPage extends StatefulWidget{
     return usdKey;
   }
 
-buscarPersona() async {
-    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/buscarPersona.php",
-        body: {
-          "idUsuario":idUsuario,
-        });                                                                       
-    var datosUsuario= json.decode(respuesta.body);
-    setState(() {
-      idPersona= datosUsuario[0]['idPersona'];
-      guardarDatos(idPersona);
-    });
-    
-    return idPersona;
-}
-Future<bool> guardarDatos(String idPersona) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializo
-  // Asigno los valores
-  prefs.setString("idPersona",idPersona);
- 
-    return true; // Retorno bool true
-  
-}
-  void crear(){
+
+  Future crear() async {
     var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
+    final prefs = await SharedPreferences.getInstance();
+    idPersona = prefs.getString("idPersona");
+
     http.post(url,body:{
       "titulo":tituloController.text,
       "descripcion":descripcionController.text,

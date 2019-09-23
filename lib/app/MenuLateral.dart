@@ -12,7 +12,7 @@ class MenuLateral extends StatefulWidget {
 
 
   class _MenuLateralState extends State<MenuLateral>{
-    String _mailUsuario = "";
+    String idPersona = "";
     
     @override
   void initState() {
@@ -116,7 +116,10 @@ class MenuLateral extends StatefulWidget {
                     nombreUsuario = prefs.getString("nombreUsuario");
                     rememberToken = prefs.getString("rememberToken");
                     idRol = prefs.getString("idRol");
+                    idPersona = prefs.getString("idPersona");
                     idUsuario = prefs.getString("idUsuario");
+
+                    
                     
                   });
                 }
@@ -129,6 +132,8 @@ class MenuLateral extends StatefulWidget {
                   prefs.remove("rememberToken");
                   prefs.remove("idRol");
                   prefs.remove("idUsuario");
+                  prefs.remove("idPersona");
+                  
                   
                   // Removemos los valores del usuario y redireccionamos a login (pag principal)
                   Navigator.pushReplacementNamed(context, '/login');

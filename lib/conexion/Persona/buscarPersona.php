@@ -12,10 +12,7 @@ while ($row  = mysqli_fetch_assoc($result))
 	$array[] = $row;
 }
 
-
-echo ($result) ?
-json_encode(array("code" => 1, "result"=>$array)) :
-json_encode(array("code" => 0, "message"=>"Data not found !"));
+echo json_encode($array);
 
 
 ?>
