@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage>{
   String mensajeError='';
 
   Future<List> login() async {
-    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
+    final respuesta = await http.post("http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
         body: {
           "mailUsuario": mailUsuarioController.text,
           "claveUsuario": claveUsuarioController.text,
@@ -175,6 +175,7 @@ class _LoginPageState extends State<LoginPage>{
                                                       child: Text(
                                                         "   Registrarme   ",
                                                         style: TextStyle(fontSize: 20.0),
+                                                      
                                                       ),
                                                     ),
                                             

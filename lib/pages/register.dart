@@ -1,35 +1,52 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_app/api/api.dart';
+import 'package:flutter_app/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class RegisterPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _RegisterPageState();
-
-  
-
 }
 
 class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
-  TextEditingController  claveUsuarioController = new TextEditingController();
-  TextEditingController  nombreUsuarioController = new TextEditingController();
+  TextEditingController claveUsuarioController = new TextEditingController();
+  TextEditingController nombreUsuarioController = new TextEditingController();
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
 
-  void register(){
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Usuario/NuevoUsuario.php";
-    print(mailUsuarioController.text);
-    http.post(url,body:{
-      "mailUsuario":mailUsuarioController.text,
-      "claveUsuario":claveUsuarioController.text,
-      "nombreUsuario":nombreUsuarioController.text,
-    });
+  Future register() async {
+    
+    var data = {
+        'nombreUsuario' : nombreUsuarioController.text,
+        'mailUsuario' : mailUsuarioController.text,
+        'claveUsuario' : claveUsuarioController.text,
+    };
 
+    var res = await CallApi().postData(data, 'register');
+    var body = json.decode(res.body);
+    if(body['success']){
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString('token', body['token']);
+      localStorage.setString('user', json.encode(body['user']));
+      print(body['token']);
+       Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => HomePage()));
+    }
   }
+
     
  Function(String) mailValidator = (String value){
+   bool emailValid = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
    if(value.isEmpty){
      return "Ingrese un email";
+   }else if(!emailValid){
+     return "Ingrese un email valido";
    }
    return null;
  };
@@ -74,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage>{
                                 width: 170,
                                 height: 170,
                       ),
+                      // Ingreso de email //
                       Container(
                               width: MediaQuery.of(context).size.width/1.2,
                               height: 60,
@@ -103,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage>{
                           ),
                         ),
                       ),
+                      // Ingreso de nombre de usuario
                       Container(
                               width: MediaQuery.of(context).size.width/1.2,
                               height: 60,
@@ -131,6 +150,7 @@ class _RegisterPageState extends State<RegisterPage>{
                           ),
                         ),
                       ),
+                      // Ingreso de contraseña
                       Container(
                               width: MediaQuery.of(context).size.width/1.2,
                               height: 60,
@@ -161,6 +181,7 @@ class _RegisterPageState extends State<RegisterPage>{
                           ),
                         ),
                       ),
+                      //Boton de registro
                         new RaisedButton(
                           child: new Text("  Registrarme  "),
                           color: Colors.green,
@@ -170,10 +191,11 @@ class _RegisterPageState extends State<RegisterPage>{
                           onPressed: () {
                             if(_formkey.currentState.validate()){
                               register();
-                              Navigator.pushReplacementNamed(context, "/login");
+                              Navigator.pushReplacementNamed(context,"/login");
                             } 
                           },
                         ),
+                        //Tengo cuenta
                         new RaisedButton(
                           child: new Text("  Tengo cuenta  "),
                           color: Colors.green,

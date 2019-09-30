@@ -34,7 +34,7 @@ class CrearTrabajoPage extends StatefulWidget{
   Future<Null> listarCategorias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarCategorias.php", // script que trae los datos
+       "http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Listas/ListarCategorias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -61,7 +61,7 @@ class CrearTrabajoPage extends StatefulWidget{
   }
 
 buscarPersona() async {
-    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/buscarPersona.php",
+    final respuesta = await http.post("http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Persona/buscarPersona.php",
         body: {
           "idUsuario":idUsuario,
         });                                                                       
@@ -82,7 +82,7 @@ Future<bool> guardarDatos(String idPersona) async {
   
 }
   void crear(){
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
+    var url="http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
     http.post(url,body:{
       "titulo":tituloController.text,
       "descripcion":descripcionController.text,

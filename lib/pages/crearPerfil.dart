@@ -36,7 +36,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
+       "http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -61,7 +61,7 @@ class CrearPerfilPage extends StatefulWidget{
     }
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
+       "http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
         body: {
           "idProvincia": idProvincia,
         });
@@ -103,7 +103,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future crear() async {
     final prefs = await SharedPreferences.getInstance();
     idUsuario = prefs.getString("idUsuario");
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+    var url="http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
     
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,

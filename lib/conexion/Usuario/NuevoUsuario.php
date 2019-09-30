@@ -6,9 +6,10 @@ $authKey='jfhkjhgfh';
 $claveUsuario=$_POST['claveUsuario'];
 $idRol=1;
 $eliminado=0;
-  
+$ahora = date("Y-m-d H:i:s");
+
 $query="INSERT INTO usuario(nombreUsuario, mailUsuario, auth_key, claveUsuario, idRol, email_verified_at, remember_token, created_at, updated_at, eliminado)
-	 VALUES ('$nombreUsuario','$mailUsuario','$authKey','$claveUsuario','$idRol','2019-09-20 15:50:00','asd','2019-09-20 15:50:00','2019-09-20 15:50:00','$eliminado')";
+	 VALUES ('$nombreUsuario','$mailUsuario','$authKey','$claveUsuario','$idRol','2019-09-20 15:50:00','asd','$ahora','$ahora','$eliminado')";
   	$exeQuery = mysqli_query($con, $query) ;
 
 	if($exeQuery) {
