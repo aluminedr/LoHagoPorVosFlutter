@@ -192,7 +192,7 @@ void _login() async{
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
-    print(body['success']);
+    print(body);
     if(body ['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);

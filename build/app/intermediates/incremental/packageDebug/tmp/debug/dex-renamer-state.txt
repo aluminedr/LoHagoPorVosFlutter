@@ -1,4 +1,4 @@
-#Mon Sep 30 17:45:45 ART 2019
+#Mon Sep 30 18:22:33 ART 2019
 base.0=/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
