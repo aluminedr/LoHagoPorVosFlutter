@@ -1,4 +1,4 @@
-#Sun Sep 22 22:58:09 ART 2019
+#Mon Sep 30 16:16:42 ART 2019
 base.0=C\:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

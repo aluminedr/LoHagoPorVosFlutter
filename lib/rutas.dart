@@ -3,6 +3,7 @@ import 'package:flutter_app/pages/contraOlvidada.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/login.dart';
+import 'package:flutter_app/pages/mercadoLibre.dart';
 import 'package:flutter_app/pages/register.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
@@ -22,6 +23,8 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/vercategorias': (BuildContext context) => new VerCategoriasPage(),
     '/home': (BuildContext context) => new HomePage(),
     '/menulateral': (BuildContext context) => new MenuLateral(),
+    '/mercadolibre': (BuildContext context) => new MercadoLibrePage(),
+    
     
   };
 }

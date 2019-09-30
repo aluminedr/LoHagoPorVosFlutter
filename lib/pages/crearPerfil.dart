@@ -132,7 +132,7 @@ class CrearPerfilPage extends StatefulWidget{
       //"idUsuario":idUsuarioController.text,
 
     });
-
+    buscarPersona();
   }
     
  Function(String) nombrePersonaValidator = (String value){

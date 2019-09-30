@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/login.dart';
+import 'package:flutter_app/pages/mercadoLibre.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,7 +36,7 @@ class MenuLateral extends StatefulWidget {
             ),
           ),
           new ListTile(
-            title: new Text("Perfil"),
+            title: new Text("$idPersona"),
             onTap: (){
               Navigator.of(context).pop();
               Navigator.push(context, new MaterialPageRoute(
@@ -60,6 +61,20 @@ class MenuLateral extends StatefulWidget {
             color: Colors.deepPurple,
             height: 5.0,
           ),
+          new ListTile(
+            title: new Text("MercadoLibre"),
+            onTap: (){
+              Navigator.of(context).pop();
+              Navigator.push(context, new MaterialPageRoute(
+                builder: (BuildContext context)=> new MercadoLibrePage()
+              ));
+            },
+          ),
+          new Divider(
+            color: Colors.deepPurple,
+            height: 5.0,
+          ),
+          
           new ListTile(
             title: new Text("Categorias"),
             onTap: (){
