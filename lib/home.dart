@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
@@ -13,13 +15,23 @@ class HomePage extends StatefulWidget {
 
 
   class _HomePageState extends State<HomePage>{
-    String _mailUsuario = "";
     
+  var userData;
   @override
   void initState() {
-    readData();
-        super.initState();
-      }
+    _getUserInfo();
+    super.initState();
+  }
+
+  void _getUserInfo() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var userJson = localStorage.getString('user'); 
+      var user = json.decode(userJson);
+      setState(() {
+        userData = user;
+      });
+
+  }
     
     
         @override
@@ -56,19 +68,7 @@ class HomePage extends StatefulWidget {
             resizeToAvoidBottomInset: false,
           );
         }
-      
-      void updateMailUsuario(String mailUsuario) {
-        setState(() {
-          this._mailUsuario = mailUsuario;
-          
-        });
-  }
-  readData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState((){
-      mailUsuario = prefs.getString("mailUsuario");
-    });
-  }
+
 
 }
 

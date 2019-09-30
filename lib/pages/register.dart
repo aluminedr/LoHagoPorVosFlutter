@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/home.dart';
+import 'package:flutter_app/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -15,30 +16,9 @@ class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController claveUsuarioController = new TextEditingController();
   TextEditingController nombreUsuarioController = new TextEditingController();
-  String mensajeError='';
-  var _formkey= GlobalKey<FormState>();
 
-  Future register() async {
-    
-    var data = {
-        'nombreUsuario' : nombreUsuarioController.text,
-        'mailUsuario' : mailUsuarioController.text,
-        'claveUsuario' : claveUsuarioController.text,
-    };
+  bool _cargando = false;
 
-    var res = await CallApi().postData(data, 'register');
-    var body = json.decode(res.body);
-    if(body['success']){
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString('token', body['token']);
-      localStorage.setString('user', json.encode(body['user']));
-      print(body['token']);
-       Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => HomePage()));
-    }
-  }
 
     
  Function(String) mailValidator = (String value){
@@ -71,7 +51,6 @@ class _RegisterPageState extends State<RegisterPage>{
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
-        key: _formkey,
         child: Padding(
           padding: EdgeInsets.all(10.0),
           child:  ListView(
@@ -183,16 +162,13 @@ class _RegisterPageState extends State<RegisterPage>{
                       ),
                       //Boton de registro
                         new RaisedButton(
-                          child: new Text("  Registrarme  "),
+                          child: new Text(_cargando ? 'Creando' : 'Registrarme'),
                           color: Colors.green,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            if(_formkey.currentState.validate()){
-                              register();
-                              Navigator.pushReplacementNamed(context,"/login");
-                            } 
+                               _cargando ? null : _login();                           
                           },
                         ),
                         //Tengo cuenta
@@ -203,7 +179,10 @@ class _RegisterPageState extends State<RegisterPage>{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context,"/login");
+                            Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => LoginPage()));
                           },
                         ),
                       ],
@@ -214,5 +193,41 @@ class _RegisterPageState extends State<RegisterPage>{
             ),
         
     );
+  }
+
+void _login() async {
+    setState(() {
+       _cargando = true; 
+    });
+
+    var data = {
+        'nombreUsuario' : nombreUsuarioController.text,
+        'mailUsuario' : mailUsuarioController.text,
+        'claveUsuario' : claveUsuarioController.text,
+    };
+
+    var res = await CallApi().postData(data, 'register');
+    var body = json.decode(res.body);
+    print(body);
+    if(body['success']){
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString('token', body['token']);
+      localStorage.setString('user', json.encode(body['user']));
+      
+       Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LoginPage()));
+    }
+
+
+
+
+    setState(() {
+       _cargando = false; 
+    });
+    
+    
+    
   }
 }
