@@ -195,13 +195,11 @@ void _login() async{
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
-    print(body);
     if(body ['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
-      localStorage.setString('persona', json.encode(body['persona']));
-      print(localStorage.getString('persona'));
+      localStorage.setString('persona', body['persona']);
       Navigator.push(
         context,
         new MaterialPageRoute(
