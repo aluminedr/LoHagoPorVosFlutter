@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home.dart';
+import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,10 +13,12 @@ class LoHagoPorVos extends StatefulWidget {
 
 class _MyAppState extends State<LoHagoPorVos> {
   bool _isLoggedIn = false;
+  bool _hasProfile = false;
 
   @override
   void initState() {
     _checkIfLoggedIn();
+    _checkIfHasProfile();
     super.initState();
   }
   void _checkIfLoggedIn() async{
@@ -28,6 +31,16 @@ class _MyAppState extends State<LoHagoPorVos> {
          });
       }
   }
+  void _checkIfHasProfile() async{
+      //busca si el usuario tiene un perfil
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var idPersona = localStorage.getString('persona');
+      if(idPersona != null){
+         setState(() {
+            _hasProfile = true;
+         });
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +48,7 @@ class _MyAppState extends State<LoHagoPorVos> {
       debugShowCheckedModeBanner: false,
       title: 'LO HAGO POR VOS',
       home: Scaffold(
-        body: _isLoggedIn ? HomePage() :  LoginPage(),
+        body: (_isLoggedIn && _hasProfile) ? HomePage() : (_isLoggedIn && !_hasProfile) ? CrearPerfilPage() : LoginPage(),
       ),
       
     );

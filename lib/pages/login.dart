@@ -199,6 +199,8 @@ void _login() async{
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
+      localStorage.setString('persona', json.encode(body['persona']));
+      print(localStorage.getString('persona'));
       Navigator.push(
         context,
         new MaterialPageRoute(

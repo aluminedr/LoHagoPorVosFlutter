@@ -135,6 +135,7 @@ class MenuLateral extends StatefulWidget {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         localStorage.remove('user');
         localStorage.remove('token');
+        localStorage.remove('persona');
         //localStorage.setBool('token', null);
     
         
