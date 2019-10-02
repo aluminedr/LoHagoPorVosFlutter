@@ -18,6 +18,8 @@ class MenuLateral extends StatefulWidget {
   class _MenuLateralState extends State<MenuLateral>{
   var userData;
   var tokenData;
+  String nombreUsuario;
+  String mailUsuario;
   @override
   void initState() {
     _getUserInfo();
@@ -29,6 +31,8 @@ class MenuLateral extends StatefulWidget {
       var userJson = localStorage.getString('user');
       var userToken = localStorage.getString('token');
       var user = json.decode(userJson);
+      mailUsuario= user['mailUsuario'];
+      nombreUsuario= user['nombreUsuario'];
       setState(() {
         userData = user;
         tokenData = userToken;
