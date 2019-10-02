@@ -35,11 +35,17 @@ class _MyAppState extends State<LoHagoPorVos> {
       //busca si el usuario tiene un perfil
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getString('persona');
-      if(idPersona != null){
+      print("idPersona");
+      if(idPersona!=null){
+        print("dentro if");
+        print(idPersona);
+
          setState(() {
             _hasProfile = true;
          });
       }
+      print("perfil");
+      print(_hasProfile);
   }
 
   @override
