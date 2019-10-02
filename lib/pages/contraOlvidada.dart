@@ -11,7 +11,6 @@ class ContraOlvidadaPage extends StatefulWidget{
 class _ContraOlvidadaPageState extends State<ContraOlvidadaPage>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('Contraseña olvidada'),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home.dart';
 import 'package:flutter_app/pages/login.dart';
-import 'package:flutter_app/pages/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(LoHagoPorVos());
@@ -34,6 +33,7 @@ class _MyAppState extends State<LoHagoPorVos> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'LO HAGO POR VOS',
       home: Scaffold(
         body: _isLoggedIn ? HomePage() :  LoginPage(),
       ),

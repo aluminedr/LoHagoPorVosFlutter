@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,8 +35,6 @@ class HomePage extends StatefulWidget {
     
         @override
         Widget build(BuildContext context) {
-          // TODO: Return an AsymmetricView (104)
-          // TODO: Pass Category variable to AsymmetricView (104)
           return Scaffold(
             appBar : AppBar(
               title: Text("Lo Hago Por Vos"),

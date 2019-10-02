@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/home.dart';
+
 import 'package:flutter_app/pages/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 String mailUsuario;
 String nombreUsuario;
@@ -26,7 +28,7 @@ class _LoginPageState extends State<LoginPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController  claveUsuarioController = new TextEditingController();
   ScaffoldState scaffoldState;
-  _mostrarMensaje(msg){
+  _mostrarMensaje(msg) async {
     final snackBar = SnackBar(
       content: Text(msg),
       action: SnackBarAction(
@@ -44,6 +46,7 @@ class _LoginPageState extends State<LoginPage>{
     return Scaffold(
       appBar: AppBar(
         title: new Text("Ingreso"),
+        automaticallyImplyLeading: false,
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
@@ -148,7 +151,7 @@ class _LoginPageState extends State<LoginPage>{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: (){
-                            _cargando ? null : _login();
+                              _cargando ? null : _login();
                                                       },
                                                     ),
                                                  
@@ -192,7 +195,6 @@ void _login() async{
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
-    print(body);
     if(body ['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
@@ -200,9 +202,9 @@ void _login() async{
       Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => HomePage()));
+            builder: (context) => LoHagoPorVos()));
     }else{
-      _mostrarMensaje(body['message']);
+      _mostrarMensaje(body['error']);
     }
 
 

@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/home.dart';
+
 import 'package:flutter_app/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 
 class RegisterPage extends StatefulWidget{
@@ -16,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController claveUsuarioController = new TextEditingController();
   TextEditingController nombreUsuarioController = new TextEditingController();
-
+   
   bool _cargando = false;
 
 
@@ -43,11 +45,27 @@ class _RegisterPageState extends State<RegisterPage>{
    return null;
  };
 
+ ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label : 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: new Text("Registro"),
+        automaticallyImplyLeading: false,
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
@@ -208,7 +226,6 @@ void _login() async {
 
     var res = await CallApi().postData(data, 'register');
     var body = json.decode(res.body);
-    print(body);
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
@@ -217,7 +234,9 @@ void _login() async {
        Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => LoginPage()));
+            builder: (context) => LoHagoPorVos()));
+    }else{
+      _mostrarMensaje(body['error']);
     }
 
 

@@ -103,7 +103,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future crear() async {
     final prefs = await SharedPreferences.getInstance();
     idUsuario = prefs.getString("idUsuario");
-    var url="http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+    var url="http://172.16.164.53/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
     
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
