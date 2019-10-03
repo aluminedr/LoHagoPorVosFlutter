@@ -20,7 +20,9 @@ class MenuLateral extends StatefulWidget {
   var tokenData;
   String nombreUsuario;
   String mailUsuario;
-  @override
+  String idPersona = "";
+    
+    @override
   void initState() {
     _getUserInfo();
     super.initState();

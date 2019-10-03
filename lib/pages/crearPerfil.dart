@@ -24,6 +24,7 @@ class CrearPerfilPage extends StatefulWidget{
   var _formkey= GlobalKey<FormState>();
   var idProvincia=0;
   String idUsuario;
+  String idPersona;
   
   @override
   void initState(){ // Se setea inicio
@@ -98,13 +99,29 @@ class CrearPerfilPage extends StatefulWidget{
     return usdKey;
   }
 
+  Future buscarPersona() async {
+      final prefs = await SharedPreferences.getInstance();
+      idUsuario = prefs.getString("idUsuario");
+      var urlbuscarPersona="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/buscarPersona.php";
+      final respuesta = await http.post(urlbuscarPersona,body:{
+      "idUsuario":idUsuario,
+      });
+      var objPersona= json.decode(respuesta.body);
+      if (objPersona.length==0){
+      } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializo
+        var idPersona = objPersona[0]['idPersona'];
+        return prefs.setString("idPersona",idPersona);
+      }
 
+
+  }
 
   Future crear() async {
     final prefs = await SharedPreferences.getInstance();
     idUsuario = prefs.getString("idUsuario");
-    var url="http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
-    
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+  
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
@@ -113,7 +130,9 @@ class CrearPerfilPage extends StatefulWidget{
       "idUsuario":idUsuario,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
       //"idUsuario":idUsuarioController.text,
+
     });
+
   }
     
  Function(String) nombrePersonaValidator = (String value){
@@ -338,6 +357,7 @@ class CrearPerfilPage extends StatefulWidget{
                           onPressed: () {
                             if(_formkey.currentState.validate()){
                               crear();
+                              buscarPersona();
                               Navigator.pop(context);
                             } 
                           },

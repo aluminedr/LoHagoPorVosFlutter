@@ -16,8 +16,6 @@ String idUsuario;
 class LoginPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _LoginPageState();
-
-
 }
  
 

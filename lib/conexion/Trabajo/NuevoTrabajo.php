@@ -2,14 +2,15 @@
 require_once '../Conexion.php';
 $idTipoTrabajo= 1;
 $idCategoriaTrabajo=$_POST['idCategoriaTrabajo'];
+$titulo=$_POST['titulo'];
 $descripcion=$_POST['descripcion'];
 $monto=$_POST['monto'];
 $idPersona=$_POST['idPersona'];
-print($idPersona);
+$dateNow = date("Y-m-d H:i:s");
 $eliminado=0;
   
-$query="INSERT INTO trabajo(idTipoTrabajo, idCategoriaTrabajo, idPersona, descripcion, monto, created_at, updated_at,eliminado)
-	 VALUES ('$idTipoTrabajo','$idCategoriaTrabajo','$idPersona','$descripcion','$monto','2019-09-20 15:50:00','2019-09-20 15:50:00','$eliminado')";
+$query="INSERT INTO trabajo(idTipoTrabajo, idCategoriaTrabajo, idPersona, titulo, descripcion, monto, created_at, updated_at,eliminado)
+	 VALUES ('$idTipoTrabajo','$idCategoriaTrabajo','$idPersona','$titulo','$descripcion','$monto','$dateNow','$dateNow','$eliminado')";
   	$exeQuery = mysqli_query($con, $query) ;
 
 	if($exeQuery) {
