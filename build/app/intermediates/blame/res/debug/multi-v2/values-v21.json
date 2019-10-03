@@ -4,7 +4,7 @@
             "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\b06c82090ab6ba41f584cbbd2918a71e\\res\\values-v21\\values-v21.xml",
+                    "source": "C:\\Users\\alumine\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\943e8757d063fca1cb35012c7b89ea33\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

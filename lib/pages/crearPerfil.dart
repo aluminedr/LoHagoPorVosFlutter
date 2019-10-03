@@ -3,12 +3,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
 
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 
 class CrearPerfilPage extends StatefulWidget{
@@ -22,7 +26,8 @@ class CrearPerfilPage extends StatefulWidget{
   TextEditingController dniPersonaController = new TextEditingController();
   TextEditingController  telefonoPersonaController = new TextEditingController();
   TextEditingController idLocalidadController = new TextEditingController();
-  
+  var idUsuario;
+  bool _cargando = false;
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
   var idProvincia=0;
@@ -31,14 +36,29 @@ class CrearPerfilPage extends StatefulWidget{
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
     listarProvincias();
+    _getUserInfo();
   //  listarLocalidades(idProvincia); // llamamos a la funcion listar Localidades
   }
+ 
+
+  void _getUserInfo() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var userJson = localStorage.getString('user');
+      var user = json.decode(userJson);
+      setState(() {
+        idUsuario= user['idUsuario'];
+
+      });
+
+  }
+  
+
 //Listando provincias
  List listaProvincias;
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
+       "http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -63,7 +83,7 @@ class CrearPerfilPage extends StatefulWidget{
     }
     var respuesta;
     final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
+       "http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
         body: {
           "idProvincia": idProvincia,
         });
@@ -140,18 +160,7 @@ Future getImageCamera() async{
     });
 }
 
-  Future crear() async {
-    
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
-    
-    http.post(url,body:{
-      "nombrePersona":nombrePersonaController.text,
-      "apellidoPersona":apellidoPersonaController.text,
-      "dniPersona":dniPersonaController.text,
-      "telefonoPersona":telefonoPersonaController.text,
-      "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
-    });
-  }
+  
     
  Function(String) nombrePersonaValidator = (String value){
    if(value.isEmpty){
@@ -177,6 +186,20 @@ Future getImageCamera() async{
    }
    return null;
  };
+
+ ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label : 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -324,7 +347,7 @@ Future getImageCamera() async{
           children: <Widget>[
             Center(
               child: _image==null
-              ? new Text("No image selected!")
+              ? new Text("Seleccione una imagen")
               : new Image.file(_image),
             ),
 
@@ -395,17 +418,14 @@ Future getImageCamera() async{
 
                         ),
                         new RaisedButton(
-                          child: new Text("   Finalizar   "),
+                          child: new Text(_cargando ? 'Creando' : 'Guardar datos'),
                           color: Colors.green,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            if(_formkey.currentState.validate()){
-                              crear();
-                              Navigator.pop(context);
+                            _cargando ? null : _crearPerfil(); 
                             } 
-                          },
                         ),
                         new RaisedButton(
                           child: new Text("    Borrar    "),
@@ -465,6 +485,42 @@ Future getImageCamera() async{
               })
           : Container(),
         )); // Return an empty Container instead.
+  }
+  void _crearPerfil() async {
+    setState(() {
+       _cargando = true; 
+    });
+
+    var data = {
+      "nombrePersona":nombrePersonaController.text,
+      "apellidoPersona":apellidoPersonaController.text,
+      "dniPersona":dniPersonaController.text,
+      "telefonoPersona":telefonoPersonaController.text,
+      "imagenPersona":_image,
+      "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
+    };
+
+    var res = await CallApi().postData(data, 'crearPerfil');
+    var body = json.decode(res.body);
+    if(body['success']){
+      
+       Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
+    }else{
+      _mostrarMensaje(body['error']);
+    }
+
+
+
+
+    setState(() {
+       _cargando = false; 
+    });
+    
+    
+    
   }
 
 }
