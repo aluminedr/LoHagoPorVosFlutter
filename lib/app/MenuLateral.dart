@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/api/api.dart';
+import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
-import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,14 +15,30 @@ class MenuLateral extends StatefulWidget {
 
 
   class _MenuLateralState extends State<MenuLateral>{
-    String idPersona = "";
-    
-    @override
+  var userData;
+  var tokenData;
+  String nombreUsuario;
+  String mailUsuario;
+  @override
   void initState() {
-    leerDatosUsuario();
-        super.initState();
-      }
-      @override
+    _getUserInfo();
+    super.initState();
+  }
+
+  void _getUserInfo() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var userJson = localStorage.getString('user');
+      var userToken = localStorage.getString('token');
+      var user = json.decode(userJson);
+      mailUsuario= user['mailUsuario'];
+      nombreUsuario= user['nombreUsuario'];
+      setState(() {
+        userData = user;
+        tokenData = userToken;
+      });
+
+  }
+
   Widget build(BuildContext context) {
     return new Drawer(
       child: ListView(
@@ -109,35 +128,26 @@ class MenuLateral extends StatefulWidget {
                     ),
                   );
                 }
-                leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
-                  final prefs = await SharedPreferences.getInstance();
-                  setState((){
-                    mailUsuario = prefs.getString("mailUsuario");
-                    nombreUsuario = prefs.getString("nombreUsuario");
-                    rememberToken = prefs.getString("rememberToken");
-                    idRol = prefs.getString("idRol");
-                    idPersona = prefs.getString("idPersona");
-                    idUsuario = prefs.getString("idUsuario");
-
-                    
-                    
-                  });
-                }
               
-                Future<bool> logout() async { // Funcion donde hace logout
-                  
-                  SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializa
-                  prefs.remove("mailUsuario"); 
-                  prefs.remove("nombreUsuario");
-                  prefs.remove("rememberToken");
-                  prefs.remove("idRol");
-                  prefs.remove("idUsuario");
-                  prefs.remove("idPersona");
-                  
-                  
-                  // Removemos los valores del usuario y redireccionamos a login (pag principal)
-                  Navigator.pushReplacementNamed(context, '/login');
-                  return true;
-                }
+  void logout() async{
+      // logout from the server ... 
+      var res = await CallApi().getData('logout');
+      var body = json.decode(res.body);
+      print(body);
+      if(body['success']){
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        localStorage.remove('user');
+        localStorage.remove('token');
+        localStorage.remove('persona');
+        //localStorage.setBool('token', null);
+    
+        
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
+      }
+     
+  }
 
 }

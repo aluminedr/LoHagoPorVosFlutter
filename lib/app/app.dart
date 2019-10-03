@@ -6,12 +6,12 @@ import 'package:flutter_app/pages/login.dart';
 import '../rutas.dart';
 
 
-class LoHagoPorVos extends StatefulWidget{
+class LoVos extends StatefulWidget{
   @override
-  State<StatefulWidget> createState()=>_LoHagoPorVosState();
+  State<StatefulWidget> createState()=>_LoVosState();
 }
 
-class _LoHagoPorVosState extends State<LoHagoPorVos>{
+class _LoVosState extends State<LoVos>{
   
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class _LoHagoPorVosState extends State<LoHagoPorVos>{
       initialRoute: '/home',
       onGenerateRoute: _getRoute,
       debugShowCheckedModeBanner: false,
-      title: 'LO HAGO POR VOS',
+      title: 'LO VOS',
       home:HomePage(),
       routes: buildAppRoutes(),
       theme: buildAppTheme(),

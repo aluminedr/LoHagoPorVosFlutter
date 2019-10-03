@@ -8,13 +8,12 @@ $dniPersona=$_POST['dniPersona'];
 $telefonoPersona=$_POST['telefonoPersona'];
 $idLocalidad=$_POST['idLocalidad'];
 $imagenPersona='jaj';
-$idUsuario=$_POST['idUsuario'];
+$idUsuario=15;
 $eliminado=0;
-$dateNow = date("Y-m-d H:i:s");
-
+$ahora = date("Y-m-d H:i:s");
   
-$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado, created_at, updated_at)
-	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$imagenPersona','$idUsuario','$eliminado','$dateNow','$dateNow')";
+$query="INSERT INTO persona(nombrePersona, apellidoPersona, dniPersona, telefonoPersona, idLocalidad, imagenPersona, idUsuario, eliminado,created_at,updated_at)
+	 VALUES ('$nombrePersona','$apellidoPersona','$dniPersona','$telefonoPersona','$idLocalidad','$imagenPersona','$idUsuario','$eliminado','$ahora','$ahora')";
   	$exeQuery = mysqli_query($con, $query) ;
 
 	if($exeQuery) {

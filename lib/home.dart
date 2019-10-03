@@ -1,6 +1,7 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,19 +14,27 @@ class HomePage extends StatefulWidget {
 
 
   class _HomePageState extends State<HomePage>{
-    String _mailUsuario = "";
     
-    @override
+  var userData;
+  @override
   void initState() {
-    readData();
-        super.initState();
-      }
+    _getUserInfo();
+    super.initState();
+  }
+
+  void _getUserInfo() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var userJson = localStorage.getString('user'); 
+      var user = json.decode(userJson);
+      setState(() {
+        userData = user;
+      });
+
+  }
     
     
         @override
         Widget build(BuildContext context) {
-          // TODO: Return an AsymmetricView (104)
-          // TODO: Pass Category variable to AsymmetricView (104)
           return Scaffold(
             appBar : AppBar(
               title: Text("Lo Hago Por Vos"),
@@ -56,19 +65,7 @@ class HomePage extends StatefulWidget {
             resizeToAvoidBottomInset: false,
           );
         }
-      
-      void updateMailUsuario(String mailUsuario) {
-        setState(() {
-          this._mailUsuario = mailUsuario;
-          
-        });
-  }
-  readData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState((){
-      mailUsuario = prefs.getString("mailUsuario");
-    });
-  }
+
 
 }
 

@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_app/api/api.dart';
+
+import 'package:flutter_app/pages/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 String mailUsuario;
 String nombreUsuario;
@@ -16,43 +20,31 @@ class LoginPage extends StatefulWidget{
  
 
 class _LoginPageState extends State<LoginPage>{
+
+  bool _cargando = false;
+
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController  claveUsuarioController = new TextEditingController();
-  String mensajeError='';
-
-  Future<List> login() async {
-    final respuesta = await http.post("http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Usuario/Login.php",
-        body: {
-          "mailUsuario": mailUsuarioController.text,
-          "claveUsuario": claveUsuarioController.text,
-        });                                                                       
-
-    var datosUsuario= json.decode(respuesta.body);
-
-    if(datosUsuario.length == 0){
-      setState(() {
-        mensajeError="Mail o contraseña incorrectos" ;
-      });
-    }else{
-      idUsuario = datosUsuario[0]['idUsuario'];
-      nombreUsuario = datosUsuario[0]['nombreUsuario'];
-      mailUsuario = datosUsuario[0]['mailUsuario'];
-      idRol = datosUsuario[0]['idRol'];
-      rememberToken = datosUsuario[0]['remember_token'];
-      guardarDatosUsuario(idUsuario,nombreUsuario,mailUsuario,idRol,rememberToken);
-      Navigator.pushReplacementNamed(context, '/home');
-      setState(() {
-        mailUsuario = datosUsuario[0]['mailUsuario'];
-      });
-    }     
-    return datosUsuario;
-  }
+  ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: new Text("Ingreso"),
+        automaticallyImplyLeading: false,
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
@@ -149,7 +141,7 @@ class _LoginPageState extends State<LoginPage>{
                   Spacer(),
                   new RaisedButton(
                           child: new Text(
-                            '       Ingresar      ',
+                            _cargando?'Ingresando...':'Ingresar',
                             style: TextStyle(fontSize: 20.0),
                           ),
                           color: Colors.green,
@@ -157,8 +149,7 @@ class _LoginPageState extends State<LoginPage>{
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: (){
-                                                        login();
-                                                        Navigator.pop(context);
+                              _cargando ? null : _login();
                                                       },
                                                     ),
                                                  
@@ -168,15 +159,18 @@ class _LoginPageState extends State<LoginPage>{
                                                         borderRadius: new BorderRadius.circular(30.0)
                                                       ),
                                                       onPressed: () {
-                                                        Navigator.pushReplacementNamed(context, '/register');
+                                                        Navigator.push(
+                                                          context,
+                                                          new MaterialPageRoute(
+                                                              builder: (context) => RegisterPage()));
                                                       },
                                                       child: Text(
                                                         "   Registrarme   ",
                                                         style: TextStyle(fontSize: 20.0),
+                                                      
                                                       ),
                                                     ),
                                             
-                                          Text(mensajeError)
                                           ]),
                                         )
                                       ],
@@ -185,21 +179,41 @@ class _LoginPageState extends State<LoginPage>{
                                   ),
                                 );
                               }
-                              // Recibo por parametros los valores y llamo a la funcion donde lo guarda en preference. Una vez que haga todo, redirecciona a home
-                              void guardarDatosUsuario(idUsuario, nombreUsuario,mailUsuario,idRol,rememberToken) {
-                                guardarDatosUsuarioPreference(idUsuario,nombreUsuario,mailUsuario,idRol,rememberToken);
-                                
-                              }
-}
-Future<bool> guardarDatosUsuarioPreference(String idUsuario, String nombreUsuario, String mailUsuario, String idRol, String rememberToken) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance(); // Inicializo
-  // Asigno los valores
-  prefs.setString("mailUsuario",mailUsuario);
-  prefs.setString("nombreUsuario",nombreUsuario);
-  prefs.setString("rememberToken",rememberToken);
-  prefs.setString("idRol", idRol);
-  prefs.setString("idUsuario", idUsuario);
+
+void _login() async{
+    
+    setState(() {
+       _cargando = true;
+    });
+
+    var data = {
+        'mailUsuario' : mailUsuarioController.text, 
+        'claveUsuario' : claveUsuarioController.text
+    };
+
+    var res = await CallApi().postData(data, 'login');
+    var body = json.decode(res.body);
+    if(body ['success']){
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setString('token', body['token']);
+      localStorage.setString('user', json.encode(body['user']));
+      localStorage.setInt('persona', body['persona']);
+      Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
+    }else{
+      _mostrarMensaje(body['error']);
+    }
+
+
+    setState(() {
+       _cargando = false;
+    });
+
   
-    return true; // Retorno bool true
-  
+
+
+  }                              
+
 }

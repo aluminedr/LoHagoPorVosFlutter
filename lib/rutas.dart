@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/contraOlvidada.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
@@ -22,6 +23,8 @@ Map <String, WidgetBuilder> buildAppRoutes(){
     '/vercategorias': (BuildContext context) => new VerCategoriasPage(),
     '/home': (BuildContext context) => new HomePage(),
     '/menulateral': (BuildContext context) => new MenuLateral(),
+    '/main': (BuildContext context) => new LoHagoPorVos(),
+
     
   };
 }
