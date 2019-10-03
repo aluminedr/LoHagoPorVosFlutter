@@ -8,7 +8,7 @@ $dniPersona=$_POST['dniPersona'];
 $telefonoPersona=$_POST['telefonoPersona'];
 $idLocalidad=$_POST['idLocalidad'];
 $imagenPersona='jaj';
-$idUsuario=$_POST['idUsuario'];
+$idUsuario=15;
 $eliminado=0;
 $ahora = date("Y-m-d H:i:s");
   

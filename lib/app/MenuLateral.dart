@@ -5,7 +5,6 @@ import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
-import 'package:flutter_app/pages/login.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';

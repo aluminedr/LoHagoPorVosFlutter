@@ -1,15 +1,19 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as Img;
+import 'dart:math' as Math;
+
+import 'package:path_provider/path_provider.dart';
 
 
 class CrearPerfilPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _CrearPerfilPageState();
-  
-  
   }
 
   class _CrearPerfilPageState extends State<CrearPerfilPage>{
@@ -18,13 +22,11 @@ class CrearPerfilPage extends StatefulWidget{
   TextEditingController dniPersonaController = new TextEditingController();
   TextEditingController  telefonoPersonaController = new TextEditingController();
   TextEditingController idLocalidadController = new TextEditingController();
-  //TextEditingController  idUsuarioController = new TextEditingController();
   
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
   var idProvincia=0;
-  String idUsuario;
-  
+  File _image;
   @override
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
@@ -36,7 +38,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -61,7 +63,7 @@ class CrearPerfilPage extends StatefulWidget{
     }
     var respuesta;
     final response = await http.post(
-       "http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
+       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
         body: {
           "idProvincia": idProvincia,
         });
@@ -98,21 +100,56 @@ class CrearPerfilPage extends StatefulWidget{
     return usdKey;
   }
 
+  Future getImageGallery() async{
+  var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
 
+  final tempDir =await getTemporaryDirectory();
+  final path = tempDir.path;
+
+  int rand= new Math.Random().nextInt(100000);
+
+  Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
+  Img.Image smallerImg = Img.copyResize(image, width:120);
+
+  var compressImg= new File("$path/image_$rand.jpg")
+  ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
+
+
+  setState(() {
+      _image = compressImg;
+    });
+}
+
+Future getImageCamera() async{
+  var imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
+
+  final tempDir =await getTemporaryDirectory();
+  final path = tempDir.path;
+
+  int rand= new Math.Random().nextInt(100000);
+
+  Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
+  Img.Image smallerImg = Img.copyResize(image);
+
+  var compressImg= new File("$path/image_$rand.jpg")
+  ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
+
+
+  setState(() {
+      _image = compressImg;
+    });
+}
 
   Future crear() async {
-    final prefs = await SharedPreferences.getInstance();
-    idUsuario = prefs.getString("idUsuario");
-    var url="http://192.168.0.5/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
+    
+    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Persona/CrearPerfil.php";
     
     http.post(url,body:{
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
-      "idUsuario":idUsuario,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
-      //"idUsuario":idUsuarioController.text,
     });
   }
     
@@ -282,6 +319,34 @@ class CrearPerfilPage extends StatefulWidget{
                           ),
                         ),
                       ),
+                      SingleChildScrollView(
+              child: Column(
+          children: <Widget>[
+            Center(
+              child: _image==null
+              ? new Text("No image selected!")
+              : new Image.file(_image),
+            ),
+
+            
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  child: Icon(Icons.image),
+                  onPressed: getImageGallery,
+                ),
+                 RaisedButton(
+                  child: Icon(Icons.camera_alt),
+                  onPressed: getImageCamera,
+                ),
+                Expanded(child: Container(),),
+                 
+
+              ],
+            ),
+          ],
+        ),
+      ),
                       Container(
                     width: MediaQuery.of(context).size.width/1.2,
                     height: 50,
@@ -403,3 +468,6 @@ class CrearPerfilPage extends StatefulWidget{
   }
 
 }
+
+
+
