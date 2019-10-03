@@ -109,7 +109,7 @@ class CrearPerfilPage extends StatefulWidget{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120);
+  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -129,7 +129,7 @@ Future getImageCamera() async{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image);
+  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
