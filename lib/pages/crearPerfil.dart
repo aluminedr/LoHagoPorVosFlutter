@@ -492,16 +492,18 @@ Future getImageCamera() async{
     });
 
     var data = {
+      "idUsuario":idUsuario,
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
-      "imagenPersona":_image,
+      //"imagenPersona":_image,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
     var res = await CallApi().postData(data, 'crearPerfil');
     var body = json.decode(res.body);
+    print(body);
     if(body['success']){
       
        Navigator.push(
