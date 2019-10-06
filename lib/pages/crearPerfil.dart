@@ -488,16 +488,16 @@ Future getImageCamera() async{
   }
   void _crearPerfil() async {
     setState(() {
-       _cargando = true; 
+       _cargando = true;
     });
-
+    String imagenPerfil= base64Encode(_image.readAsBytesSync()); 
     var data = {
       "idUsuario":idUsuario,
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
-      //"imagenPersona":_image,
+      "imagenPersona":imagenPerfil,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
