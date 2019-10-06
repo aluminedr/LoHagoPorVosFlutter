@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ko\\values-ko.xml",
+            "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-ko/values-ko.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\alumine\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\943e8757d063fca1cb35012c7b89ea33\\res\\values-ko\\values-ko.xml",
+                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-ko/values-ko.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

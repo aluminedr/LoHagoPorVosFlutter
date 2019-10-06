@@ -13,7 +13,7 @@ class ListarTrabajosPage extends StatefulWidget{
   class _ListarTrabajosPageState extends State<ListarTrabajosPage>{
   //funcion que trae el listado de trabajos en formato json para luego decodificarlo
   Future<List> getListaTrabajos() async {
-    final response = await http.get("http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Trabajo/ListarTrabajos.php");
+    final response = await http.get("http://192.168.0.210/LoHagoPorVosFlutter/lib/conexion/Trabajo/ListarTrabajos.php");
     
     return json.decode(response.body);
   }

@@ -58,7 +58,7 @@ class CrearPerfilPage extends StatefulWidget{
   Future<Null> listarProvincias() async {
     var respuesta;
     final response = await http.post(
-       "http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
+       "http://192.168.0.17/LoHagoPorVosFlutter/lib/conexion/Listas/ListarProvincias.php", // script que trae los datos
         body: {});
     setState(() {
       respuesta = json.decode(response.body); // decode
@@ -83,7 +83,7 @@ class CrearPerfilPage extends StatefulWidget{
     }
     var respuesta;
     final response = await http.post(
-       "http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
+       "http://192.168.0.17/LoHagoPorVosFlutter/lib/conexion/Listas/ListarLocalidades.php", // script que trae los datos
         body: {
           "idProvincia": idProvincia,
         });
@@ -490,16 +490,16 @@ Future getImageCamera() async{
     setState(() {
        _cargando = true; 
     });
-
+    String base64Image = base64Encode(_image.readAsBytesSync());
     var data = {
+      "idUsuario":idUsuario,
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
-      "imagenPersona":_image,
+      "imagenPersona":base64Image,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
-
     var res = await CallApi().postData(data, 'crearPerfil');
     var body = json.decode(res.body);
     if(body['success']){
