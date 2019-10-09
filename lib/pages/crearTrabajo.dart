@@ -1,22 +1,19 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_app/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class CrearTrabajoPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => _CrearTrabajoPageState();
-  
-  
+
   }
 
   class _CrearTrabajoPageState extends State<CrearTrabajoPage>{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController tituloController = new TextEditingController();
   TextEditingController montoController = new TextEditingController();
-  //TextEditingController  idCategoriaTrabajoController = new TextEditingController();
   
   String mensajeError='';
   String idUsuario;
@@ -25,56 +22,39 @@ class CrearTrabajoPage extends StatefulWidget{
   
   @override
   void initState(){ // Se setea inicio
+    
     super.initState(); // se super setea inicio
-    listarCategorias(); // llamamos a la funcion listar categorias
-    leerDatosUsuario(); //llamamos a la funcion que retorna el idUsuario
+        listarCategorias(); // llamamos a la funcion listar categorias
+
   }
 
   List listaCategorias;
   Future<Null> listarCategorias() async {
-    var respuesta;
-    final response = await http.post(
-       "http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Listas/ListarCategorias.php", // script que trae los datos
-        body: {});
-    setState(() {
-      respuesta = json.decode(response.body); // decode
-      listaCategorias = respuesta;
-    });
+
+    final response = await CallApi().listarCategorias('listarCategorias');
+    var respuestaCategorias = json.decode(response.body);
+    listaCategorias = respuestaCategorias;
   imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
   }
   String _dropdownValue;  // seteamos por defecto a null
-  Map<String ,String>listarCategoriaM=Map(); // Lo mapeamos
+  Map<int,String>listarCategoriaM=Map(); // Lo mapeamos y le indicamos que es clave int y valor string
 
   void imprimirCategorias(){
     for(var i=0; i<listaCategorias.length;i++){ // Seteamos los valores
       listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
     }
+    //print(listarCategoriaM);
     _dropdownValue=null;
   }
 
 // funcion devuelve el id (la clave) de la categoria seleccionada
-  String  mostrarIdCategoria(){
+  int  mostrarIdCategoria(){
     var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValue, //Devuelve la clave del obj
       orElse: ()=>null
     );
     return usdKey;
   }
-
-
-  Future crear() async {
-    var url="http://192.168.1.36/LoHagoPorVosFlutter/lib/conexion/Trabajo/NuevoTrabajo.php";
-    final prefs = await SharedPreferences.getInstance();
-    idPersona = prefs.getString("idPersona");
-
-    http.post(url,body:{
-      "titulo":tituloController.text,
-      "descripcion":descripcionController.text,
-      "monto":montoController.text,
-      "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
-      "idPersona":idPersona,
-    });
-  }
-    
+  
  Function(String) descripcionValidator = (String value){
    if(value.isEmpty){
      return "Ingrese una descripcion";
@@ -229,7 +209,7 @@ class CrearTrabajoPage extends StatefulWidget{
                                 leading: const Icon(Icons.text_fields, color: Colors.black,),
                                 title: new DropdownButton<String>(
                                   value: _dropdownValue,
-                                  hint: Text("Seleccione una categoria..."),
+                                  hint: Text("Seleccione una cat."),
                                   onChanged: (String newValue) {
                                     setState(() {
                                       _dropdownValue = newValue;
@@ -281,10 +261,20 @@ class CrearTrabajoPage extends StatefulWidget{
 
   }
 
-  leerDatosUsuario() async { // Leemos los datos del usuario que estan cargado en preference
-    final prefs = await SharedPreferences.getInstance();
-    setState((){            
-      idUsuario = prefs.getString("idUsuario");                  
-    });
+  Future crear() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var idPersona = localStorage.getInt('persona');
+      var data = {
+        "titulo":tituloController.text,
+        "descripcion":descripcionController.text,
+        "monto":montoController.text,
+        "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
+        "idPersona":idPersona
+      };
+
+      var res = await CallApi().storeTrabajo(data, 'storeTrabajo');
+      var body = json.decode(res.body);
+      if (body['success']){
+      }
   }
 }

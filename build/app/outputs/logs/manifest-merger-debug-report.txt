@@ -8,9 +8,9 @@ MERGED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\main\AndroidMani
 MERGED from [:shared_preferences] C:\xampp\htdocs\LoHagoPorVosFlutter\build\shared_preferences\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
 MERGED from [:image_picker] C:\xampp\htdocs\LoHagoPorVosFlutter\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-22:12
 MERGED from [:path_provider] C:\xampp\htdocs\LoHagoPorVosFlutter\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\c8a898eeb5c3bfa33e28bbbf1f9a8288\AndroidManifest.xml:17:1-25:12
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\e976199197ffe203cf05a85aa1348b6e\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\7cb609bd87e5528d7c076bf91d06fd74\AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\162ab105ea206a77e8736fea91057f10\AndroidManifest.xml:17:1-22:12
 INJECTED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 INJECTED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\debug\AndroidManifest.xml:1:1-7:12
@@ -32,12 +32,12 @@ application
 ADDED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\main\AndroidManifest.xml:9:5-32:19
 MERGED from [:image_picker] C:\xampp\htdocs\LoHagoPorVosFlutter\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-20:19
 MERGED from [:image_picker] C:\xampp\htdocs\LoHagoPorVosFlutter\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-20:19
-MERGED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:22:5-89
-MERGED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:22:5-89
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\c8a898eeb5c3bfa33e28bbbf1f9a8288\AndroidManifest.xml:22:5-23:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\c8a898eeb5c3bfa33e28bbbf1f9a8288\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\7cb609bd87e5528d7c076bf91d06fd74\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\7cb609bd87e5528d7c076bf91d06fd74\AndroidManifest.xml:22:5-23:19
 	android:appComponentFactory
-		ADDED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:22:18-86
+		ADDED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:22:18-86
 	android:label
 		ADDED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\main\AndroidManifest.xml:11:9-36
 	android:icon
@@ -84,12 +84,12 @@ MERGED from [:image_picker] C:\xampp\htdocs\LoHagoPorVosFlutter\build\image_pick
 MERGED from [:image_picker] C:\xampp\htdocs\LoHagoPorVosFlutter\build\image_picker\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\xampp\htdocs\LoHagoPorVosFlutter\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] C:\xampp\htdocs\LoHagoPorVosFlutter\build\path_provider\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:5:5-44
-MERGED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:20:5-44
-MERGED from [androidx.core:core:1.0.2] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\943e8757d063fca1cb35012c7b89ea33\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\c8a898eeb5c3bfa33e28bbbf1f9a8288\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\c8a898eeb5c3bfa33e28bbbf1f9a8288\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\e976199197ffe203cf05a85aa1348b6e\AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\alumine\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\e976199197ffe203cf05a85aa1348b6e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.2] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\core-1.0.2.aar\b06c82090ab6ba41f584cbbd2918a71e\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\7cb609bd87e5528d7c076bf91d06fd74\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\versionedparcelable-1.0.0.aar\7cb609bd87e5528d7c076bf91d06fd74\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\162ab105ea206a77e8736fea91057f10\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\diego\.gradle\caches\transforms-1\files-1.1\lifecycle-runtime-2.0.0.aar\162ab105ea206a77e8736fea91057f10\AndroidManifest.xml:20:5-44
 INJECTED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\debug\AndroidManifest.xml
 INJECTED from C:\xampp\htdocs\LoHagoPorVosFlutter\android\app\src\debug\AndroidManifest.xml
 	android:targetSdkVersion

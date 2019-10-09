@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/api/api.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -13,9 +14,11 @@ class ListarTrabajosPage extends StatefulWidget{
   class _ListarTrabajosPageState extends State<ListarTrabajosPage>{
   //funcion que trae el listado de trabajos en formato json para luego decodificarlo
   Future<List> getListaTrabajos() async {
-    final response = await http.get("http://172.16.211.156/LoHagoPorVosFlutter/lib/conexion/Trabajo/ListarTrabajos.php");
     
-    return json.decode(response.body);
+    var res = await CallApi().listarTrabajos('listarTrabajos');
+    var listaTrabajos = json.decode(res.body);
+    return listaTrabajos;
+
   }
 
   @override
