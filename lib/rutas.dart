@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/drawer.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/contraOlvidada.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_app/pages/register.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
-import 'app/MenuLateral.dart';
 import 'home.dart';
 
 Map <String, WidgetBuilder> buildAppRoutes(){

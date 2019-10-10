@@ -42,143 +42,140 @@ class _LoginPageState extends State<LoginPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: new Text("Ingreso"),
-        automaticallyImplyLeading: false,
-      ),
-      resizeToAvoidBottomPadding: false,
-      body: Form(
-        child: Container(
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightGreen,
+              Colors.green
+            ]
+          )
+        ),
         child: Column(
           children: <Widget>[
-            new Container(
-              padding: EdgeInsets.only(top: 77.0),
-              child: new CircleAvatar(
-                backgroundColor: Color(0xf81f7f3),
-                child: new Image(
-                  width: 135,
-                  height: 135,
-                  image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
+            Container(
+              margin: const EdgeInsets.only(top: 40.0,bottom: 20.0),
+              height: 80,
+              child:  new Image(
+                width: 135,
+                height: 135,
+                image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
+              ),
+            ),
+            Text("Lo hago por vos".toUpperCase(), style: TextStyle(
+              color: Colors.white70,
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold
+            ),),
+            SizedBox(height: 40.0),
+            TextField(
+              controller: mailUsuarioController,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16.0),
+                prefixIcon: Container(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                  margin: const EdgeInsets.only(right: 8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      bottomLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                      bottomRight: Radius.circular(10.0)
+                    )
+                  ),
+                  child: Icon(Icons.email, color: Colors.lightGreen,)),
+                hintText: "Ingrese su mail",
+                hintStyle: TextStyle(color: Colors.white54),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none
+                ),
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.1),
+              ),
+              
+            ),
+            SizedBox(height: 10.0),
+            TextField(
+              controller: claveUsuarioController,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16.0),
+                prefixIcon: Container(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                  margin: const EdgeInsets.only(right: 8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      bottomLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                      bottomRight: Radius.circular(10.0)
+                    )
+                  ),
+                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,)),
+                hintText: "Ingrese su contraseña",
+                hintStyle: TextStyle(color: Colors.white54),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none
+                ),
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.1),
+              ),
+              obscureText: true,
+            ),
+            SizedBox(height: 30.0),
+            SizedBox(
+              width: double.infinity,
+              child: RaisedButton(
+                color: Colors.white,
+                textColor: Colors.lightGreen,
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  _cargando?"Ingresando...".toUpperCase():"Ingresar".toUpperCase()
+                
+                ),
+                onPressed: (){
+                  _cargando ? null : _login();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)
                 ),
               ),
-              width: 170,
-              height: 170,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(top:93),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    padding: EdgeInsets.only(
-                      top: 4,right: 16,left: 16,bottom: 4
-                      ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      color: Colors.grey,
-                      boxShadow: [BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                      )]
-                    ),
-                    child: TextFormField(
-                      controller: mailUsuarioController,
-                      decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.email,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Mail',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height: 50,
-                    margin: EdgeInsets.only(
-                      top: 32,
-                    ),
-                    padding: EdgeInsets.only(
-                      top: 4, left: 16,right: 16,bottom: 4
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      color: Colors.grey,
-                      boxShadow: [BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                      )]
-                    ),
-                    child: TextField(
-                      controller: claveUsuarioController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.vpn_key,
-                          color: Colors.black,
-                        ),
-                      hintText: 'Contraseña',
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 6,
-                        right: 32,
-                      ),
-                      child: Text(
-                        'Olvide mi contraseña',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  new RaisedButton(
-                          child: new Text(
-                            _cargando?'Ingresando...':'Ingresar',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
-                          ),
-                          onPressed: (){
-                              _cargando ? null : _login();
-                                                      },
-                                                    ),
-                                                 
-                                        new RaisedButton(
-                                                      color: Colors.green,
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: new BorderRadius.circular(30.0)
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          new MaterialPageRoute(
-                                                              builder: (context) => RegisterPage()));
-                                                      },
-                                                      child: Text(
-                                                        "   Registrarme   ",
-                                                        style: TextStyle(fontSize: 20.0),
-                                                      
-                                                      ),
-                                                    ),
-                                            
-                                          ]),
-                                        )
-                                      ],
-                                    ),
-                                    ),
-                                  ),
-                                );
-                              }
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              FlatButton(
+                textColor: Colors.white70,
+                child: Text("Registrarme".toUpperCase()),
+                onPressed: (){
+                  
+                },
+              ),
+              Container(
+                color: Colors.white54,
+                width: 2.0,
+                height: 20.0,
+              ),
+              FlatButton(
+                textColor: Colors.white70,
+                child: Text("Olvide mi contraseña".toUpperCase()),
+                onPressed: (){
+                },
+              ),
+
+            ],),
+            SizedBox(height: 10.0),
+          ],
+        ),
+      ),
+    );
+  }
 
 void _login() async{
     
