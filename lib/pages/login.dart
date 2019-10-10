@@ -154,7 +154,10 @@ class _LoginPageState extends State<LoginPage>{
                 textColor: Colors.white70,
                 child: Text("Registrarme".toUpperCase()),
                 onPressed: (){
-                  
+                  Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
                 },
               ),
               Container(
