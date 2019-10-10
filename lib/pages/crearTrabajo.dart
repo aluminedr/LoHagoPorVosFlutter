@@ -1,7 +1,12 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as Img;
+import 'dart:math' as Math;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CrearTrabajoPage extends StatefulWidget{
@@ -19,13 +24,14 @@ class CrearTrabajoPage extends StatefulWidget{
   String idUsuario;
   String idPersona;
   var _formkey= GlobalKey<FormState>();
-  
+  var idProvincia;
+  File _image;
   @override
   void initState(){ // Se setea inicio
     
     super.initState(); // se super setea inicio
         listarCategorias(); // llamamos a la funcion listar categorias
-
+        listarProvincias(); // llamamos a la funcion listar provincias
   }
 
   List listaCategorias;
@@ -36,7 +42,7 @@ class CrearTrabajoPage extends StatefulWidget{
     listaCategorias = respuestaCategorias;
   imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
   }
-  String _dropdownValue;  // seteamos por defecto a null
+  String _dropdownValueCategoria;  // seteamos por defecto a null
   Map<int,String>listarCategoriaM=Map(); // Lo mapeamos y le indicamos que es clave int y valor string
 
   void imprimirCategorias(){
@@ -44,16 +50,116 @@ class CrearTrabajoPage extends StatefulWidget{
       listarCategoriaM[listaCategorias[i]['idCategoriaTrabajo']]=listaCategorias[i]['nombreCategoriaTrabajo'];
     }
     //print(listarCategoriaM);
-    _dropdownValue=null;
+    _dropdownValueCategoria=null;
   }
 
 // funcion devuelve el id (la clave) de la categoria seleccionada
   int  mostrarIdCategoria(){
-    var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValue, //Devuelve la clave del obj
+    var usdKey=listarCategoriaM.keys.firstWhere((K)=> listarCategoriaM[K]== _dropdownValueCategoria, //Devuelve la clave del obj
       orElse: ()=>null
     );
     return usdKey;
   }
+
+  List listaProvincias;
+  Future<Null> listarProvincias() async {
+
+    final response = await CallApi().listarProvincias('listarProvincias');
+    setState(() {
+      listaProvincias = json.decode(response.body);
+    });
+  imprimirProvincias(); // Llamamos a la funcion que va a imprimir los datos del select
+  }
+  String _dropdownValueProvincia;  // seteamos por defecto a null
+  Map<int,String>listarProvinciaM=Map(); // Lo mapeamos y le indicamos que es clave int y valor string
+
+  void imprimirProvincias(){
+    for(var i=0; i<listaProvincias.length;i++){ // Seteamos los valores
+      listarProvinciaM[listaProvincias[i]['idProvincia']]=listaProvincias[i]['nombreProvincia'];
+    }
+    _dropdownValueProvincia=null;
+  }
+
+// funcion devuelve el id (la clave) de la provincia seleccionada
+  int  mostrarIdProvincia(){
+    var usdKey=listarProvinciaM.keys.firstWhere((K)=> listarProvinciaM[K]== _dropdownValueProvincia, //Devuelve la clave del obj
+      orElse: ()=>null
+    );
+    return usdKey;
+  }
+  
+  //Listando localidades
+  List listaLocalidades;
+  void listarLocalidades(idProvincia) async {
+      var data ={
+        "idProvincia":idProvincia
+      };
+    var response = await CallApi().listarLocalidades(data,'listarLocalidades');    
+    setState(() {
+      listaLocalidades = json.decode(response.body); // decode
+    });
+  imprimirLocalidades(); // Llamamos a la funcion que va a imprimir los datos del select
+  }
+  String _dropdownValueLocalidad;  // seteamos por defecto a null
+  Map<int ,String>listarLocalidadM=Map(); // Lo mapeamos
+
+  void imprimirLocalidades(){
+    listarLocalidadM.clear(); // Limpiamos el map para que imprima las localidades desde 0
+    for(var i=0; i<listaLocalidades.length;i++){ // Seteamos los valores
+      listarLocalidadM[listaLocalidades[i]['idLocalidad']]=listaLocalidades[i]['nombreLocalidad'];
+    }
+    _dropdownValueLocalidad=null;
+  }
+
+// funcion devuelve el id (la clave) de la Localidad seleccionada
+  int  mostrarIdLocalidad(){
+    var usdKey=listarLocalidadM.keys.firstWhere((K)=> listarLocalidadM[K]== _dropdownValueLocalidad, //Devuelve la clave del obj
+      orElse: ()=>null
+    );
+    return usdKey;
+  }
+
+ 
+
+  Future getImageGallery() async{
+  var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+  final tempDir =await getTemporaryDirectory();
+  final path = tempDir.path;
+
+  int rand= new Math.Random().nextInt(100000);
+
+  Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
+  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+
+  var compressImg= new File("$path/image_$rand.jpg")
+  ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
+
+  setState(() {
+      _image = compressImg;
+    });
+}
+
+Future getImageCamera() async{
+  var imageFile = await ImagePicker.pickImage(source: ImageSource.camera);
+
+  final tempDir =await getTemporaryDirectory();
+  final path = tempDir.path;
+
+  int rand= new Math.Random().nextInt(100000);
+
+  Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
+  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+
+  var compressImg= new File("$path/image_$rand.jpg")
+  ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
+
+
+  setState(() {
+      _image = compressImg;
+    });
+}
+
   
  Function(String) descripcionValidator = (String value){
    if(value.isEmpty){
@@ -208,11 +314,11 @@ class CrearTrabajoPage extends StatefulWidget{
                               child: ListTile(
                                 leading: const Icon(Icons.text_fields, color: Colors.black,),
                                 title: new DropdownButton<String>(
-                                  value: _dropdownValue,
+                                  value: _dropdownValueCategoria,
                                   hint: Text("Seleccione una cat."),
                                   onChanged: (String newValue) {
                                     setState(() {
-                                      _dropdownValue = newValue;
+                                      _dropdownValueCategoria = newValue;
                                     });
                                   },
                                   items: listarCategoriaM.values
@@ -226,6 +332,78 @@ class CrearTrabajoPage extends StatefulWidget{
                                 ),
                               ),
                             ),
+
+                            SingleChildScrollView(
+              child: Column(
+          children: <Widget>[
+            Center(
+              child: _image==null
+              ? new Text("Seleccione una imagen")
+              : new Image.file(_image),
+            ),
+
+            
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  child: Icon(Icons.image),
+                  onPressed: getImageGallery,
+                ),
+                 RaisedButton(
+                  child: Icon(Icons.camera_alt),
+                  onPressed: getImageCamera,
+                ),
+                Expanded(child: Container(),),
+                 
+
+              ],
+            ),
+          ],
+        ),
+      ),
+                      Container(
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 0,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+                        child: ListTile(
+                          leading: const Icon(Icons.map, color: Colors.black,),
+                          title: new DropdownButton<String>(
+                            isExpanded: true,
+                            elevation: 1,
+                            value: _dropdownValueProvincia,
+                            hint: Text("Seleccione una provincia.."),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                _dropdownValueProvincia = newValue;
+                                var idProvinciaSeleccionada = mostrarIdProvincia();
+                              listarLocalidades(idProvinciaSeleccionada);
+                              });
+                            },
+                            items: listarProvinciaM.values
+                              .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              })
+                              .toList(),
+                          ),
+                        ),
+                      ),
+                        _addSecondDropdown(),
                         
                         Padding(padding: EdgeInsets.only(top: .0),
 
@@ -261,19 +439,66 @@ class CrearTrabajoPage extends StatefulWidget{
 
   }
 
+  Widget _addSecondDropdown() {
+              
+        return Container(
+          width: MediaQuery.of(context).size.width/1.2,
+                    height: 50,
+                    margin: EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: EdgeInsets.only(
+                      top: 4, left: 16,right: 16,bottom: 4
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      color: Colors.grey,
+                      boxShadow: [BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5
+                      )]
+                    ),
+          child: ListTile(
+                          leading: const Icon(Icons.map, color: Colors.black,),
+                          title: _dropdownValueProvincia != null
+          ? DropdownButton<String>(
+              value: _dropdownValueLocalidad,
+              isExpanded: true,
+              hint:Text("Seleccione una localidad.."),
+              items: listarLocalidadM.values
+                                .map((value) =>DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value)
+                                ))
+                                .toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  _dropdownValueLocalidad = newValue;
+                });
+              })
+          : Container(),
+        )); // Return an empty Container instead.
+  }
+  
+
   Future crear() async {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getInt('persona');
+          String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
+
       var data = {
         "titulo":tituloController.text,
         "descripcion":descripcionController.text,
         "monto":montoController.text,
         "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
-        "idPersona":idPersona
-      };
+        "idPersona":idPersona,
+        "imagenTrabajo":imagenTrabajo,
+      "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
+    };
 
       var res = await CallApi().storeTrabajo(data, 'storeTrabajo');
       var body = json.decode(res.body);
+      print(body);
       if (body['success']){
       }
   }

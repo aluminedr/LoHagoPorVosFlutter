@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
-
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,15 +27,15 @@ class CrearPerfilPage extends StatefulWidget{
   bool _cargando = false;
   String mensajeError='';
   var _formkey= GlobalKey<FormState>();
+  var idProvincia;
+
   File _image;
   @override
   void initState(){ // Se setea inicio
     super.initState(); // se super setea inicio
     listarProvincias();
     _getUserInfo();
-    //listarLocalidades(idProvincia); // llamamos a la funcion listar Localidades
   }
- 
 
   void _getUserInfo() async {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -45,17 +43,17 @@ class CrearPerfilPage extends StatefulWidget{
       var user = json.decode(userJson);
       setState(() {
         idUsuario= user['idUsuario'];
-
       });
 
   }
-
+ 
   List listaProvincias;
   Future<Null> listarProvincias() async {
 
     final response = await CallApi().listarProvincias('listarProvincias');
-    var respuestaProvincias = json.decode(response.body);
-    listaProvincias = respuestaProvincias;
+    setState(() {
+      listaProvincias = json.decode(response.body);
+    });
   imprimirProvincias(); // Llamamos a la funcion que va a imprimir los datos del select
   }
   String _dropdownValuePro;  // seteamos por defecto a null
@@ -76,20 +74,17 @@ class CrearPerfilPage extends StatefulWidget{
     return usdKey;
   }
   
-
   //Listando localidades
-  /*List listaLocalidades;
+  List listaLocalidades;
   void listarLocalidades(idProvincia) async {
       var data ={
         "idProvincia":idProvincia
       };
-    var response = await CallApi().listarLocalidades(data,'listarLocalidades');
-    var respuestaLocalidades = json.decode(response.body);
-    //print(respuestaLocalidades);
-    listaLocalidades = respuestaLocalidades;
-    print(listaLocalidades);
+    var response = await CallApi().listarLocalidades(data,'listarLocalidades');    
+    setState(() {
+      listaLocalidades = json.decode(response.body); // decode
+    });
   imprimirLocalidades(); // Llamamos a la funcion que va a imprimir los datos del select
-  //print("imprimiloculia");
   }
   String _dropdownValue;  // seteamos por defecto a null
   Map<int ,String>listarLocalidadM=Map(); // Lo mapeamos
@@ -109,7 +104,7 @@ class CrearPerfilPage extends StatefulWidget{
     );
     return usdKey;
   }
-*/
+
  
 
   Future getImageGallery() async{
@@ -388,8 +383,8 @@ Future getImageCamera() async{
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValuePro = newValue;
-  //                              var mostrarIdProvincia2 = mostrarIdProvincia();
-  //                            listarLocalidades(mostrarIdProvincia2);
+                                var idProvinciaSeleccionada = mostrarIdProvincia();
+                              listarLocalidades(idProvinciaSeleccionada);
                               });
                             },
                             items: listarProvinciaM.values
@@ -403,7 +398,7 @@ Future getImageCamera() async{
                           ),
                         ),
                       ),
-    //                    _addSecondDropdown(),
+                        _addSecondDropdown(),
 
                         Padding(padding: EdgeInsets.only(top: .0),
 
@@ -437,7 +432,7 @@ Future getImageCamera() async{
         
     );
   }
-  /*
+  
   Widget _addSecondDropdown() {
               
         return Container(
@@ -478,7 +473,7 @@ Future getImageCamera() async{
           : Container(),
         )); // Return an empty Container instead.
   }
-  */
+  
   void _crearPerfil() async {
     setState(() {
        _cargando = true;
@@ -491,11 +486,12 @@ Future getImageCamera() async{
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
       "imagenPersona":imagenPerfil,
-      //"idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
+      "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
     var res = await CallApi().postData(data, 'crearPerfil');
     var body = json.decode(res.body);
+    print(body);
     if(body['success']){
       
        Navigator.push(
@@ -505,9 +501,6 @@ Future getImageCamera() async{
     }else{
       _mostrarMensaje(body['error']);
     }
-
-
-
 
     setState(() {
        _cargando = false; 
