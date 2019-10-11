@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
+import 'package:flutter_app/pages/login.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
@@ -485,7 +486,7 @@ Future getImageCamera() async{
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getInt('persona');
           String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
-
+      String nombreImagen = _image.path.split("/").last;
       var data = {
         "titulo":tituloController.text,
         "descripcion":descripcionController.text,
@@ -493,10 +494,11 @@ Future getImageCamera() async{
         "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
         "idPersona":idPersona,
         "imagenTrabajo":imagenTrabajo,
+        "nombreImagen":nombreImagen,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
-      var res = await CallApi().storeTrabajo(data, 'storeTrabajo');
+      var res = await CallApi().postData(data, 'storeTrabajo');
       var body = json.decode(res.body);
       print(body);
       if (body['success']){
