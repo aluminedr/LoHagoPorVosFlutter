@@ -20,7 +20,21 @@ class CrearTrabajoPage extends StatefulWidget{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController tituloController = new TextEditingController();
   TextEditingController montoController = new TextEditingController();
-  
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+ ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+   }
+
   String mensajeError='';
   String idUsuario;
   String idPersona;
@@ -186,6 +200,7 @@ Future getImageCamera() async{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       key:_scaffoldKey,
       appBar: AppBar(
         title: new Text("Publicar un trabajo"),
       ),
@@ -503,6 +518,9 @@ Future getImageCamera() async{
       var body = json.decode(res.body);
       print(body);
       if (body['success']){
-      }
+      }else{
+      _mostrarMensaje(body['error']);
+    }
+
   }
 }
