@@ -486,7 +486,7 @@ Future getImageCamera() async{
   Future crear() async {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getInt('persona');
-          String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
+      String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
       String nombreImagen = _image.path.split("/").last;
       var data = {
         "titulo":tituloController.text,

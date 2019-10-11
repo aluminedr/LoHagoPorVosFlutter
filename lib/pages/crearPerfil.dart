@@ -479,6 +479,7 @@ Future getImageCamera() async{
        _cargando = true;
     });
     String imagenPerfil= base64Encode(_image.readAsBytesSync()); 
+    String nombreImagen = _image.path.split("/").last;
     var data = {
       "idUsuario":idUsuario,
       "nombrePersona":nombrePersonaController.text,
@@ -486,6 +487,7 @@ Future getImageCamera() async{
       "dniPersona":dniPersonaController.text,
       "telefonoPersona":telefonoPersonaController.text,
       "imagenPersona":imagenPerfil,
+      "nombreImagen":nombreImagen,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
