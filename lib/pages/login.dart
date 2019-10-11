@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Text("Lo hago por vos".toUpperCase(), style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white,
               fontSize: 24.0,
               fontWeight: FontWeight.bold
             ),),
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage>{
                   ),
                   child: Icon(Icons.email, color: Colors.lightGreen,)),
                 hintText: "Ingrese su mail",
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage>{
                   ),
                   child: Icon(Icons.vpn_key, color: Colors.lightGreen,)),
                 hintText: "Ingrese su contraseña",
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none
@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage>{
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
               FlatButton(
-                textColor: Colors.white70,
+                textColor: Colors.white,
                 child: Text("Registrarme".toUpperCase()),
                 onPressed: (){
                   Navigator.push(
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage>{
                 height: 20.0,
               ),
               FlatButton(
-                textColor: Colors.white70,
+                textColor: Colors.white,
                 child: Text("Olvide mi contraseña".toUpperCase()),
                 onPressed: (){
                 },

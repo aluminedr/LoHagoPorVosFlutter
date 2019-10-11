@@ -40,6 +40,7 @@ class CrearTrabajoPage extends StatefulWidget{
 
     final response = await CallApi().listarCategorias('listarCategorias');
     var respuestaCategorias = json.decode(response.body);
+   // print(respuestaCategorias);
     listaCategorias = respuestaCategorias;
   imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
   }

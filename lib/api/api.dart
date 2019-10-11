@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class CallApi{
-    final String _url = 'http://192.168.1.36/LoHagoPorVosLaravel/public/api/';
+    final String _url = 'http://192.168.200.128/LoHagoPorVosLaravel/public/api/';
 
     postData(data, apiUrl) async {
         var fullUrl = _url + apiUrl + await _getToken(); 
@@ -72,7 +72,7 @@ class CallApi{
     listarTrabajos(apiUrl) async {
       var fullUrl = _url + apiUrl; 
         //print(data);
-        return await http.get(
+        return await http.post(
             fullUrl, 
             
             headers: _setHeaders()
