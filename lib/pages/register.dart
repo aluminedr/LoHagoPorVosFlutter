@@ -15,11 +15,25 @@ class RegisterPage extends StatefulWidget{
 }
 
 class _RegisterPageState extends State<RegisterPage>{
+  bool _cargando = false;
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController claveUsuarioController = new TextEditingController();
   TextEditingController nombreUsuarioController = new TextEditingController();
-   
-  bool _cargando = false;
+var _scaffoldKey = new GlobalKey<ScaffoldState>();
+ ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+   }
+
 
 
     
@@ -60,24 +74,11 @@ class _RegisterPageState extends State<RegisterPage>{
    return null;
  };
 
- ScaffoldState scaffoldState;
-  _mostrarMensaje(msg) async {
-    final snackBar = SnackBar(
-      content: Text(msg),
-      action: SnackBarAction(
-        label : 'Cerrar',
-        onPressed: () {
-          // Some code to undo the change!
-        },
-      ),
-    );
-    Scaffold.of(context).showSnackBar(snackBar);
-   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:_scaffoldKey,
       body: Form(
         child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -250,6 +251,7 @@ void _login() async {
 
     var res = await CallApi().postData(data, 'register');
     var body = json.decode(res.body);
+    print(body);
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
