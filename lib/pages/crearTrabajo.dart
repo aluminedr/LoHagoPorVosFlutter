@@ -39,6 +39,7 @@ class CrearTrabajoPage extends StatefulWidget{
 
     final response = await CallApi().listarCategorias('listarCategorias');
     var respuestaCategorias = json.decode(response.body);
+   // print(respuestaCategorias);
     listaCategorias = respuestaCategorias;
   imprimirCategorias(); // Llamamos a la funcion que va a imprimir los datos del select
   }
@@ -495,7 +496,7 @@ Future getImageCamera() async{
         "imagenTrabajo":imagenTrabajo,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
-
+print(data);
       var res = await CallApi().storeTrabajo(data, 'storeTrabajo');
       var body = json.decode(res.body);
       print(body);

@@ -24,24 +24,39 @@ class _RegisterPageState extends State<RegisterPage>{
 
     
  Function(String) mailValidator = (String value){
-   bool emailValid = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
-   if(value.isEmpty){
-     return "Ingrese un email";
-   }else if(!emailValid){
-     return "Ingrese un email valido";
-   }
-   return null;
- };
+  if (value.isEmpty) {
+    return 'mail no puede estar vacío';
+  }
+  // Regex para validación de email
+  String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
+      "\\@" +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+      "(" +
+      "\\." +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+      ")+";
+  RegExp regExp = new RegExp(p);
+  if (regExp.hasMatch(value)) {
+    return null;
+  }
+  return 'El Email suministrado no es válido. Intente otro correo electrónico';
+};
  Function(String) nombreUsuarioValidator = (String value){
    if(value.isEmpty){
      return "Ingrese un nombre de usuario";
    }
+   if(value.length>255){
+    return 'El nombre de usuario es demasiado extenso';
+  }
    return null;
  };
   Function(String) passValidator = (String value){
    if(value.isEmpty){
      return "Ingrese una contraseña";
    }
+   if(value.length<8){
+    return 'La contraseña debe contener 8 o mas caracteres';
+  }
    return null;
  };
 
@@ -87,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage>{
               ),
             ),
             Text("Lo hago por vos".toUpperCase(), style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white,
               fontSize: 24.0,
               fontWeight: FontWeight.bold
             ),),
@@ -111,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage>{
                   ),
                   child: Icon(Icons.person, color: Colors.lightGreen,)),
                 hintText: "Ingrese un nombre de usuario",
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none
@@ -140,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage>{
                   ),
                   child: Icon(Icons.email, color: Colors.lightGreen,)),
                 hintText: "Ingrese su mail",
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none
@@ -170,7 +185,7 @@ class _RegisterPageState extends State<RegisterPage>{
                   ),
                   child: Icon(Icons.vpn_key, color: Colors.lightGreen,)),
                 hintText: "Ingrese su contraseña",
-                hintStyle: TextStyle(color: Colors.white54),
+                hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none
@@ -204,7 +219,7 @@ class _RegisterPageState extends State<RegisterPage>{
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
               FlatButton(
-                textColor: Colors.white70,
+                textColor: Colors.white,
                 child: Text("Ingresar".toUpperCase()),
                 onPressed: (){
                   Navigator.push(

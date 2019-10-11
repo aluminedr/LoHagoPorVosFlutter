@@ -23,6 +23,7 @@ class ListarTrabajosPage extends StatefulWidget{
 
   @override
   Widget build(BuildContext context) {
+    var listaTrabajos =getListaTrabajos();
     return new Scaffold(
       
       /*floatingActionButton: new FloatingActionButton(
@@ -32,7 +33,7 @@ class ListarTrabajosPage extends StatefulWidget{
             )),
       ),*/
       body: new FutureBuilder<List>(
-        future: getListaTrabajos(),
+        future: listaTrabajos,
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
