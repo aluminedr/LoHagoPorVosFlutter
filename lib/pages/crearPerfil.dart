@@ -173,23 +173,26 @@ Future getImageCamera() async{
    return null;
  };
 
+ var _scaffoldKey = new GlobalKey<ScaffoldState>();
  ScaffoldState scaffoldState;
   _mostrarMensaje(msg) async {
     final snackBar = SnackBar(
       content: Text(msg),
       action: SnackBarAction(
-        label : 'Cerrar',
+        label: 'Cerrar',
         onPressed: () {
           // Some code to undo the change!
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    _scaffoldKey.currentState.showSnackBar(snackBar);
    }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:_scaffoldKey,
       appBar: AppBar(
         title: new Text("Perfil"),
       ),
