@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/login.dart';
+import '../main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
@@ -133,7 +133,7 @@ class CrearTrabajoPage extends StatefulWidget{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -152,7 +152,7 @@ Future getImageCamera() async{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -508,7 +508,7 @@ Future getImageCamera() async{
         _cargando = true;
       });
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var idPersona = localStorage.getInt('persona');
+      var idPersona = localStorage.getInt('idPersona');
       String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
       String nombreImagen = _image.path.split("/").last;
       var data = {
@@ -526,7 +526,10 @@ Future getImageCamera() async{
       var body = json.decode(res.body);
       print(body);
       if (body['success']){
-
+        Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
       }else{
       _mostrarMensaje(body['error']);
       setState(() {
