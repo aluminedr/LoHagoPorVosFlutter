@@ -20,21 +20,8 @@ class CrearTrabajoPage extends StatefulWidget{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController tituloController = new TextEditingController();
   TextEditingController montoController = new TextEditingController();
-  var _scaffoldKey = new GlobalKey<ScaffoldState>();
- ScaffoldState scaffoldState;
-  _mostrarMensaje(msg) async {
-    final snackBar = SnackBar(
-      content: Text(msg),
-      action: SnackBarAction(
-        label: 'Cerrar',
-        onPressed: () {
-          // Some code to undo the change!
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-   }
-
+  
+  bool _cargando = false;
   String mensajeError='';
   String idUsuario;
   String idPersona;
@@ -136,6 +123,7 @@ class CrearTrabajoPage extends StatefulWidget{
   }
 
 
+
   Future getImageGallery() async{
   var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -195,6 +183,23 @@ Future getImageCamera() async{
    }
    return null;
  };
+    var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -425,15 +430,15 @@ Future getImageCamera() async{
 
                         ),
                         new RaisedButton(
-                          child: new Text("  Publicar  "),
+                          child: new Text(_cargando ? 'Creando' : 'Crear Trabajo'),
                           color: Colors.green,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
                             if(_formkey.currentState.validate()){
-                              crear();
-                              Navigator.pop(context);
+                                _cargando ? null : _crear(); 
+                              
                             } 
                           },
                         ),
@@ -497,7 +502,11 @@ Future getImageCamera() async{
   }
   
 
-  Future crear() async {
+  void _crear() async {
+
+      setState(() {
+        _cargando = true;
+      });
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getInt('persona');
       String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
@@ -517,8 +526,12 @@ Future getImageCamera() async{
       var body = json.decode(res.body);
       print(body);
       if (body['success']){
+
       }else{
       _mostrarMensaje(body['error']);
+      setState(() {
+        _cargando = false;
+      });
     }
 
   }
