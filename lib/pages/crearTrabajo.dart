@@ -135,7 +135,6 @@ class CrearTrabajoPage extends StatefulWidget{
     return usdKey;
   }
 
- 
 
   Future getImageGallery() async{
   var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);

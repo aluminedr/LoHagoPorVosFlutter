@@ -34,7 +34,7 @@ class _MyAppState extends State<LoHagoPorVos> {
   void _checkIfHasProfile() async{
       //busca si el usuario tiene un perfil
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var idPersona = localStorage.getInt('persona');
+      var idPersona = localStorage.getInt('idPersona');
       if(idPersona!=null){
          setState(() {
             _hasProfile = true;

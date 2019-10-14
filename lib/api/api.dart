@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class CallApi{
-    final String _url = 'http://10.10.10.105/LoHagoPorVosLaravel/public/api/';
+    final String _url = 'http://192.168.1.36/LoHagoPorVosLaravel/public/api/';
 
     postData(data, apiUrl) async {
         var fullUrl = _url + apiUrl + await _getToken(); 

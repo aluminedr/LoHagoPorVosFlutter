@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Oct 11 16:19:06 ART 2019
+#Mon Oct 14 14:10:29 ART 2019
 4.path=lib/x86/libflutter.so
 8.set=DEX
 6.path=flutter_assets/assets/images/LoHagoPorVosLogo.png

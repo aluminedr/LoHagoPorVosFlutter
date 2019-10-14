@@ -426,6 +426,18 @@ Future getImageCamera() async{
                             Navigator.pushReplacementNamed(context,"/crearperfil");
                           },
                         ),
+
+                        new RaisedButton(
+                          child: new Text("    Cerrar sesion    "),
+                          color: Colors.green,
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)
+                          ),
+                          onPressed: () {
+                            logout();
+                          },
+                        ),
+                        
                       ],
                     )
                   ]
@@ -476,6 +488,27 @@ Future getImageCamera() async{
           : Container(),
         )); // Return an empty Container instead.
   }
+
+  void logout() async{
+      // logout from the server ... 
+      var res = await CallApi().getData('logout');
+      var body = json.decode(res.body);
+      print(body);
+      if(body['success']){
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        localStorage.remove('user');
+        localStorage.remove('token');
+        localStorage.remove('persona');
+        //localStorage.setBool('token', null);
+    
+        
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
+      }
+     
+  }
   
   void _crearPerfil() async {
     setState(() {
@@ -496,9 +529,9 @@ Future getImageCamera() async{
 
     var res = await CallApi().postData(data, 'crearPerfil');
     var body = json.decode(res.body);
-    print(body);
     if(body['success']){
-      
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      localStorage.setInt('idPersona', body['idPersona']);
        Navigator.push(
         context,
         new MaterialPageRoute(
