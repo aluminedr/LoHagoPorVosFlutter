@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
+import 'package:flutter_app/pages/detallesTrabajo.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -60,15 +61,15 @@ class ItemList extends StatelessWidget {
       itemBuilder: (context, i) {
         return new Container(
           padding: const EdgeInsets.all(10.0),
-          /*child: new GestureDetector(
+          child: new GestureDetector(
             onTap: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                      builder: (BuildContext context) => new Detail(
-                            list: list,
-                            index: i,
+                      builder: (BuildContext context) => new DetallesTrabajosPage(
+                            index: list[i]['idTrabajo'],
+                            
                           )),
                 ),
-            */
+            
             child: new Card(
               child: new ListTile(
                 title: new Text(
@@ -88,7 +89,7 @@ class ItemList extends StatelessWidget {
                   style: TextStyle(fontSize: 15.0, color: Colors.black),
                 ),
               ),
-            /*),*/
+            ),
           ),
         );
       },
