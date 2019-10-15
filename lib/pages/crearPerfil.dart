@@ -116,7 +116,7 @@ Future getImageGallery() async{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -135,7 +135,7 @@ Future getImageCamera() async{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -575,6 +575,7 @@ Future getImageCamera() async{
 
     var res = await CallApi().postData(data, 'crearPerfil');
     var body = json.decode(res.body);
+    print(body);
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setInt('idPersona', body['idPersona']);
