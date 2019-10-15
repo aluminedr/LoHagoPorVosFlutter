@@ -27,6 +27,8 @@ class CrearTrabajoPage extends StatefulWidget{
   String idPersona;
   var _formkey= GlobalKey<FormState>();
   var idProvincia;
+  var horaSeleccionada;
+  var diaSeleccionado;
   File _image;
   @override
   void initState(){ // Se setea inicio
@@ -425,6 +427,42 @@ Future getImageCamera() async{
                         ),
                       ),
                         _addSecondDropdown(),
+                        ////// Time Picker Dialog.
+                      RaisedButton(
+                          color: Colors.green,
+                          child: Text('Time Picker Dialog'),
+                          onPressed: () {
+                            DateTime now = DateTime.now();
+                            showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+                            ).then<TimeOfDay>((TimeOfDay value) {
+                              if (value != null) {
+                              horaSeleccionada=value;
+                              print(horaSeleccionada);
+                              }
+                            });
+                          },
+                        ),
+                        ////// Date Picker Dialog.
+                        RaisedButton(
+                          color: Colors.blue,
+                          child: Text('Date Picker Dialog'),
+                          onPressed: () {
+                            showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2018),
+                              lastDate: DateTime(2025),
+                            ).then<DateTime>((DateTime value) {
+                              if (value != null) {
+                                diaSeleccionado= value;
+                                print(diaSeleccionado);
+                                
+                              }
+                            });
+                          },
+                        ),
                         
                         Padding(padding: EdgeInsets.only(top: .0),
 
