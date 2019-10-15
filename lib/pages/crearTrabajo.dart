@@ -544,8 +544,16 @@ Future getImageCamera() async{
       });
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var idPersona = localStorage.getInt('idPersona');
-      String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
-      String nombreImagen = _image.path.split("/").last;
+      String imagenTrabajo; 
+      String nombreImagen;
+
+      if (_image!=null){
+        nombreImagen = _image.path.split("/").last;
+        imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
+      } else {
+        nombreImagen = null;
+        imagenTrabajo= null;
+      }
       var data = {
         "titulo":tituloController.text,
         "descripcion":descripcionController.text,

@@ -560,8 +560,18 @@ Future getImageCamera() async{
     setState(() {
        _cargando = true;
     });
-    String imagenPersona= base64Encode(_image.readAsBytesSync()); 
-      String nombreImagen = _image.path.split("/").last;
+ 
+      String imagenPersona; 
+      String nombreImagen;
+
+      if (_image!=null){
+        nombreImagen = _image.path.split("/").last;
+        imagenPersona= base64Encode(_image.readAsBytesSync()); 
+      } else {
+        nombreImagen = null;
+        imagenPersona= null;
+      }
+
     var data = {
       "idUsuario":idUsuario,
       "nombrePersona":nombrePersonaController.text,
