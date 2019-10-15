@@ -436,10 +436,9 @@ Future getImageCamera() async{
                             showTimePicker(
                               context: context,
                               initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
-                            ).then<TimeOfDay>((TimeOfDay value) {
+                            ).then<String>((TimeOfDay value) {
                               if (value != null) {
                               horaSeleccionada=value;
-                              print(horaSeleccionada);
                               }
                             });
                           },
@@ -457,8 +456,6 @@ Future getImageCamera() async{
                             ).then<DateTime>((DateTime value) {
                               if (value != null) {
                                 diaSeleccionado= value;
-                                print(diaSeleccionado);
-                                
                               }
                             });
                           },
@@ -556,8 +553,8 @@ Future getImageCamera() async{
         "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
         "idPersona":idPersona,
         "imagenTrabajo":imagenTrabajo,
-        "horaSeleccionada": horaSeleccionada,
-        "diaSeleccionado":diaSeleccionado,
+        "horaSeleccionada": horaSeleccionada.toString(),
+        "diaSeleccionado":diaSeleccionado.toString(),
         "nombreImagen":nombreImagen,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
