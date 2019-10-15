@@ -78,6 +78,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key:_scaffoldKey,
       body: Form(
         child: Container(

@@ -21,8 +21,8 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
     };
     var res = await CallApi().postData(data,'detalleTrabajo');
     var trabajo = json.decode(res.body);
-    print(trabajo);
-    return trabajo;
+    print(trabajo[0]);
+    return trabajo[0];
   }
 
   Widget build(BuildContext context) {
