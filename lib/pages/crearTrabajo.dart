@@ -9,6 +9,8 @@ import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+
 
 class CrearTrabajoPage extends StatefulWidget{
   @override
@@ -28,6 +30,8 @@ class CrearTrabajoPage extends StatefulWidget{
   var _formkey= GlobalKey<FormState>();
   var idProvincia;
   File _image;
+  DateTime _dateTime = DateTime.now();
+
   @override
   void initState(){ // Se setea inicio
     
@@ -442,6 +446,35 @@ Future getImageCamera() async{
                             } 
                           },
                         ),
+                        Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 200,
+                              child: CupertinoDatePicker(
+                                initialDateTime: _dateTime,
+                                onDateTimeChanged: (dateTime){
+                                  setState((){
+                                    _dateTime=dateTime;
+                                  });
+                                },
+                              ),
+                            ),
+                          RaisedButton(
+                            child: Text('Confirmar'),
+                            onPressed: (){
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text("Seleccionado:"),
+                                  content: Text('${_dateTime.day}/${_dateTime.month}/${_dateTime.year}\n${_dateTime.hour}:${_dateTime.minute}'),
+                                )
+                              );
+                            },
+                          )
+                          ],
+                        ),  
+      
+
                         new RaisedButton(
                           child: new Text("    Borrar    "),
                           color: Colors.green,
