@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/login.dart';
+import '../main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
@@ -20,21 +20,8 @@ class CrearTrabajoPage extends StatefulWidget{
   TextEditingController descripcionController = new TextEditingController();
   TextEditingController tituloController = new TextEditingController();
   TextEditingController montoController = new TextEditingController();
-  var _scaffoldKey = new GlobalKey<ScaffoldState>();
- ScaffoldState scaffoldState;
-  _mostrarMensaje(msg) async {
-    final snackBar = SnackBar(
-      content: Text(msg),
-      action: SnackBarAction(
-        label: 'Cerrar',
-        onPressed: () {
-          // Some code to undo the change!
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-   }
-
+  
+  bool _cargando = false;
   String mensajeError='';
   String idUsuario;
   String idPersona;
@@ -136,6 +123,7 @@ class CrearTrabajoPage extends StatefulWidget{
   }
 
 
+
   Future getImageGallery() async{
   var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -145,7 +133,7 @@ class CrearTrabajoPage extends StatefulWidget{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -164,7 +152,7 @@ Future getImageCamera() async{
   int rand= new Math.Random().nextInt(100000);
 
   Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
-  Img.Image smallerImg = Img.copyResize(image, width:120, height:120);
+  Img.Image smallerImg = Img.copyResize(image, width:130, height:130);
 
   var compressImg= new File("$path/image_$rand.jpg")
   ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
@@ -195,6 +183,23 @@ Future getImageCamera() async{
    }
    return null;
  };
+    var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  ScaffoldState scaffoldState;
+  _mostrarMensaje(msg) async {
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Cerrar',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -425,15 +430,15 @@ Future getImageCamera() async{
 
                         ),
                         new RaisedButton(
-                          child: new Text("  Publicar  "),
+                          child: new Text(_cargando ? 'Creando' : 'Crear Trabajo'),
                           color: Colors.green,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
                             if(_formkey.currentState.validate()){
-                              crear();
-                              Navigator.pop(context);
+                                _cargando ? null : _crear(); 
+                              
                             } 
                           },
                         ),
@@ -497,9 +502,13 @@ Future getImageCamera() async{
   }
   
 
-  Future crear() async {
+  void _crear() async {
+
+      setState(() {
+        _cargando = true;
+      });
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var idPersona = localStorage.getInt('persona');
+      var idPersona = localStorage.getInt('idPersona');
       String imagenTrabajo= base64Encode(_image.readAsBytesSync()); 
       String nombreImagen = _image.path.split("/").last;
       var data = {
@@ -517,8 +526,15 @@ Future getImageCamera() async{
       var body = json.decode(res.body);
       print(body);
       if (body['success']){
+        Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
       }else{
       _mostrarMensaje(body['error']);
+      setState(() {
+        _cargando = false;
+      });
     }
 
   }
