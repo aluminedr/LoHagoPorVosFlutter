@@ -556,6 +556,8 @@ Future getImageCamera() async{
         "idCategoriaTrabajo":mostrarIdCategoria(), // invocamos a la funcion mostrarIdCategoria que es la categoria seleccionada
         "idPersona":idPersona,
         "imagenTrabajo":imagenTrabajo,
+        "horaSeleccionada": horaSeleccionada,
+        "diaSeleccionado":diaSeleccionado,
         "nombreImagen":nombreImagen,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
