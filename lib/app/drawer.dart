@@ -41,8 +41,9 @@ class MenuLateral extends StatefulWidget {
       });
 
   }
-
+ 
   Widget build(BuildContext context) {
+    TextStyle tStyle = TextStyle(color: active, fontSize: 16.0);
     return ClipPath(
       clipper: OvalRightBorderClipper(),
       child: Drawer(
@@ -55,18 +56,6 @@ class MenuLateral extends StatefulWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.power_settings_new,
-                        color: active,
-                      ),
-                      onPressed: () {
-                        logout();
-                      },
-                    ),
-                  ),
                   Container(
                     height: 90,
                     alignment: Alignment.center,
@@ -97,7 +86,25 @@ class MenuLateral extends StatefulWidget {
                   _buildDivider(),
                   _buildRow(Icons.format_list_bulleted, "Historial",VerCategoriasPage()),
                   _buildDivider(),
-                  _buildRow(Icons.view_list, "Trabajos",ListarTrabajosPage()),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(children: [
+                      IconButton(
+                        icon: Icon(
+                                      Icons.settings_power,
+                                      color: active,
+                                    ),
+                                    onPressed: () {
+                                      logout();
+                                    },
+                                  ),
+                      SizedBox(width: 10.0),
+                      Text(
+                        "Cerrar sesion",
+                        style: tStyle,
+                      ),
+                    ]),
+                  ),
                   _buildDivider(),
                 ],
               ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'webViewContainer.dart';
 
 
 
@@ -22,6 +23,8 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   String imagen;
   int idPersonaTrabajo;
   int idPersonaLogeada;
+
+  var url;
 
   @override
    void initState(){
@@ -115,7 +118,8 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                            (idPersonaTrabajo == idPersonaLogeada) ? "Pagar".toUpperCase():"Postularme".toUpperCase();
+                            url= 'https://sandbox.mercadopago.com.ar/checkout/v1/redirect/7b786c56-0801-450b-95b1-4ca3ce504ac3/express/?preference-id=190028889-e4f2ff5c-85b7-4a63-b872-ea2feca65b92';
+                            (idPersonaTrabajo == idPersonaLogeada) ? irAurl(context,url) :"Postularme".toUpperCase();
                           },
                         ),
                       ),
@@ -140,6 +144,10 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
         ],
       ),
     );
+  }
+  void irAurl(BuildContext context,url) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => WebViewContainer(url)));
   }
 }
   
