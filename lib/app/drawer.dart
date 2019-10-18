@@ -7,6 +7,7 @@ import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
+import 'package:flutter_app/pages/verPerfil.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -78,7 +79,7 @@ class MenuLateral extends StatefulWidget {
                     style: TextStyle(color: active, fontSize: 16.0),
                   ),
                   SizedBox(height: 30.0),
-                  _buildRow(Icons.person_pin, "Perfil",CrearPerfilPage()),
+                  _buildRow(Icons.person_pin, "Perfil",VerPerfilPage()),
                   _buildDivider(),
                   _buildRow(Icons.add, "Nuevo anuncio",CrearTrabajoPage()),
                   _buildDivider(),

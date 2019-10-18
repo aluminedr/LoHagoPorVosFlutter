@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw\\values-sw.xml",
+            "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-sw/values-sw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\b06c82090ab6ba41f584cbbd2918a71e\\res\\values-sw\\values-sw.xml",
+                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-sw/values-sw.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\res\\merged\\debug\\values-sw\\values-sw.xml",
+            "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/res/merged/debug/values-sw/values-sw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\b06c82090ab6ba41f584cbbd2918a71e\\res\\values-sw\\values-sw.xml",
+                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-sw/values-sw.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
