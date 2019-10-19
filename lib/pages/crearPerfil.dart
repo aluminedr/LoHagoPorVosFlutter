@@ -11,8 +11,51 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
+class ProbarPage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _ProbarPageState();
+  
+  
+  }
+  
+  class _ProbarPageState extends State<ProbarPage> {
 
+
+  //funcion que trae el listado de trabajos en formato json para luego decodificarlo
+  Future<List> getListaTrabajos() async {
+    
+    var res = await CallApi().listarTrabajos('listarTrabajos');
+    var listaTrabajos = json.decode(res.body);
+    return listaTrabajos;
+
+  }
+  
+
+  @override
+  Widget build(BuildContext context) {
+    var listaTrabajos =getListaTrabajos();
+    return new Scaffold(
+      
+      /*floatingActionButton: new FloatingActionButton(
+        child: new Icon(Icons.add),
+        onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+              builder: (BuildContext context) => new AddData(),
+            )),
+      ),*/
+      body: new FutureBuilder<List>(
+        future: listaTrabajos,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+          return new CrearPerfilPage(
+                  list: snapshot.data,
+                );
+        }),     
+    );
+  }
+}
 class CrearPerfilPage extends StatefulWidget{
+  final List list;
+  CrearPerfilPage({Key key,this.list}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CrearPerfilPageState();
   }
@@ -46,7 +89,8 @@ class CrearPerfilPage extends StatefulWidget{
       });
 
   }
- 
+  
+
   List listaProvincias;
   Future<Null> listarProvincias() async {
 
@@ -188,8 +232,57 @@ Future getImageCamera() async{
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
    }
-
-
+      List _selecteCategorys= List();
+      void onCategorySelected(bool selected, idTrabajo) {
+          if (selected == true) {
+            setState(() {
+              _selecteCategorys.add(idTrabajo);
+            });
+          } else {
+            setState(() {
+              _selecteCategorys.remove(idTrabajo);
+            });
+          }
+        }
+_showHabilidadesDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //print(_selecteCategorys);
+          List list=widget.list;
+          //print(list);
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            title: Text("Habilidades"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Seleccionar habilidades"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+            content:StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) { 
+              return Container(
+              height: 300.0, // Change as per your requirement
+              width: 300.0,
+              child: new ListView.builder(
+              itemCount: list == null ? 0 : list.length,
+              itemBuilder: (context, i) {
+                        return CheckboxListTile(
+                              value: _selecteCategorys.contains(list[i]['idTrabajo']),
+                              onChanged: (bool selected) {
+                                onCategorySelected(
+                                  selected,
+                                  list[i]['idTrabajo']
+                                );
+                              },
+                              title: Text(list[i]['titulo']),
+                    );
+                  }),);}
+            
+          ),);
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -439,7 +532,15 @@ Future getImageCamera() async{
                         ),
                       ),SizedBox(height: 10.0),
                         _addSecondDropdown(),
-
+                        SizedBox(height: 10.0),
+                       Center(
+                          child: RaisedButton(
+                              child: Text("Seleccione al menos 3 habilidades"),
+                              onPressed: () {
+                                _showHabilidadesDialog();
+                              },
+                          ),
+                      ),
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
@@ -606,6 +707,7 @@ Future getImageCamera() async{
   }
 
 }
+
 
 
 

@@ -48,7 +48,7 @@ class _MyAppState extends State<LoHagoPorVos> {
       debugShowCheckedModeBanner: false,
       title: 'LO HAGO POR VOS',
       home: Scaffold(
-        body: (_isLoggedIn && _hasProfile) ? HomePage() : (_isLoggedIn && !_hasProfile) ? CrearPerfilPage() : LoginPage(),
+        body: (_isLoggedIn && _hasProfile) ? HomePage() : (_isLoggedIn && !_hasProfile) ? ProbarPage() : LoginPage(),
       ),
       
     );
