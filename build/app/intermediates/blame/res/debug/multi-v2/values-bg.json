@@ -4,7 +4,7 @@
             "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/res/merged/debug/values-bg/values-bg.xml",
             "map": [
                 {
-                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-bg/values-bg.xml",
+                    "source": "/home/aluminedr/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/73b92d19e45651d293d248416996754f/res/values-bg/values-bg.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-bg/values-bg.xml",
             "map": [
                 {
-                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-bg/values-bg.xml",
+                    "source": "/home/aluminedr/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/73b92d19e45651d293d248416996754f/res/values-bg/values-bg.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
