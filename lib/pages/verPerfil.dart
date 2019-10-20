@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -24,10 +23,13 @@ class VerPerfilPage extends StatefulWidget{
   String nombreUsuario;
   String claveUsuario;
   int idUsuario;
-  var valor;
-  var nuevoValor;
-  var nuevoMail;
-  var clave;
+  String valor;
+  String nuevoValor;
+  String nuevoMail;
+  String clave;
+  String claveNueva;
+  String claveNuevaRepetida;
+  String claveVieja;
 
  ScaffoldState scaffoldState;
   _mostrarMensaje(msg) async {
@@ -49,35 +51,33 @@ class VerPerfilPage extends StatefulWidget{
     
     @override
     void initState() {
-      getDetalles();
+      _getDetalles();
       super.initState();
     }
 
 
-    void getDetalles() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var idPersona =  localStorage.getInt('idPersona');
-    var usuarioJson = localStorage.getString('user');
-    var usuario = json.decode(usuarioJson);
-    mailUsuario= usuario['mailUsuario'];
-    nombreUsuario= usuario['nombreUsuario'];
-    idUsuario= usuario['idUsuario'];
-    var data ={
-      'idPersona': idPersona,
-    };
-    var res = await CallApi().postData(data,'perfil');
-    var persona = json.decode(res.body);
+    void _getDetalles() async {
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      var idPersona =  localStorage.getInt('idPersona');
+      var usuarioJson = localStorage.getString('user');
+      var usuario = json.decode(usuarioJson);
+      mailUsuario= usuario['mailUsuario'];
+      nombreUsuario= usuario['nombreUsuario'];
+      idUsuario= usuario['idUsuario'];
+      var data ={
+        'idPersona': idPersona,
+      };
+      var res = await CallApi().postData(data,'perfil');
+      var persona = json.decode(res.body);
 
-    setState(() {
-      nombrePersona = persona['persona']['nombrePersona'];
-      apellidoPersona = persona['persona']['apellidoPersona'];
-      dniPersona = persona['persona']['dniPersona'];
-      telefonoPersona = persona['persona']['telefonoPersona'];
-      imagenPersona = persona['persona']['imagenPersona'];
-    });
-    
-
-  }
+      setState(() {
+        nombrePersona = persona['persona']['nombrePersona'];
+        apellidoPersona = persona['persona']['apellidoPersona'];
+        dniPersona = persona['persona']['dniPersona'];
+        telefonoPersona = persona['persona']['telefonoPersona'];
+        imagenPersona = persona['persona']['imagenPersona'];
+      });
+    }
 
 
 
@@ -301,7 +301,7 @@ class UserInfo extends StatelessWidget {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                   leading: Icon(Icons.phone),
-                                  title: Text("Telefono"),
+                                  title: Text("TELEFONO"),
                                   subtitle: Text("$telefonoPersona"),
                                 ),
                           onPressed: (){
@@ -319,11 +319,10 @@ class UserInfo extends StatelessWidget {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                   leading: Icon(Icons.vpn_key),
-                                  title: Text("CONTRASEÑA"),
-                                  subtitle: Text("$claveUsuario"),
+                                  title: Text("CAMBIAR CONTRASEÑA"),
                                 ),
                           onPressed: (){
-                            showAlertDialog(context,claveUsuario,'Contraseña','claveUsuario');
+                            showAlertDialogClave(context,claveUsuario,'Contraseña actual','claveUsuario');
                           },
                         ),
                       ])
@@ -368,10 +367,8 @@ class UserInfo extends StatelessWidget {
           'mailUsuario' : nuevoMail,
           'clave' : clave
       };
-      print(data);
       var res = await CallApi().postData(data, 'actualizarMail');
       var body = json.decode(res.body);
-      print(body);
       nuevoMail = null;
       clave = null;
 
@@ -383,7 +380,30 @@ class UserInfo extends StatelessWidget {
       
     }
   }
-    
+  
+  void _actualizarContrasena(claveNueva,claveNuevaRepetida,claveVieja) async{
+    if (claveVieja != null && claveVieja != '' && claveNueva != null && claveNueva != ''){
+      var data = {
+          'idUsuario' : idUsuario,
+          'claveVieja' : claveVieja,
+          'claveNueva' : claveNueva
+      };
+      var res = await CallApi().postData(data, 'actualizarClave');
+      var body = json.decode(res.body);
+      claveVieja = null;
+      claveNueva = null;
+      claveNuevaRepetida = null;
+      if(body['success']){
+        _mostrarMensaje(body['mensaje']);
+      }else{
+        _mostrarMensaje(body['mensaje']);
+      }
+      
+    }
+
+  }
+
+
 showAlertDialog(BuildContext context,valor,subTitulo,columna) {
 
   // set up the buttons
@@ -396,8 +416,28 @@ showAlertDialog(BuildContext context,valor,subTitulo,columna) {
   Widget continueButton = FlatButton(
     child: Text("Guardar"),
     onPressed:  () {
-      _actualizar(nuevoValor,columna);
-      Navigator.of(context).pop();
+      if(columna == 'telefonoPersona'){
+        print('aca');
+        String p = "[0-9+]{6,12}";
+        RegExp regExp = new RegExp(p);
+        if (regExp.hasMatch(nuevoValor)) {
+          _actualizar(nuevoValor,columna);
+          Navigator.of(context).pop();
+        }else{
+          _mostrarMensaje('Telefono no valido');
+          nuevoValor = null;
+          Navigator.of(context).pop();
+        }
+      }else{
+        if(nuevoValor != '' && nuevoValor != null){
+          _actualizar(nuevoValor,columna);
+          Navigator.of(context).pop();
+        }else{
+          _mostrarMensaje('No se realizaron cambios');
+          nuevoValor = null;
+          Navigator.of(context).pop();
+        }
+      }
     },
   );
 
@@ -408,13 +448,15 @@ showAlertDialog(BuildContext context,valor,subTitulo,columna) {
           children: <Widget>[
             new Expanded(
                 child: new TextField(
-              autofocus: true,
-              decoration: new InputDecoration(
-                  labelText: subTitulo, hintText: valor),
-              onChanged: (valorIngresado) {
-                nuevoValor = valorIngresado;
-              },
-            ))
+                  
+                  autofocus: true,
+                  decoration: new InputDecoration(
+                    labelText: subTitulo, hintText: valor),
+                  onChanged: (valorIngresado) {
+                    nuevoValor = valorIngresado;
+                  },
+                )
+            )
           ],
         ),
         actions: [
@@ -444,8 +486,28 @@ showAlertDialogMail(BuildContext context,valor,subTitulo,columna) {
   Widget continueButton = FlatButton(
     child: Text("Guardar"),
     onPressed:  () {
-      _actualizarMail(nuevoMail,clave);
-      Navigator.of(context).pop();
+      String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
+      "\\@" +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+      "(" +
+      "\\." +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+      ")+";
+      RegExp regExp = new RegExp(p);
+      if (clave!=null && clave!=''){
+        if (regExp.hasMatch(nuevoMail)) {
+          _actualizarMail(nuevoMail,clave);
+          Navigator.of(context).pop();
+        }else{
+          _mostrarMensaje('Correo electronico no valido. Vuelva a intentarlo');
+          Navigator.of(context).pop();
+        }
+      }else{
+        _mostrarMensaje('La contraseña no puede estar vacia');
+          Navigator.of(context).pop();
+      }
+      clave = null;
+      
     },
   );
 
@@ -472,10 +534,107 @@ showAlertDialogMail(BuildContext context,valor,subTitulo,columna) {
               new Expanded(
                   child: new TextField(
                   autofocus: true,
+                  obscureText: true,
                   decoration: new InputDecoration(
                       labelText:'Contraseña', hintText: ''),
                   onChanged: (valorIngresado) {
                     clave = valorIngresado;
+                  },
+                )
+              ),
+            ],
+          ),
+      ]
+    
+    ),
+        actions: [
+          cancelButton,
+          continueButton, 
+          ]   
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+
+
+}
+
+showAlertDialogClave(BuildContext context,valor,subTitulo,columna) {
+
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancelar"),
+    onPressed:  () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Guardar"),
+    onPressed:  () {
+      if(claveNueva == claveNuevaRepetida){
+        if(claveNueva.length<8){
+          _mostrarMensaje('La contraseña debe contener 8 o mas caracteres');
+          Navigator.of(context).pop();
+        }else{
+          _actualizarContrasena(claveNueva,claveNuevaRepetida,claveVieja);
+          Navigator.of(context).pop();
+        }
+      }else{
+        _mostrarMensaje('Las contraseñas no coinciden');
+        Navigator.of(context).pop();
+      }
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Modificar contraseña"),
+    content:new Column(
+      children: <Widget>[
+          new Row(
+                  children: <Widget>[
+                    new Expanded(
+                        child: new TextField(
+                          obscureText: true,
+                        autofocus: true,
+                        decoration: new InputDecoration(
+                            labelText: subTitulo, hintText: valor),
+                        onChanged: (valorIngresado) {
+                          claveVieja = valorIngresado;
+                        },
+                      )
+                    ),
+                  ]),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new TextField(
+                    obscureText: true,
+                  autofocus: true,
+                  decoration: new InputDecoration(
+                      labelText:'Contraseña nueva', hintText: ''),
+                  onChanged: (valorIngresado) {
+                    claveNueva = valorIngresado;
+                  },
+                )
+              ),
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new TextField(
+                    obscureText: true,
+                  autofocus: true,
+                  decoration: new InputDecoration(
+                      labelText:'Repetir contraseña nueva', hintText: ''),
+                  onChanged: (valorIngresado) {
+                    claveNuevaRepetida = valorIngresado;
                   },
                 )
               ),
