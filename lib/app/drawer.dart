@@ -126,17 +126,23 @@ class MenuLateral extends StatefulWidget {
     final TextStyle tStyle = TextStyle(color: active, fontSize: 16.0);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(children: [
-        IconButton(
-          icon: Icon(
-                        icon,
-                        color: active,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-              Navigator.push(context, new MaterialPageRoute(
-                builder: (BuildContext context)=>  press
-              ));
+      child:new GestureDetector(
+            onTap: () => 
+              Navigator.of(context).push(
+                  new MaterialPageRoute(
+                      builder: (BuildContext context)=>  press
+                          )),
+                child: Row(children: [
+                  IconButton(
+                    icon: Icon(
+                                  icon,
+                                  color: active,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                        Navigator.push(context, new MaterialPageRoute(
+                          builder: (BuildContext context)=>  press
+                        ));
                       },
                     ),
         SizedBox(width: 10.0),
@@ -145,7 +151,7 @@ class MenuLateral extends StatefulWidget {
           style: tStyle,
         ),
       ]),
-    );
+    ));
   }
 
   void logout() async{

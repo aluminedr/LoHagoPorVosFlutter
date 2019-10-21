@@ -569,7 +569,7 @@ _showCategoriasDialog() {
                             _cargando ? null : _crearPerfil(); 
                             } 
                         ),),
-                        Spacer(),
+                        
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
