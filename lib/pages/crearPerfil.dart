@@ -13,6 +13,9 @@ import '../main.dart';
 
 
 class CrearPerfilPage extends StatefulWidget{
+  final List list;
+  final List listaHabilidades;
+  CrearPerfilPage({Key key,this.list, this.listaHabilidades}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CrearPerfilPageState();
   }
@@ -46,11 +49,12 @@ class CrearPerfilPage extends StatefulWidget{
       });
 
   }
- 
+  
+
   List listaProvincias;
   Future<Null> listarProvincias() async {
 
-    final response = await CallApi().listarProvincias('listarProvincias');
+    final response = await CallApi().getData('listarProvincias');
     setState(() {
       listaProvincias = json.decode(response.body);
     });
@@ -80,7 +84,7 @@ class CrearPerfilPage extends StatefulWidget{
       var data ={
         "idProvincia":idProvincia
       };
-    var response = await CallApi().listarLocalidades(data,'listarLocalidades');    
+    var response = await CallApi().postData(data,'listarLocalidades');    
     setState(() {
       listaLocalidades = json.decode(response.body); // decode
     });
@@ -188,8 +192,99 @@ Future getImageCamera() async{
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
    }
-
-
+List _habilidadesSeleccionadas= List();
+      
+_showHabilidadesDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //print(_selecteCategorys);
+          List listaHabilidades=widget.listaHabilidades;
+          //print(listaHabilidades);
+          //print(list);
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            title: Text("Habilidades"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Seleccionar habilidades"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+            content:StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) { 
+              return Container(
+              height: 300.0, // Change as per your requirement
+              width: 300.0,
+              child: new ListView.builder(
+              itemCount: listaHabilidades == null ? 0 : listaHabilidades.length,
+              itemBuilder: (context, i) {
+                        return CheckboxListTile(
+                              value: _habilidadesSeleccionadas.contains(listaHabilidades[i]['idHabilidad']),
+                              onChanged: (bool selected) {
+                                if (selected == true) {
+            setState(() {
+              _habilidadesSeleccionadas.add(listaHabilidades[i]['idHabilidad']);
+            });
+          } else {
+            setState(() {
+              _habilidadesSeleccionadas.remove(listaHabilidades[i]['idHabilidad']);
+            });
+          }
+                              },
+                              title: Text(listaHabilidades[i]['nombreHabilidad']),
+                    );
+                  }),);}
+            
+          ),);
+        });
+  }
+  List _categoriasSelccionadas= List();
+      
+_showCategoriasDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //print(_selecteCategorys);
+          List list=widget.list;
+          //print(list);
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            title: Text("Categorias"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Seleccionar categorias"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+            content:StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) { 
+              return Container(
+              height: 300.0, // Change as per your requirement
+              width: 300.0,
+              child: new ListView.builder(
+              itemCount: list == null ? 0 : list.length,
+              itemBuilder: (context, i) {
+                        return CheckboxListTile(
+                              value: _categoriasSelccionadas.contains(list[i]['idCategoriaTrabajo']),
+                              onChanged: (bool selected) {
+                                if (selected == true) {
+            setState(() {
+              _categoriasSelccionadas.add(list[i]['idCategoriaTrabajo']);
+            });
+          } else {
+            setState(() {
+              _categoriasSelccionadas.remove(list[i]['idCategoriaTrabajo']);
+            });
+          }
+                              },
+                              title: Text(list[i]['nombreCategoriaTrabajo']),
+                    );
+                  }),);}
+            
+          ),);
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -439,7 +534,24 @@ Future getImageCamera() async{
                         ),
                       ),SizedBox(height: 10.0),
                         _addSecondDropdown(),
-
+                        SizedBox(height: 10.0),
+                       Center(
+                          child: RaisedButton(
+                              child: Text("Seleccione al menos 3 habilidades"),
+                              onPressed: () {
+                                _showHabilidadesDialog();
+                              },
+                          ),
+                      ),
+                      SizedBox(height: 10.0),
+                       Center(
+                          child: RaisedButton(
+                              child: Text("Seleccione al menos 3 habilidades"),
+                              onPressed: () {
+                                _showCategoriasDialog();
+                              },
+                          ),
+                      ),
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
@@ -580,6 +692,8 @@ Future getImageCamera() async{
       "telefonoPersona":telefonoPersonaController.text,
       "imagenPersona":imagenPersona,
       "nombreImagen":nombreImagen,
+      "habilidades":_habilidadesSeleccionadas,
+      "preferenciaPersona":_categoriasSelccionadas,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
@@ -606,6 +720,7 @@ Future getImageCamera() async{
   }
 
 }
+
 
 
 

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 //import 'package:flutter_app/MercadoPago/enviarDatosMP.dart';
 import 'package:flutter_app/api/api.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'webViewContainer.dart';
 
@@ -18,6 +20,11 @@ class DetallesTrabajosPage extends StatefulWidget{
 }
 
 class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
+  final _history = [];
+  final flutterWebViewPlugin = FlutterWebviewPlugin();
+  StreamSubscription<String> _onUrlChanged;
+
+
   String titulo;
   String descripcion;
   int monto;
@@ -26,13 +33,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   int idPersonaLogeada;
 
   var urlDecode;
-
-  @override
-   void initState(){
-    _getDetalles();
-    super.initState();
-  }
-  void _getDetalles() async {
+    void _getDetalles() async {
     var data ={
       'idTrabajo': widget.index,
     };
@@ -49,7 +50,20 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
         idPersonaTrabajo= trabajoDetalle['idPersona'];
       }); 
   }
-
+  
+   void initState(){
+    _getDetalles();
+    super.initState();
+    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      if (mounted) {
+        setState(() {
+          _history.add('onUrlChanged: $url');
+        });
+      }
+    });
+  }
+  
+   
   Widget build(BuildContext context) {
       return Scaffold(
       body: Stack(
@@ -163,3 +177,5 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
 
 }
   
+
+

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/pages/detallesTrabajo.dart';
-import 'package:http/http.dart' as http;
 
 
 class ListarTrabajosPage extends StatefulWidget{
@@ -16,7 +15,7 @@ class ListarTrabajosPage extends StatefulWidget{
   //funcion que trae el listado de trabajos en formato json para luego decodificarlo
   Future<List> getListaTrabajos() async {
     
-    var res = await CallApi().listarTrabajos('listarTrabajos');
+    var res = await CallApi().getData('listarTrabajos');
     var listaTrabajos = json.decode(res.body);
     return listaTrabajos;
 
@@ -78,25 +77,6 @@ Widget _buildIndicators(BuildContext context, Widget child) {
       ),
       const LinearProgressIndicator(),
       const LinearProgressIndicator(),
-      LinearProgressIndicator(value: _animation.value),
-      /*Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          const CircularProgressIndicator(),
-          SizedBox(
-              width: 20.0,
-              height: 20.0,
-              child: CircularProgressIndicator(value: _animation.value),
-          ),
-          SizedBox(
-            width: 100.0,
-            height: 20.0,
-            child: Text('${(_animation.value * 100.0).toStringAsFixed(1)}%',
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),*/
     ];
     return Column(
       children: indicators
@@ -145,9 +125,12 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final primary = Color(0xff696b9e);
+  final secondary = Color(0xfff29a94);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
+        var monto=list[i]['monto'];
         return new Container(
           padding: const EdgeInsets.all(10.0),
           child: new GestureDetector(
@@ -160,24 +143,63 @@ class ItemList extends StatelessWidget {
                 ),
             
             child: new Card(
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
               child: new ListTile(
-                title: new Text(
+                title:Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: new Text(
                   list[i]['titulo'],
-                  style: TextStyle(fontSize: 20.0, color: Colors.purple),
+                  style: TextStyle(
+                      color: primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                ),),
+                
+                leading: Container(
+                  width: 50,
+                  height: 50,
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(right: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(width: 3, color: secondary),
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/LoHagoPorVosLogo.png'),
+                        fit: BoxFit.fill),
+                  ),
                 ),
-                /*
-                leading: new Icon(
-                  Icons.person_pin,
-                  size: 77.0,
-                  color: Colors.orangeAccent,
-                ),
-                */
-                subtitle: 
-                new Text(
+                subtitle:Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Column( 
+                    children: <Widget>[
+              new Text(
                   list[i]['descripcion'],
-                  style: TextStyle(fontSize: 15.0, color: Colors.black),
+                  style: TextStyle(
+                      color: primary, fontSize: 13, letterSpacing: .3)),
+               SizedBox(
+                  height: 8,
                 ),
-              ),
+              new Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.monetization_on,
+                      color: secondary,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('$monto',
+                        style: TextStyle(
+                            color: primary, fontSize: 13, letterSpacing: .3)),
+                  ],
+                ),
+                    ],
+              ),),),
             ),
           ),
         );
