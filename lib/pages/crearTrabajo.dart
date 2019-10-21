@@ -213,201 +213,235 @@ Future getImageCamera() async{
       resizeToAvoidBottomPadding: false,
       body: Form(
         key: _formkey,
-        child: Padding(
-          padding: EdgeInsets.all(5.0),
+        child: Container(
+        padding: const EdgeInsets.all(16.0),
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.lightGreen,
+              Colors.green
+            ]
+          )
+        ),
           child:  ListView(
                   children: <Widget>[
                     new Column(
                       children: <Widget>[
-                        new Container(
-                                padding: EdgeInsets.only(top: 10.0),
-                                child: new CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: new Image(
-                                    width: 135,
-                                    height: 135,
-                                    image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
+                        Container(
+                          margin: const EdgeInsets.only(top: 40.0,bottom: 20.0),
+                          height: 80,
+                          child:  new Image(
+                            width: 135,
+                            height: 135,
+                            image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
+                          ),
+                        ),
+                        Text("Lo hago por vos".toUpperCase(), style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold
+                        ),),
+                        SizedBox(height: 40.0),
+                        SingleChildScrollView(
+                          child: Center(  
+                          child: Column(
+                            children: <Widget>[
+                              Center(
+                                child: _image==null
+                                ? new Text("Seleccione una imagen")
+                                : new Image.file(_image),
+                              ),
+                              Center(child: 
+                              Row(
+                                children: <Widget>[
+                                  RaisedButton(
+                                    child: Icon(Icons.image),
+                                    onPressed: getImageGallery,
                                   ),
-                                ),
-                                width: 150,
-                                height: 150,
-                      ),
+                                  RaisedButton(
+                                    child: Icon(Icons.camera_alt),
+                                    onPressed: getImageCamera,
+                                  ),
+                                  Expanded(child: Container(),),
+                                  
+
+                                ],
+                              ),
+                              )],
+                          ),),
+                        ),SizedBox(height: 10.0),
                       Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: 60,
-                              margin: EdgeInsets.only(
-                                top: 10,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: 4, left: 16,right: 16,bottom: 4
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                color: Colors.grey,
-                                boxShadow: [BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5
-                                )]
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.text_fields, color: Colors.black,),
-                                title: new TextFormField(
-                                  controller: tituloController,
-                                  validator:tituloValidator,
-                                  decoration: new InputDecoration(
-                                    labelText: "Titulo",
-                                  ),
-                                ),
-                              ),
-                            ),
-                             Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: 60,
-                              margin: EdgeInsets.only(
-                                top: 10,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: 4, left: 16,right: 16,bottom: 4
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                color: Colors.grey,
-                                boxShadow: [BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5
-                                )]
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.text_fields, color: Colors.black,),
-                                title: new TextFormField(
-                                  controller: descripcionController,
-                                  validator:descripcionValidator,
-                                  decoration: new InputDecoration(
-                                    labelText: "Descripcion",
-                                  ),
-                                ),
-                              ),
-                            ),
-                             Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: 60,
-                              margin: EdgeInsets.only(
-                                top: 10,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: 4, left: 16,right: 16,bottom: 4
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                color: Colors.grey,
-                                boxShadow: [BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5
-                                )]
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.monetization_on, color: Colors.black,),
-                                title: new TextFormField(
-                                  controller: montoController,
-                                  validator:montoValidator,
-                                  decoration: new InputDecoration(
-                                    hintText: "500",
-                                    labelText: "Monto",
-                                  ),
-                                ),
-                              ),
-                            ),
-                             Container(
-                              width: MediaQuery.of(context).size.width/1.2,
-                              height: 60,
-                              margin: EdgeInsets.only(
-                                top: 10,
-                              ),
-                              padding: EdgeInsets.only(
-                                top: 4, left: 16,right: 16,bottom: 4
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                color: Colors.grey,
-                                boxShadow: [BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5
-                                )]
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.text_fields, color: Colors.black,),
-                                title: new DropdownButton<String>(
-                                  value: _dropdownValueCategoria,
-                                  hint: Text("Seleccione una cat."),
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _dropdownValueCategoria = newValue;
-                                    });
-                                  },
-                                  items: listarCategoriaM.values
-                                    .map<DropdownMenuItem<String>>((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    })
-                                    .toList(),
-                                ),
-                              ),
-                            ),
-
-                            SingleChildScrollView(
-              child: Column(
-          children: <Widget>[
-            Center(
-              child: _image==null
-              ? new Text("Seleccione una imagen")
-              : new Image.file(_image),
-            ),
-
-            
-            Row(
-              children: <Widget>[
-                RaisedButton(
-                  child: Icon(Icons.image),
-                  onPressed: getImageGallery,
-                ),
-                 RaisedButton(
-                  child: Icon(Icons.camera_alt),
-                  onPressed: getImageCamera,
-                ),
-                Expanded(child: Container(),),
-                 
-
-              ],
-            ),
-          ],
-        ),
-      ),
-                      Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height: 50,
-                    margin: EdgeInsets.only(
-                      top: 32,
-                    ),
-                    padding: EdgeInsets.only(
-                      top: 4, left: 16,right: 0,bottom: 4
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      color: Colors.grey,
-                      boxShadow: [BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                      )]
-                    ),
                         child: ListTile(
-                          leading: const Icon(Icons.map, color: Colors.black,),
-                          title: new DropdownButton<String>(
-                            isExpanded: true,
-                            elevation: 1,
+                          title: new TextFormField(
+                            controller: tituloController,
+                            validator:tituloValidator,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.text_fields, color: Colors.lightGreen,)),
+                              hintText: "Ingrese un titulo",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
+                            
+                          ),
+                        ),
+                      ),SizedBox(height: 10.0),
+                             Container(
+                        child: ListTile(
+                          title: new TextFormField(
+                            controller: descripcionController,
+                            validator:descripcionValidator,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.text_fields, color: Colors.lightGreen,)),
+                              hintText: "Ingrese una descripcion",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
+                            
+                          ),
+                        ),
+                      ),SizedBox(height: 10.0),
+                             Container(
+                        child: ListTile(
+                          title: new TextFormField(
+                            controller: montoController,
+                            validator:montoValidator,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.monetization_on, color: Colors.lightGreen,)),
+                              hintText: "Ingrese un monto",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
+                            
+                          ),
+                        ),
+                      ),SizedBox(height: 10.0),
+                      Container(
+                        child: ListTile(
+                          title: DropdownButtonFormField(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.list, color: Colors.lightGreen,),),
+                                 hintText: "Seleccione una categoria",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
+                            value: _dropdownValueCategoria,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                _dropdownValueCategoria = newValue;
+                              });
+                            },
+                            items: listarCategoriaM.values
+                              .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              })
+                              .toList(),
+                          ),
+                        ),
+                      ),SizedBox(height: 10.0),
+                      Container(
+                        child: ListTile(
+                          title: DropdownButtonFormField(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.map, color: Colors.lightGreen,),),
+                                 hintText: "Seleccione una provincia",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
                             value: _dropdownValueProvincia,
-                            hint: Text("Seleccione una provincia.."),
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValueProvincia = newValue;
@@ -425,28 +459,20 @@ Future getImageCamera() async{
                               .toList(),
                           ),
                         ),
-                      ),
+                      ),SizedBox(height: 5.0),
                         _addSecondDropdown(),
-                        ////// Time Picker Dialog.
-                      RaisedButton(
-                          color: Colors.green,
-                          child: Text('Time Picker Dialog'),
-                          onPressed: () {
-                            DateTime now = DateTime.now();
-                            showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
-                            ).then<String>((TimeOfDay value) {
-                              if (value != null) {
-                              horaSeleccionada=value;
-                              }
-                            });
-                          },
-                        ),
+                        SizedBox(height: 5.0),
                         ////// Date Picker Dialog.
-                        RaisedButton(
-                          color: Colors.blue,
-                          child: Text('Date Picker Dialog'),
+                         SizedBox(
+                        width: double.infinity,
+                        child: new RaisedButton(
+                          child: Text('Seleccione dia de finalizacion del anuncio'),
+                          color: Colors.white.withOpacity(0.1),
+                          textColor: Colors.white,
+                          padding: const EdgeInsets.all(20.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)
+                          ),
                           onPressed: () {
                             showDatePicker(
                               context: context,
@@ -459,68 +485,98 @@ Future getImageCamera() async{
                               }
                             });
                           },
-                        ),
-                        
-                        Padding(padding: EdgeInsets.only(top: .0),
-
-                        ),
-                        new RaisedButton(
-                          child: new Text(_cargando ? 'Creando' : 'Crear Trabajo'),
-                          color: Colors.green,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
+                        ),),
+                         SizedBox(height: 10.0),
+                        ////// Time Picker Dialog.
+                      SizedBox(
+                        width: double.infinity,
+                        child: new RaisedButton(
+                          color: Colors.white.withOpacity(0.1),
+                          textColor: Colors.white,
+                          padding: const EdgeInsets.all(20.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)
+                          ),
+                          child: Text('Seleccione hora de finalizacion del anuncio'),
+                          onPressed: () {
+                            DateTime now = DateTime.now();
+                            showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+                            ).then<String>((TimeOfDay value) {
+                              if (value != null) {
+                              horaSeleccionada=value;
+                              }
+                            });
+                          },
+                        ),),
+                        SizedBox(height: 20.0),
+                        SizedBox(
+                        width: double.infinity,
+                        child: new RaisedButton(
+                          child: new Text(_cargando ? 'Creando'.toUpperCase() : 'Crear anuncio'.toUpperCase()),
+                          color: Colors.white,
+                          textColor: Colors.lightGreen,
+                          padding: const EdgeInsets.all(20.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            if(_formkey.currentState.validate()){
-                                _cargando ? null : _crear(); 
-                              
+                            _cargando ? null : _crear(); 
                             } 
-                          },
-                        ),
-                        new RaisedButton(
-                          child: new Text("    Borrar    "),
-                          color: Colors.green,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
+                        ),),
+                         SizedBox(height: 10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                          FlatButton(
+                            textColor: Colors.white,
+                            child: Text("borrar".toUpperCase()),
+                            onPressed: (){
+                              Navigator.pushReplacementNamed(context,"/crearTrabajo");
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context,"/creartrabajo");
-                          },
-                        ),
+                        ],),
+                        SizedBox(height: 10.0),
                       ],
                     ),
                   ]),
-    )));
+    ),),);
         
 
   }
 
-  Widget _addSecondDropdown() {
+ Widget _addSecondDropdown() {
               
         return Container(
-          width: MediaQuery.of(context).size.width/1.2,
-                    height: 50,
-                    margin: EdgeInsets.only(
-                      top: 32,
-                    ),
-                    padding: EdgeInsets.only(
-                      top: 4, left: 16,right: 16,bottom: 4
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      color: Colors.grey,
-                      boxShadow: [BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                      )]
-                    ),
           child: ListTile(
-                          leading: const Icon(Icons.map, color: Colors.black,),
                           title: _dropdownValueProvincia != null
-          ? DropdownButton<String>(
+          ? DropdownButtonFormField(
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.map, color: Colors.lightGreen,),),
+                                 hintText: "Seleccione una provincia",
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.1),
+                            ),
               value: _dropdownValueLocalidad,
-              isExpanded: true,
-              hint:Text("Seleccione una localidad.."),
               items: listarLocalidadM.values
                                 .map((value) =>DropdownMenuItem<String>(
                                     value: value,
@@ -564,7 +620,7 @@ Future getImageCamera() async{
         "horaSeleccionada": horaSeleccionada.toString(),
         "diaSeleccionado":diaSeleccionado.toString(),
         "nombreImagen":nombreImagen,
-      "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
+        "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
       var res = await CallApi().postData(data, 'storeTrabajo');

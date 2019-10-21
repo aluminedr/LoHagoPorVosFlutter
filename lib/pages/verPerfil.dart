@@ -210,7 +210,11 @@ class VerPerfilPage extends StatefulWidget{
   }
 }
 
-class UserInfo extends StatelessWidget {
+class UserInfo extends StatefulWidget {
+  State<StatefulWidget> createState() => _UserInfoState();
+  }
+
+  class _UserInfoState extends State<UserInfo>{
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -335,7 +339,7 @@ class UserInfo extends StatelessWidget {
       ),
     );
   }
-}
+
 
   void _actualizar(nuevoValor,columna) async {
     if (nuevoValor != null && nuevoValor!=''){
@@ -345,7 +349,9 @@ class UserInfo extends StatelessWidget {
           'idPersona' : idPersona,
           columna : nuevoValor,
       };
+      setState((){
 
+      });
       var res = await CallApi().postData(data, 'actualizarPerfil');
       var body = json.decode(res.body);
 
@@ -656,6 +662,8 @@ showAlertDialogClave(BuildContext context,valor,subTitulo,columna) {
       return alert;
     },
   );
+
+}
 
 
 }

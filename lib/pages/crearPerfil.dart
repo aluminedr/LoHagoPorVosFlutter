@@ -569,27 +569,31 @@ _showCategoriasDialog() {
                             _cargando ? null : _crearPerfil(); 
                             } 
                         ),),
-                        new RaisedButton(
-                          child: new Text("    Borrar    "),
-                          color: Colors.green,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
-                          ),
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context,"/crearperfil");
-                          },
-                        ),
+                        Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              FlatButton(
+                textColor: Colors.white,
+                child: Text("borrar".toUpperCase()),
+                onPressed: (){
+                  Navigator.pushReplacementNamed(context,"/crearPerfil");
+                },
+              ),
+              Container(
+                color: Colors.white54,
+                width: 2.0,
+                height: 20.0,
+              ),
+              FlatButton(
+                textColor: Colors.white,
+                child: Text("cerrar sesion".toUpperCase()),
+                onPressed: (){
+                  logout();
+                },
+              ),
 
-                        new RaisedButton(
-                          child: new Text("    Cerrar sesion    "),
-                          color: Colors.green,
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)
-                          ),
-                          onPressed: () {
-                            logout();
-                          },
-                        ),
+            ],),
                         
                       ],
                     )
