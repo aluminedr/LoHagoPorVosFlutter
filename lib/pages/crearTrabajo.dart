@@ -41,7 +41,7 @@ class CrearTrabajoPage extends StatefulWidget{
   List listaCategorias;
   Future<Null> listarCategorias() async {
 
-    final response = await CallApi().listarCategorias('listarCategorias');
+    final response = await CallApi().getData('listarCategorias');
     var respuestaCategorias = json.decode(response.body);
    // print(respuestaCategorias);
     listaCategorias = respuestaCategorias;
@@ -69,7 +69,7 @@ class CrearTrabajoPage extends StatefulWidget{
   List listaProvincias;
   Future<Null> listarProvincias() async {
 
-    final response = await CallApi().listarProvincias('listarProvincias');
+    final response = await CallApi().getData('listarProvincias');
     setState(() {
       listaProvincias = json.decode(response.body);
     });
@@ -99,7 +99,7 @@ class CrearTrabajoPage extends StatefulWidget{
       var data ={
         "idProvincia":idProvincia
       };
-    var response = await CallApi().listarLocalidades(data,'listarLocalidades');    
+    var response = await CallApi().postData(data,'listarLocalidades');    
     setState(() {
       listaLocalidades = json.decode(response.body); // decode
     });

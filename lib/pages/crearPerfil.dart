@@ -11,51 +11,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
-class ProbarPage extends StatefulWidget{
-  @override
-  State<StatefulWidget> createState() => _ProbarPageState();
-  
-  
-  }
-  
-  class _ProbarPageState extends State<ProbarPage> {
 
-
-  //funcion que trae el listado de trabajos en formato json para luego decodificarlo
-  Future<List> getListaTrabajos() async {
-    
-    var res = await CallApi().listarTrabajos('listarTrabajos');
-    var listaTrabajos = json.decode(res.body);
-    return listaTrabajos;
-
-  }
-  
-
-  @override
-  Widget build(BuildContext context) {
-    var listaTrabajos =getListaTrabajos();
-    return new Scaffold(
-      
-      /*floatingActionButton: new FloatingActionButton(
-        child: new Icon(Icons.add),
-        onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-              builder: (BuildContext context) => new AddData(),
-            )),
-      ),*/
-      body: new FutureBuilder<List>(
-        future: listaTrabajos,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          return new CrearPerfilPage(
-                  list: snapshot.data,
-                );
-        }),     
-    );
-  }
-}
 class CrearPerfilPage extends StatefulWidget{
   final List list;
-  CrearPerfilPage({Key key,this.list}) : super(key: key);
+  final List listaHabilidades;
+  CrearPerfilPage({Key key,this.list, this.listaHabilidades}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _CrearPerfilPageState();
   }
@@ -94,7 +54,7 @@ class CrearPerfilPage extends StatefulWidget{
   List listaProvincias;
   Future<Null> listarProvincias() async {
 
-    final response = await CallApi().listarProvincias('listarProvincias');
+    final response = await CallApi().getData('listarProvincias');
     setState(() {
       listaProvincias = json.decode(response.body);
     });
@@ -124,7 +84,7 @@ class CrearPerfilPage extends StatefulWidget{
       var data ={
         "idProvincia":idProvincia
       };
-    var response = await CallApi().listarLocalidades(data,'listarLocalidades');    
+    var response = await CallApi().postData(data,'listarLocalidades');    
     setState(() {
       listaLocalidades = json.decode(response.body); // decode
     });
@@ -232,24 +192,15 @@ Future getImageCamera() async{
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
    }
-      List _selecteCategorys= List();
-      void onCategorySelected(bool selected, idTrabajo) {
-          if (selected == true) {
-            setState(() {
-              _selecteCategorys.add(idTrabajo);
-            });
-          } else {
-            setState(() {
-              _selecteCategorys.remove(idTrabajo);
-            });
-          }
-        }
+List _habilidadesSeleccionadas= List();
+      
 _showHabilidadesDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           //print(_selecteCategorys);
-          List list=widget.list;
+          List listaHabilidades=widget.listaHabilidades;
+          //print(listaHabilidades);
           //print(list);
           //Here we will build the content of the dialog
           return AlertDialog(
@@ -266,17 +217,68 @@ _showHabilidadesDialog() {
               height: 300.0, // Change as per your requirement
               width: 300.0,
               child: new ListView.builder(
+              itemCount: listaHabilidades == null ? 0 : listaHabilidades.length,
+              itemBuilder: (context, i) {
+                        return CheckboxListTile(
+                              value: _habilidadesSeleccionadas.contains(listaHabilidades[i]['idHabilidad']),
+                              onChanged: (bool selected) {
+                                if (selected == true) {
+            setState(() {
+              _habilidadesSeleccionadas.add(listaHabilidades[i]['idHabilidad']);
+            });
+          } else {
+            setState(() {
+              _habilidadesSeleccionadas.remove(listaHabilidades[i]['idHabilidad']);
+            });
+          }
+                              },
+                              title: Text(listaHabilidades[i]['nombreHabilidad']),
+                    );
+                  }),);}
+            
+          ),);
+        });
+  }
+  List _categoriasSelccionadas= List();
+      
+_showCategoriasDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          //print(_selecteCategorys);
+          List list=widget.list;
+          //print(list);
+          //Here we will build the content of the dialog
+          return AlertDialog(
+            title: Text("Categorias"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Seleccionar categorias"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+            content:StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) { 
+              return Container(
+              height: 300.0, // Change as per your requirement
+              width: 300.0,
+              child: new ListView.builder(
               itemCount: list == null ? 0 : list.length,
               itemBuilder: (context, i) {
                         return CheckboxListTile(
-                              value: _selecteCategorys.contains(list[i]['idTrabajo']),
+                              value: _categoriasSelccionadas.contains(list[i]['idCategoriaTrabajo']),
                               onChanged: (bool selected) {
-                                onCategorySelected(
-                                  selected,
-                                  list[i]['idTrabajo']
-                                );
+                                if (selected == true) {
+            setState(() {
+              _categoriasSelccionadas.add(list[i]['idCategoriaTrabajo']);
+            });
+          } else {
+            setState(() {
+              _categoriasSelccionadas.remove(list[i]['idCategoriaTrabajo']);
+            });
+          }
                               },
-                              title: Text(list[i]['titulo']),
+                              title: Text(list[i]['nombreCategoriaTrabajo']),
                     );
                   }),);}
             
@@ -541,6 +543,15 @@ _showHabilidadesDialog() {
                               },
                           ),
                       ),
+                      SizedBox(height: 10.0),
+                       Center(
+                          child: RaisedButton(
+                              child: Text("Seleccione al menos 3 habilidades"),
+                              onPressed: () {
+                                _showCategoriasDialog();
+                              },
+                          ),
+                      ),
                         Padding(padding: EdgeInsets.only(top: .0),
 
                         ),
@@ -681,6 +692,8 @@ _showHabilidadesDialog() {
       "telefonoPersona":telefonoPersonaController.text,
       "imagenPersona":imagenPersona,
       "nombreImagen":nombreImagen,
+      "habilidades":_habilidadesSeleccionadas,
+      "preferenciaPersona":_categoriasSelccionadas,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
 
