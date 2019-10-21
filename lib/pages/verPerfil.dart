@@ -103,20 +103,28 @@ class VerPerfilPage extends StatefulWidget{
                 children: <Widget>[
                   Container(
                     width: double.infinity,
-                    height: 330,
+                    height: 265,
                     color: Colors.lightGreen,
                   ),
                   
                   Column(
                     children: <Widget>[
                       Container(
-                        height: 90,
-                        margin: EdgeInsets.only(top: 60),
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                          //child: PNetworkImage(rocket),
-                        )
+                        margin: EdgeInsets.only(top: 30),
+                        child: Container(
+                  width: 100,
+                  height: 100,
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 3),
+                    image: DecorationImage(
+                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/'+imagenPersona),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+                        
+        
                       ),
                       Padding(
                         padding: EdgeInsets.all(4),
@@ -141,7 +149,7 @@ class VerPerfilPage extends StatefulWidget{
                         textAlign: TextAlign.center,
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 77),
+                        margin: EdgeInsets.only(top: 30),
                         padding: EdgeInsets.all(10),
                         child: Card(
                           child: Row(
@@ -249,7 +257,7 @@ class UserInfo extends StatefulWidget {
                           textColor: Colors.black,
                           child: ListTile(
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                  EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                   leading: Icon(Icons.person),
                                   title: Text("NOMBRE"),
                                   subtitle: Text("$nombrePersona"),
