@@ -21,7 +21,6 @@ class VerCategoriasPage extends StatefulWidget{
     
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.green,
         title: new Text("Categorias"),
       ),
       /*floatingActionButton: new FloatingActionButton(

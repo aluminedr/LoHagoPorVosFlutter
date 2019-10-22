@@ -41,7 +41,6 @@ class _WebViewContainerState extends State<WebViewContainer> {
     return new WebviewScaffold(
           url:_url,
           appBar: new AppBar(
-            backgroundColor: Colors.green,
             title: new Text("Pago"),
           ),
           withLocalStorage: true,
