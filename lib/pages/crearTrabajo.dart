@@ -220,8 +220,8 @@ Future getImageCamera() async{
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.lightGreen,
-              Colors.green
+              Colors.white60,
+              Colors.white
             ]
           )
         ),
@@ -239,7 +239,7 @@ Future getImageCamera() async{
                           ),
                         ),
                         Text("Lo hago por vos".toUpperCase(), style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.green,
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold
                         ),),
@@ -283,7 +283,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -291,15 +291,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.text_fields, color: Colors.lightGreen,)),
+                                child: Icon(Icons.text_fields, color: Colors.white60,)),
                               hintText: "Ingrese un titulo",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
                             
                           ),
@@ -316,7 +316,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -324,15 +324,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.text_fields, color: Colors.lightGreen,)),
+                                child: Icon(Icons.text_fields, color: Colors.white60,)),
                               hintText: "Ingrese una descripcion",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
                             
                           ),
@@ -349,7 +349,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -357,15 +357,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.monetization_on, color: Colors.lightGreen,)),
+                                child: Icon(Icons.monetization_on, color: Colors.white60,)),
                               hintText: "Ingrese un monto",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
                             
                           ),
@@ -380,7 +380,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -388,15 +388,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.list, color: Colors.lightGreen,),),
+                                child: Icon(Icons.list, color: Colors.white60,),),
                                  hintText: "Seleccione una categoria",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
                             value: _dropdownValueCategoria,
                             onChanged: (String newValue) {
@@ -424,7 +424,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -432,15 +432,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.map, color: Colors.lightGreen,),),
+                                child: Icon(Icons.map, color: Colors.white60,),),
                                  hintText: "Seleccione una provincia",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
                             value: _dropdownValueProvincia,
                             onChanged: (String newValue) {
@@ -468,8 +468,8 @@ Future getImageCamera() async{
                         width: double.infinity,
                         child: new RaisedButton(
                           child: Text('Seleccione dia de finalizacion del anuncio'),
-                          color: Colors.white.withOpacity(0.1),
-                          textColor: Colors.white,
+                          color: Colors.green.withOpacity(0.1),
+                          textColor: Colors.green,
                           padding: const EdgeInsets.all(20.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)
@@ -492,8 +492,8 @@ Future getImageCamera() async{
                       SizedBox(
                         width: double.infinity,
                         child: new RaisedButton(
-                          color: Colors.white.withOpacity(0.1),
-                          textColor: Colors.white,
+                          color: Colors.green.withOpacity(0.1),
+                          textColor: Colors.green,
                           padding: const EdgeInsets.all(20.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)
@@ -516,8 +516,8 @@ Future getImageCamera() async{
                         width: double.infinity,
                         child: new RaisedButton(
                           child: new Text(_cargando ? 'Creando'.toUpperCase() : 'Crear anuncio'.toUpperCase()),
-                          color: Colors.white,
-                          textColor: Colors.lightGreen,
+                          color: Colors.green,
+                          textColor: Colors.white60,
                           padding: const EdgeInsets.all(20.0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)
@@ -531,7 +531,7 @@ Future getImageCamera() async{
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                           FlatButton(
-                            textColor: Colors.white,
+                            textColor: Colors.green,
                             child: Text("borrar".toUpperCase()),
                             onPressed: (){
                               Navigator.pushReplacementNamed(context,"/crearTrabajo");
@@ -559,7 +559,7 @@ Future getImageCamera() async{
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                                 margin: const EdgeInsets.only(right: 8.0),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Colors.green,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30.0),
                                     bottomLeft: Radius.circular(30.0),
@@ -567,15 +567,15 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.map, color: Colors.lightGreen,),),
+                                child: Icon(Icons.map, color: Colors.white60,),),
                                  hintText: "Seleccione una provincia",
-                              hintStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide.none
                               ),
                               filled: true,
-                              fillColor: Colors.white.withOpacity(0.1),
+                              fillColor: Colors.green.withOpacity(0.1),
                             ),
               value: _dropdownValueLocalidad,
               items: listarLocalidadM.values
