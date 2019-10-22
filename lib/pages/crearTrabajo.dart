@@ -208,7 +208,6 @@ Future getImageCamera() async{
     return Scaffold(
        key:_scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: new Text("Publicar un trabajo"),
       ),
       resizeToAvoidBottomPadding: false,
