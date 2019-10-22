@@ -168,7 +168,7 @@ class ItemList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(width: 3, color: secondary),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/trabajos/'+list[i]['imagenTrabajo']),
+                        image: AssetImage('assets/images/LoHagoPorVosLogo.png'),
                         fit: BoxFit.fill),
                   ),
                 ),

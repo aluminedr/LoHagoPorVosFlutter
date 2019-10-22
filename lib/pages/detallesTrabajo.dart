@@ -20,12 +20,15 @@ class DetallesTrabajosPage extends StatefulWidget{
 }
 
 class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
+  final _history = [];
   final flutterWebViewPlugin = FlutterWebviewPlugin();
+  StreamSubscription<String> _onUrlChanged;
+
 
   String titulo;
   String descripcion;
   int monto;
-  String imagenTrabajo;
+  String imagen;
   int idPersonaTrabajo;
   int idPersonaLogeada;
 
@@ -43,15 +46,21 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
         titulo= trabajoDetalle['titulo'];
         descripcion= trabajoDetalle['descripcion'];
         monto= trabajoDetalle['monto'];
-        imagenTrabajo= trabajoDetalle['imagenTrabajo'];
-        print(imagenTrabajo);
+        imagen= trabajoDetalle['imagen'];
         idPersonaTrabajo= trabajoDetalle['idPersona'];
       }); 
   }
   
    void initState(){
     _getDetalles();
-    super.initState();  
+    super.initState();
+    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((String url) {
+      if (mounted) {
+        setState(() {
+          _history.add('onUrlChanged: $url');
+        });
+      }
+    });
   }
   
    
@@ -64,7 +73,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
               color: Colors.black26
             ),
             height: 400,
-            child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/'+imagenTrabajo, fit: BoxFit.cover)),
+            child: Text("$imagen")),//Image.asset(imagen, fit: BoxFit.cover)),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
             child: Column(
