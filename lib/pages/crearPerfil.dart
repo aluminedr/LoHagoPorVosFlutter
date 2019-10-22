@@ -290,7 +290,6 @@ _showCategoriasDialog() {
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.green,
         title: new Text("Perfil"),
       ),
       resizeToAvoidBottomPadding: false,
