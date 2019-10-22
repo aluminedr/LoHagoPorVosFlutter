@@ -8,9 +8,35 @@ MERGED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/main/AndroidMa
 MERGED from [:shared_preferences] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/shared_preferences/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-22:12
 MERGED from [:path_provider] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-21:12
+MERGED from [:webview_flutter] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/webview_flutter/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.appcompat:appcompat:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/805942e47c79899c5aca99ed0256c6d7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.webkit:webkit:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/webkit-1.0.0.aar/a1a0e9f57783bc5a12d2ad5b99c041cf/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/acf150ee74260565153ed2622524a9fd/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/2232dccb6675c20c848a1b54be866d9c/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/3de3d475cc5e8b5477a3b4e9d6fa64b7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/515a76462c9ca9d5dd29eae112221cdf/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.0.aar/089000c66144c6366e523a291c5483e6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/c30866af4908cfa628d84dbe002dfd8b/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/8ed5c261f413a321fddecb5489527314/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/4fa101399acb0c25c0cc18450d162d7d/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/4e1ed89276a98d13d755504a384581dc/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/c2d95db8d6f9772418c77f9c9458579c/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/277995b8881cf690fddc2146f79c10d4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/293bba1622d8737ba032b85e402d2c56/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/33bd40aded014da0093328c68235a593/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.0.2] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/c585b1980a396fc5fa5bfcf2a0eb77ca/AndroidManifest.xml:17:1-25:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/55b4f6dbb93365bf4adee91813a294fe/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/4c598dce77d736eeb850e870d19339cf/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/0e5e128d740690001c9e601e9dadc289/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/739ea57c12f9b85b7bc9d6a7e514ff4f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/f2d0e519db50f310f2b8f56c9fb44827/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/7a3625c0643d302c3acae34c0e5fc348/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/a4192753f535a261b1542f22df181512/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/9d6988106993c5dbd05181430ff19ca7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/ee4112fc9d034ec4a895d895257ec9a9/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/45ee7659f88753a2b14e2f0e667cc760/AndroidManifest.xml:17:1-22:12
 INJECTED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
 INJECTED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/debug/AndroidManifest.xml:1:1-7:12
@@ -32,6 +58,8 @@ application
 ADDED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/main/AndroidManifest.xml:9:5-32:19
 MERGED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:10:5-20:19
 MERGED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:10:5-20:19
+MERGED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-19:19
+MERGED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:8:5-19:19
 MERGED from [androidx.core:core:1.0.2] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/AndroidManifest.xml:22:5-89
 MERGED from [androidx.core:core:1.0.2] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/AndroidManifest.xml:22:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/c585b1980a396fc5fa5bfcf2a0eb77ca/AndroidManifest.xml:22:5-23:19
@@ -84,12 +112,64 @@ MERGED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_pi
 MERGED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:6:5-44
+MERGED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:6:5-44
+MERGED from [:webview_flutter] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/webview_flutter/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/webview_flutter/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/805942e47c79899c5aca99ed0256c6d7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/805942e47c79899c5aca99ed0256c6d7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/webkit-1.0.0.aar/a1a0e9f57783bc5a12d2ad5b99c041cf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/webkit-1.0.0.aar/a1a0e9f57783bc5a12d2ad5b99c041cf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/acf150ee74260565153ed2622524a9fd/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/acf150ee74260565153ed2622524a9fd/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/2232dccb6675c20c848a1b54be866d9c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/2232dccb6675c20c848a1b54be866d9c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/3de3d475cc5e8b5477a3b4e9d6fa64b7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/3de3d475cc5e8b5477a3b4e9d6fa64b7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/515a76462c9ca9d5dd29eae112221cdf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/515a76462c9ca9d5dd29eae112221cdf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.0.aar/089000c66144c6366e523a291c5483e6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.0.aar/089000c66144c6366e523a291c5483e6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/c30866af4908cfa628d84dbe002dfd8b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/c30866af4908cfa628d84dbe002dfd8b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/8ed5c261f413a321fddecb5489527314/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/8ed5c261f413a321fddecb5489527314/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/4fa101399acb0c25c0cc18450d162d7d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/4fa101399acb0c25c0cc18450d162d7d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/4e1ed89276a98d13d755504a384581dc/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/4e1ed89276a98d13d755504a384581dc/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/c2d95db8d6f9772418c77f9c9458579c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/c2d95db8d6f9772418c77f9c9458579c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/277995b8881cf690fddc2146f79c10d4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/277995b8881cf690fddc2146f79c10d4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/293bba1622d8737ba032b85e402d2c56/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/293bba1622d8737ba032b85e402d2c56/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/33bd40aded014da0093328c68235a593/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/33bd40aded014da0093328c68235a593/AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.0.2] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.0.2] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/c585b1980a396fc5fa5bfcf2a0eb77ca/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/c585b1980a396fc5fa5bfcf2a0eb77ca/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/55b4f6dbb93365bf4adee91813a294fe/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/55b4f6dbb93365bf4adee91813a294fe/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/4c598dce77d736eeb850e870d19339cf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/4c598dce77d736eeb850e870d19339cf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/0e5e128d740690001c9e601e9dadc289/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/0e5e128d740690001c9e601e9dadc289/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/739ea57c12f9b85b7bc9d6a7e514ff4f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/739ea57c12f9b85b7bc9d6a7e514ff4f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/f2d0e519db50f310f2b8f56c9fb44827/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/f2d0e519db50f310f2b8f56c9fb44827/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/7a3625c0643d302c3acae34c0e5fc348/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/7a3625c0643d302c3acae34c0e5fc348/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/a4192753f535a261b1542f22df181512/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/a4192753f535a261b1542f22df181512/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/9d6988106993c5dbd05181430ff19ca7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/9d6988106993c5dbd05181430ff19ca7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/ee4112fc9d034ec4a895d895257ec9a9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/ee4112fc9d034ec4a895d895257ec9a9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/45ee7659f88753a2b14e2f0e667cc760/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alewachu/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/45ee7659f88753a2b14e2f0e667cc760/AndroidManifest.xml:20:5-44
 INJECTED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/debug/AndroidManifest.xml
 INJECTED from /opt/lampp/htdocs/LoHagoPorVosFlutter/android/app/src/debug/AndroidManifest.xml
 	android:targetSdkVersion
@@ -126,3 +206,15 @@ ADDED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_pic
 		ADDED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:18:17-72
 	android:name
 		ADDED from [:image_picker] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/image_picker/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:17:17-67
+provider#androidx.core.content.FileProvider
+ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:9:9-18:20
+	android:grantUriPermissions
+		ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:13:13-47
+	android:authorities
+		ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:11:13-64
+	android:exported
+		ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:12:13-37
+	tools:replace
+		ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:14:13-48
+	android:name
+		ADDED from [:flutter_webview_plugin] /opt/lampp/htdocs/LoHagoPorVosFlutter/build/flutter_webview_plugin/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:10:13-62

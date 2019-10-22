@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Oct 15 17:27:28 ART 2019
+#Sat Oct 19 00:01:43 ART 2019
 4.path=flutter_assets/kernel_blob.bin
 8.set=ASSET
 6.path=flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
