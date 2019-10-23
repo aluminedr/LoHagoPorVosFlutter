@@ -11,27 +11,21 @@ class WebViewContainer extends StatefulWidget {
 }
 class _WebViewContainerState extends State<WebViewContainer> {
   var _url;
-  //final _key = UniqueKey(); 
   _WebViewContainerState(this._url); 
    void initState() {
         super.initState();
         final fWPlugin = new FlutterWebviewPlugin();
         fWPlugin.onDestroy.listen((_) => exit(0));
-        fWPlugin.onUrlChanged.listen((String url) {
-          print("URL: " + url);
-          if (url.contains('localhost')){
-            fWPlugin.stopLoading();      
+        fWPlugin.onUrlChanged.listen((String url) { // Cada vez que se produce un cambio en la url
+          if (url.contains('localhost')){ // si la url contiene la palabra localhost, debemos cambiarla por la ipv4
+            fWPlugin.stopLoading();    // Pausamos por un momento la carga
             String ipv4;
             String urlIPV4;
-            ipv4="http://192.168.1.36/";
-            var urlSinLocalHost=(url.split("http://localhost/").last);
-            urlIPV4= ipv4+urlSinLocalHost;
-            //print(urlIPV4);
-            fWPlugin.reloadUrl(urlIPV4);
-          } else {
-            print("no contiene");
-          }
-
+            ipv4="http://10.10.10.113/"; // Definimos la ipv4
+            var urlSinLocalHost=(url.split("http://localhost/").last); // Eliminamos 'localhost' de la url
+            urlIPV4= ipv4+urlSinLocalHost; // Seteamos la ipv4 + resto de la url
+            fWPlugin.reloadUrl(urlIPV4); // Cargamos la nueva url
+          } 
         });
       }
 
