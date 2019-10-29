@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/app/ovalRightClipper.dart';
 import 'package:flutter_app/main.dart';
-import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
+import 'package:flutter_app/pages/verHistorial.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
-import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuLateral extends StatefulWidget {
@@ -85,27 +84,30 @@ class MenuLateral extends StatefulWidget {
                   _buildDivider(),
                   _buildRow(Icons.list, "Categorias",VerCategoriasPage()),
                   _buildDivider(),
-                  _buildRow(Icons.format_list_bulleted, "Historial",VerCategoriasPage()),
+                  _buildRow(Icons.format_list_bulleted, "Historial",HistorialTrabajosPage()),
                   _buildDivider(),
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(children: [
-                      IconButton(
-                        icon: Icon(
-                                      Icons.settings_power,
-                                      color: active,
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child:new GestureDetector(
+                            onTap: () => 
+                              logout(),
+                                child: Row(children: [
+                                  IconButton(
+                                    icon: Icon(
+                                                  Icons.settings_power,
+                                                  color: active,
+                                                ),
+                                                onPressed: () {
+                                                  logout();
+                                      },
                                     ),
-                                    onPressed: () {
-                                      logout();
-                                    },
-                                  ),
-                      SizedBox(width: 10.0),
-                      Text(
-                        "Cerrar sesion",
-                        style: tStyle,
-                      ),
-                    ]),
-                  ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          'Cerrar sesion',
+                          style: tStyle,
+                        ),
+                      ]),
+                )),
                   _buildDivider(),
                 ],
               ),

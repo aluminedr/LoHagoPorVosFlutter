@@ -12,15 +12,15 @@ import 'webViewContainer.dart';
 
 
 
-class DetallesTrabajosPage extends StatefulWidget{
+class DetallesHistorialPage extends StatefulWidget{
   final index;
-  DetallesTrabajosPage({Key key, this.index}) : super(key: key);
+  DetallesHistorialPage({Key key, this.index}) : super(key: key);
 
   @override
-  _DetallesTrabajosPageState createState() => _DetallesTrabajosPageState();
+  _DetallesHistorialPageState createState() => _DetallesHistorialPageState();
 }
 
-class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
+class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   final flutterWebViewPlugin = FlutterWebviewPlugin();
   String titulo;
   String descripcion;
@@ -131,8 +131,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           color: Colors.purple,
                           textColor: Colors.white,
-                          child:Text(
-                            "Postularme".toUpperCase(), style: TextStyle(
+                          child:Text((idPersonaTrabajo == idPersonaLogeada) ? "Pagar".toUpperCase():"Postularme".toUpperCase(), style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
                           padding: const EdgeInsets.symmetric(
@@ -140,7 +139,8 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                             postularse();
+                           
+                            (idPersonaTrabajo == idPersonaLogeada) ? enviarDatos() : postularse();
                           },
                         ),
                       ),
@@ -166,7 +166,20 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
       ),
     );
   }
+  Future enviarDatos() async {
+    var data = {
+        'idTrabajo' : widget.index,
+        'titulo' : titulo,
+        'monto' : monto,
+    };
 
+    var url = await CallApi().postData(data, 'datosMP');
+    var urlDecode=jsonDecode(url.body);
+    //print(urlDecode);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => WebViewContainer(urlDecode)));
+
+  }
   void postularse() async {
     var data = {
       "idTrabajo":widget.index,

@@ -76,6 +76,9 @@ class VerPerfilPage extends StatefulWidget{
         dniPersona = persona['persona']['dniPersona'];
         telefonoPersona = persona['persona']['telefonoPersona'];
         imagenPersona = persona['persona']['imagenPersona'];
+        if(imagenPersona==null){
+          imagenPersona='hola.jpg';
+        }
       });
     }
 
@@ -116,13 +119,13 @@ class VerPerfilPage extends StatefulWidget{
                   width: 100,
                   height: 100,
                   alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
+                  /*decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(width: 3),
                     image: DecorationImage(
                         image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/'+imagenPersona),
                         fit: BoxFit.fill),
-                  ),
+                  ),*/
                 ),
                         
         

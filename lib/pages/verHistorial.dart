@@ -1,30 +1,27 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/detallesTrabajo.dart';
+import 'package:flutter_app/pages/verDetalleHistorial.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class ListarTrabajosPage extends StatefulWidget{
+class HistorialTrabajosPage extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => _ListarTrabajosPageState();
+  State<StatefulWidget> createState() => _HistorialTrabajosPageState();
   
   
   }
   
-  class _ListarTrabajosPageState extends State<ListarTrabajosPage> with SingleTickerProviderStateMixin{
-  //funcion que trae el listado de trabajos en formato json para luego decodificarlo
-  Future<List> getListaTrabajos() async {
-    
-    var res = await CallApi().getData('listarTrabajos');
-    var listaTrabajos = json.decode(res.body);
-    return listaTrabajos;
+  class _HistorialTrabajosPageState extends State<HistorialTrabajosPage> with SingleTickerProviderStateMixin{
 
-  }
+  int idPersonaLogeada;
+  
   AnimationController _controller;
   Animation<double> _animation;
 
   @override
   void initState() {
+    getPersona();
     super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
@@ -49,7 +46,26 @@ class ListarTrabajosPage extends StatefulWidget{
     _controller.stop();
     super.dispose();
   }
+//busco el id de la persona que se encuentra logueada
+   void getPersona() async {
+   SharedPreferences localStorage = await SharedPreferences.getInstance();
+    idPersonaLogeada = localStorage.getInt('idPersona');
+    setState(() {
+      idPersonaLogeada=idPersonaLogeada;
+    });
+  }
+    //funcion que trae el listado de trabajos en formato json para luego decodificarlo
+  Future<List> getListaTrabajos() async {
+    var data = {
+      "idPersona": idPersonaLogeada,
+      "flutter":true,
+    };
+    var res = await CallApi().postData(data,'historialTrabajos');
+    var listaTrabajos = json.decode(res.body);
+    //print(listaTrabajos);
+      return listaTrabajos;
 
+  }
   void _handleTap() {
     setState(() {
       // valueAnimation.isAnimating is part of our build state
@@ -96,7 +112,10 @@ Widget _buildIndicators(BuildContext context, Widget child) {
               builder: (BuildContext context) => new AddData(),
             )),
       ),*/
-      
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: new Text("Anuncios publicados"),
+      ),
       body: new FutureBuilder<List>(
         future: listaTrabajos,
         builder: (context, snapshot) {
@@ -140,7 +159,7 @@ class ItemList extends StatelessWidget {
           child: new GestureDetector(
             onTap: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                      builder: (BuildContext context) => new DetallesTrabajosPage(
+                      builder: (BuildContext context) => new DetallesHistorialPage(
                             index: list[i]['idTrabajo'],
                             
                           )),
