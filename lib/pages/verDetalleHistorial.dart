@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_app/MercadoPago/enviarDatosMP.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/listaAspirantes.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'webViewContainer.dart';
@@ -28,6 +29,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   String imagenTrabajo;
   int idPersonaTrabajo;
   int idPersonaLogeada;
+  int idTrabajo;
 
   var urlDecode;
     void _getDetalles() async {
@@ -40,6 +42,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     idPersonaLogeada = localStorage.getInt('idPersona');
     setState(() {
+        idTrabajo= widget.index;
         titulo= trabajoDetalle['titulo'];
         descripcion= trabajoDetalle['descripcion'];
         monto= trabajoDetalle['monto'];
@@ -131,7 +134,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           color: Colors.purple,
                           textColor: Colors.white,
-                          child:Text((idPersonaTrabajo == idPersonaLogeada) ? "Pagar".toUpperCase():"Postularme".toUpperCase(), style: TextStyle(
+                          child:Text("ver postulantes".toUpperCase(), style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
                           padding: const EdgeInsets.symmetric(
@@ -139,8 +142,12 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                           
-                            (idPersonaTrabajo == idPersonaLogeada) ? enviarDatos() : postularse();
+                            Navigator.of(context).push(
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) => new ListaAspirantes(
+                                        index: idTrabajo, 
+                                      )),
+                            );
                           },
                         ),
                       ),

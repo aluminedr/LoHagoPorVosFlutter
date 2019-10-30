@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/app/drawer.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/contraOlvidada.dart';
-import 'package:flutter_app/pages/crearPerfil.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/detallesTrabajo.dart';
 import 'package:flutter_app/pages/listaHabilidades.dart';
