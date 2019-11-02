@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/verDetalleHistorial.dart';
 import 'package:flutter_app/pages/verHistorial.dart';
 
 
@@ -147,12 +146,15 @@ class ItemList extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     List list=widget.list;
-     final primary = Color(0xff696b9e);
-  final secondary = Color(0xfff29a94);
+    final primary = Color(0xff696b9e);
+    final secondary = Color(0xfff29a94);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        var localidad= list[i][0]['idLocalidad'];
+        var localidad= list[i][0]['idLocalidad'][0]['nombreLocalidad']; //busque y traje obj localidad dentro de idLocalidad por eso se accede con [idLocalidad][0]
+        var habilidad1= list[i][0]['habilidades'][0]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
+        var habilidad2= list[i][0]['habilidades'][1]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
+        var habilidad3= list[i][0]['habilidades'][2]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         return new Container(
           padding: const EdgeInsets.all(10.0),            
             child: new Card(
@@ -189,30 +191,85 @@ class ItemList extends StatefulWidget {
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Column( 
                     children: <Widget>[
-              new Text(
-                 '$localidad',
-                  style: TextStyle(
-                      color: primary, fontSize: 13, letterSpacing: .3)),
-               SizedBox(
-                  height: 8,
-                ),
-              new Row(
-                  children: <Widget>[                                                                                                                                 
-                    RaisedButton(
-                      child: new Text('Asignar trabajo'.toUpperCase()),
-                          color: Colors.green,
-                          textColor: Colors.white60,
-                          padding: const EdgeInsets.all(5.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)
+                      new Row(
+                        children: <Widget>[
+                          new Icon(Icons.my_location),
+                          SizedBox(
+                            width: 5,
                           ),
-                      onPressed: () {
-                      elegirAspirante(list[i][0]['idPersona'],widget.idTrabajo);
-                    },
-                    ),
-                  ],
-                ),
-                
+                          new Text(
+                              '$localidad',
+                                style: TextStyle(
+                                      color: primary, fontSize: 13, letterSpacing: .3)),
+                                    
+                            SizedBox(
+                                height: 8,
+                              ),
+                                    ],),
+                                    SizedBox(
+                                height: 8,
+                              ),
+                      new Row(
+                        children: <Widget>[
+                          new Text(
+                              'Habilidades:',
+                                style: TextStyle(
+                                      color: primary, fontSize: 13, letterSpacing: .3)),           
+                                    ],),
+                                    SizedBox(
+                            width: 5,
+                            height: 8,
+                          ),
+                      new Row(
+                        children: <Widget>[
+                          new Icon(Icons.keyboard_arrow_right),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          new Text(
+                              '$habilidad1',
+                                style: TextStyle(
+                                      color: primary, fontSize: 13, letterSpacing: .3)),           
+                                    ],),
+                        new Row(
+                        children: <Widget>[
+                          new Icon(Icons.keyboard_arrow_right),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          new Text(
+                              '$habilidad2',
+                                style: TextStyle(
+                                      color: primary, fontSize: 13, letterSpacing: .3)),    
+                                    ],),
+                                    new Row(
+                        children: <Widget>[
+                          new Icon(Icons.keyboard_arrow_right),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          new Text(
+                              '$habilidad3',
+                                style: TextStyle(
+                                      color: primary, fontSize: 13, letterSpacing: .3)),   
+                                    ],),
+                        new Row(
+                            children: <Widget>[                                                                                                                                 
+                              RaisedButton(
+                                child: new Text('Asignar trabajo'.toUpperCase()),
+                                    color: Colors.green,
+                                    textColor: Colors.white,
+                                    padding: const EdgeInsets.all(2.0),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0)
+                                    ),
+                                onPressed: () {
+                                elegirAspirante(list[i][0]['idPersona'],widget.idTrabajo);
+                              },
+                              ),
+                            ],
+                          ),
+                        
                     ],
               ),),),
             ),
