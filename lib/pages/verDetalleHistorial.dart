@@ -30,6 +30,8 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   int idPersonaTrabajo;
   int idPersonaLogeada;
   int idTrabajo;
+  bool asignado= false;
+  bool pagado=false;
 
   var urlDecode;
     void _getDetalles() async {
@@ -41,6 +43,24 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     var trabajoDetalle= trabajo[0];
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     idPersonaLogeada = localStorage.getInt('idPersona');
+    //Busco si el trabajo ya tiene asignado un postulante
+    var datosAsignado={
+      'idTrabajo': widget.index,
+    };
+    var resAsignado = await CallApi().postData(datosAsignado,'buscarTrabajoAsingado');
+    var trabajoAsignado = json.decode(resAsignado.body);
+    if(trabajoAsignado.length!=0){
+      asignado= true;
+    }
+    //Busco si el trabajo ya fue abonado
+    var datosPagado={
+      'idTrabajo': widget.index,
+    };
+    var resPagado = await CallApi().postData(datosPagado,'buscarPagoTrabajo');
+    var trabajoPagado = json.decode(resPagado.body);
+    if(trabajoPagado.length!=0){
+      pagado= true;
+    }
     setState(() {
         idTrabajo= widget.index;
         titulo= trabajoDetalle['titulo'];
@@ -51,6 +71,8 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
         if(imagenTrabajo==null){
           imagenTrabajo='hoja.jpg';
         }
+        asignado=asignado;
+        pagado=pagado;
       }); 
   }
   
@@ -134,7 +156,9 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                           color: Colors.purple,
                           textColor: Colors.white,
-                          child:Text("ver postulantes".toUpperCase(), style: TextStyle(
+                          child:Text(
+                            asignado ? "pagar".toUpperCase() : (asignado && pagado) ? "valorar".toUpperCase() : "ver postulantes".toUpperCase(),
+                             style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
                           padding: const EdgeInsets.symmetric(
@@ -142,6 +166,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
+                            asignado ? enviarDatos() : (asignado && pagado) ? "valorar".toUpperCase() : 
                             Navigator.of(context).push(
                               new MaterialPageRoute(
                                   builder: (BuildContext context) => new ListaAspirantes(

@@ -28,6 +28,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   String imagenTrabajo;
   int idPersonaTrabajo;
   int idPersonaLogeada;
+  bool postulado= false;
 
   var urlDecode;
     void _getDetalles() async {
@@ -39,6 +40,15 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
     var trabajoDetalle= trabajo[0];
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     idPersonaLogeada = localStorage.getInt('idPersona');
+    var datosAspirante={
+      'idTrabajo': widget.index,
+      'idPersona':idPersonaLogeada,
+    };
+    var resAspirante = await CallApi().postData(datosAspirante,'buscarAspiranteTrabajo');
+    var trabajoAspirante = json.decode(resAspirante.body);
+    if(trabajoAspirante.length!=0){
+      postulado= true;
+    }
     setState(() {
         titulo= trabajoDetalle['titulo'];
         descripcion= trabajoDetalle['descripcion'];
@@ -48,6 +58,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
         if(imagenTrabajo==null){
           imagenTrabajo='hoja.jpg';
         }
+        postulado= postulado;
       }); 
   }
   
@@ -132,7 +143,8 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            "Postularme".toUpperCase(), style: TextStyle(
+                            postulado ? "esperando asignación".toUpperCase() : "Postularme".toUpperCase(), 
+                            style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
                           padding: const EdgeInsets.symmetric(
@@ -140,7 +152,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                             postularse();
+                             postulado ? null : postularse();
                           },
                         ),
                       ),
