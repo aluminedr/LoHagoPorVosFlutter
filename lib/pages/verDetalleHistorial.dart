@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/listaAspirantes.dart';
+import 'package:flutter_app/pages/valorar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'webViewContainer.dart';
@@ -157,7 +158,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            asignado ? "pagar".toUpperCase() : (asignado && pagado) ? "valorar".toUpperCase() : "ver postulantes".toUpperCase(),
+                            (asignado && !pagado) ? "pagar".toUpperCase() : (asignado && pagado) ? "valorar".toUpperCase() : "ver postulantes".toUpperCase(),
                              style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
@@ -166,7 +167,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                            asignado ? enviarDatos() : (asignado && pagado) ? "valorar".toUpperCase() : 
+                            (asignado && !pagado) ? enviarDatos() : (asignado && pagado) ? valorar() : 
                             Navigator.of(context).push(
                               new MaterialPageRoute(
                                   builder: (BuildContext context) => new ListaAspirantes(
@@ -207,7 +208,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
 
     var url = await CallApi().postData(data, 'datosMP');
     var urlDecode=jsonDecode(url.body);
-    //print(urlDecode);
+    print(urlDecode);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => WebViewContainer(urlDecode)));
 
@@ -230,6 +231,11 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
       _mostrarMensaje(body['error']);
     }
     
+    
+  }
+  void valorar() async {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Valorar(widget.index,idPersonaLogeada)));
     
   }
 
