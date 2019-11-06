@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/pages/detallesTrabajo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ListarTrabajosPage extends StatefulWidget{
@@ -14,8 +15,15 @@ class ListarTrabajosPage extends StatefulWidget{
   class _ListarTrabajosPageState extends State<ListarTrabajosPage> with SingleTickerProviderStateMixin{
   //funcion que trae el listado de trabajos en formato json para luego decodificarlo
   Future<List> getListaTrabajos() async {
-    
-    var res = await CallApi().getData('listarTrabajos');
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    // Traiga solo los trabajos que no son de esa persona, no esten eliminados y esten 'esperando postulaciones'
+    var data = {
+        'eliminado' : 0, 
+        'idEstado' : 1,
+        'idPersonaDistinto' : localStorage.getInt('idPersona')
+    };
+
+    var res = await CallApi().postData(data,'listarTrabajos');
     var listaTrabajos = json.decode(res.body);
     return listaTrabajos;
 
