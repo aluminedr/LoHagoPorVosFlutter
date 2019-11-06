@@ -64,6 +64,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   
    void initState(){
     _getDetalles();
+    buscarComentarios();
     super.initState();  
   }
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -197,8 +198,17 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
       _mostrarMensaje(body['error']);
     }
     
-    
   }
+
+  void buscarComentarios() async{
+      var data = {
+      "idTrabajo":widget.index,
+      };
+
+    var res = await CallApi().postData(data, 'buscarComentarios');
+    var body = json.decode(res.body);
+    print(body);
+   }
 
 
 }

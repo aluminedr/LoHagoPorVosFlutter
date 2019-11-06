@@ -1,10 +1,29 @@
 {
     "logs": [
         {
-            "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
+            "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-1.0.0.aar\\1f4cb32ba82becec54023ca3632bfaa6\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\b06c82090ab6ba41f584cbbd2918a71e\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +35,29 @@
             ]
         },
         {
-            "outputFile": "/opt/lampp/htdocs/LoHagoPorVosFlutter/build/app/intermediates/res/merged/debug/values-v16/values-v16.xml",
+            "outputFile": "C:\\xampp\\htdocs\\LoHagoPorVosFlutter\\build\\app\\intermediates\\res\\merged\\debug\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "/home/alewachu/.gradle/caches/transforms-1/files-1.1/core-1.0.2.aar/896ad7e1731f74758071513f2ef19b93/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-1.0.0.aar\\1f4cb32ba82becec54023ca3632bfaa6\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\diego\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.0.2.aar\\b06c82090ab6ba41f584cbbd2918a71e\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
