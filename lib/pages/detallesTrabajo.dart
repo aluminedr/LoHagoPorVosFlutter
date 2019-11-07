@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_app/MercadoPago/enviarDatosMP.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/comentarios.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,7 +65,6 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   
    void initState(){
     _getDetalles();
-    buscarComentarios();
     super.initState();  
   }
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -84,7 +84,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
   Widget build(BuildContext context) {
       return Scaffold(
         key:_scaffoldKey,
-      body: Stack(
+      body:Stack(
         children: <Widget>[
           Container(
             foregroundDecoration: BoxDecoration(
@@ -92,88 +92,95 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
             ),
             height: 400,
             /*child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/'+imagenTrabajo, fit: BoxFit.cover)*/),
-          SingleChildScrollView(
+          ListView(
             padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 250),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:16.0),
-                  child: Text(
-                    "$titulo",
-                    style: TextStyle(color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.bold),
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 250),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:16.0),
+                    child: Text(
+                      "$titulo",
+                      style: TextStyle(color: Colors.black, fontSize: 28.0, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Row(
-                  children: <Widget>[
-                    const SizedBox(width: 16.0),
-                    Spacer(),
-                    IconButton(
-                      color: Colors.white,
-                      icon: Icon(Icons.favorite_border),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.all(32.0),
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
+                  Row(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Text("\$$monto", style: TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0
-                              ),),
-                            ],
-                          )
-                        ],
+                      const SizedBox(width: 16.0),
+                      Spacer(),
+                      IconButton(
+                        color: Colors.green,
+                        icon: Icon(Icons.comment),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));
+                        },
                       ),
-                      const SizedBox(height: 30.0),
-                      SizedBox(
-                        width: double.infinity,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                          color: Colors.purple,
-                          textColor: Colors.white,
-                          child:Text(
-                            postulado ? "esperando asignación".toUpperCase() : "Postularme".toUpperCase(), 
-                            style: TextStyle(
-                            fontWeight: FontWeight.normal
-                          ),),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16.0,
-                            horizontal: 32.0,
-                          ),
-                          onPressed: () {
-                             postulado ? null : postularse();
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 30.0),
-                      Text("Descripcion".toUpperCase(), style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14.0
-                      ),),
-                      const SizedBox(height: 10.0),
-                      Text(
-                          "$descripcion", textAlign: TextAlign.justify, style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14.0
-                          ),),
-                      const SizedBox(height: 10.0),
+                      Text('Comentarios'.toUpperCase()),
                     ],
                   ),
-                ),
-              ],
-            ),
+                  Container(
+                    padding: const EdgeInsets.all(32.0),
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Text("\$$monto", style: TextStyle(
+                                  color: Colors.purple,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0
+                                ),),
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 30.0),
+                        SizedBox(
+                          width: double.infinity,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                            color: Colors.purple,
+                            textColor: Colors.white,
+                            child:Text(
+                              postulado ? "esperando asignación".toUpperCase() : "Postularme".toUpperCase(), 
+                              style: TextStyle(
+                              fontWeight: FontWeight.normal
+                            ),),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 32.0,
+                            ),
+                            onPressed: () {
+                               postulado ? null : postularse();
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 30.0),
+                        Text("Descripcion".toUpperCase(), style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.0
+                        ),),
+                        const SizedBox(height: 10.0),
+                        Text(
+                            "$descripcion", textAlign: TextAlign.justify, style: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 14.0
+                            ),),
+                        const SizedBox(height: 10.0),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+                  //physics: ClampingScrollPhysics(), // todo comment this out and check the result
           ),
         ],
       ),
@@ -199,17 +206,6 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
     }
     
   }
-
-  void buscarComentarios() async{
-      var data = {
-      "idTrabajo":widget.index,
-      };
-
-    var res = await CallApi().postData(data, 'buscarComentarios');
-    var body = json.decode(res.body);
-    print(body);
-   }
-
 
 }
   
