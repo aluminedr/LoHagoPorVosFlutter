@@ -16,7 +16,8 @@ import 'webViewContainer.dart';
 
 class DetallesHistorialPage extends StatefulWidget{
   final index;
-  DetallesHistorialPage({Key key, this.index}) : super(key: key);
+  final idEstado;
+  DetallesHistorialPage({Key key, this.index, this.idEstado}) : super(key: key);
 
   @override
   _DetallesHistorialPageState createState() => _DetallesHistorialPageState();
@@ -33,6 +34,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   int idTrabajo;
   bool asignado= false;
   bool pagado=false;
+  bool valorado=false;
 
   var urlDecode;
     void _getDetalles() async {
@@ -62,6 +64,15 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     if(trabajoPagado.length!=0){
       pagado= true;
     }
+    //Busco si el trabajo ya fue valorado
+    var datosValorado={
+      'idTrabajo': widget.index,
+    };
+    var resValorado = await CallApi().postData(datosValorado,'buscarValoracionTrabajo');
+    var trabajoValorado = json.decode(resValorado.body);
+    if(trabajoValorado.length!=0){
+      valorado= true;
+    }
     setState(() {
         idTrabajo= widget.index;
         titulo= trabajoDetalle['titulo'];
@@ -74,6 +85,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
         }
         asignado=asignado;
         pagado=pagado;
+        valorado=valorado;
       }); 
   }
   
@@ -96,6 +108,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
    }
 
   Widget build(BuildContext context) {
+    int idEstado=widget.idEstado;
       return Scaffold(
         key:_scaffoldKey,
       body: Stack(
@@ -158,7 +171,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            (asignado && !pagado) ? "pagar".toUpperCase() : (asignado && pagado) ? "valorar".toUpperCase() : "ver postulantes".toUpperCase(),
+                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==4) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
                              style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
@@ -167,13 +180,13 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                            (asignado && !pagado) ? enviarDatos() : (asignado && pagado) ? valorar() : 
+                            (idEstado==2 && asignado && !pagado) ? enviarDatos() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ?  
                             Navigator.of(context).push(
                               new MaterialPageRoute(
                                   builder: (BuildContext context) => new ListaAspirantes(
                                         index: idTrabajo, 
                                       )),
-                            );
+                            ) : (idEstado==4) ? valorar() : "esperando postulaciones...".toUpperCase();
                           },
                         ),
                       ),
