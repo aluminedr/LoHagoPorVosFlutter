@@ -23,7 +23,7 @@ dependencies:
   shared_preferences: "^0.4.2"
   webview_flutter: "0.3.10+4"
   flutter_webview_plugin: "0.3.8"
-
+  smooth_star_rating: "1.0.3"
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -51,6 +51,8 @@ flutter:
         - assets/images/
         - ../LoHagoPorVosLaravel/public/storage/perfiles/
         - ../LoHagoPorVosLaravel/public/storage/trabajos/
+        - ../LoHagoPorVosLaravel/public/images/imagencategoria/
+        - ../LoHagoPorVosLaravel/public/images/imagenhabilidad/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
