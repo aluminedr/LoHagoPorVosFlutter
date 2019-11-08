@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HistorialTrabajosPage extends StatefulWidget{
+  final int idEstado;
+  HistorialTrabajosPage({this.idEstado});
+
   @override
   State<StatefulWidget> createState() => _HistorialTrabajosPageState();
   
@@ -58,6 +61,7 @@ class HistorialTrabajosPage extends StatefulWidget{
   Future<List> getListaTrabajos() async {
     var data = {
       "idPersona": idPersonaLogeada,
+      "idEstado":widget.idEstado,
       "flutter":true,
     };
     var res = await CallApi().postData(data,'historialTrabajos');
@@ -112,10 +116,6 @@ Widget _buildIndicators(BuildContext context, Widget child) {
               builder: (BuildContext context) => new AddData(),
             )),
       ),*/
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: new Text("Anuncios publicados"),
-      ),
       body: new FutureBuilder<List>(
         future: listaTrabajos,
         builder: (context, snapshot) {
@@ -123,6 +123,7 @@ Widget _buildIndicators(BuildContext context, Widget child) {
           return snapshot.hasData
               ? new ItemList(
                   list: snapshot.data,
+                  idEstado: widget.idEstado,
                 )
               : new Center(
                   child:Container(
@@ -139,12 +140,20 @@ Widget _buildIndicators(BuildContext context, Widget child) {
   }
 }
 
-class ItemList extends StatelessWidget {
+class ItemList extends StatefulWidget {
   final List list;
-  ItemList({this.list});
+  final int idEstado;
+  ItemList({this.list,this.idEstado});
+  State<StatefulWidget> createState() => _ItemListState();
 
+  }
+
+  class _ItemListState extends State<ItemList>{
+  
   @override
   Widget build(BuildContext context) {
+    List list= widget.list;
+    int idEstado= widget.idEstado;
      final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
     return new ListView.builder(
@@ -161,6 +170,7 @@ class ItemList extends StatelessWidget {
                   new MaterialPageRoute(
                       builder: (BuildContext context) => new DetallesHistorialPage(
                             index: list[i]['idTrabajo'],
+                            idEstado: widget.idEstado,
                             
                           )),
                 ),

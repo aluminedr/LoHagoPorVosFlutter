@@ -5,6 +5,8 @@ import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/app/ovalRightClipper.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
+import 'package:flutter_app/pages/misPostulaciones.dart';
+import 'package:flutter_app/pages/misTrabajos.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
 import 'package:flutter_app/pages/verHistorial.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
@@ -84,7 +86,9 @@ class MenuLateral extends StatefulWidget {
                   _buildDivider(),
                   _buildRow(Icons.list, "Categorias",VerCategoriasPage()),
                   _buildDivider(),
-                  _buildRow(Icons.format_list_bulleted, "Historial",HistorialTrabajosPage()),
+                  _buildRow(Icons.format_list_bulleted, "Mis anuncios",MisTrabajos()),
+                  _buildDivider(),
+                  _buildRow(Icons.format_list_bulleted, "Mis postulaciones",MisPostulaciones()),
                   _buildDivider(),
                   Container(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
