@@ -171,7 +171,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==4) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
+                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==4 && !valorado) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
                              style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
@@ -186,7 +186,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                                   builder: (BuildContext context) => new ListaAspirantes(
                                         index: idTrabajo, 
                                       )),
-                            ) : (idEstado==4) ? valorar() : "esperando postulaciones...".toUpperCase();
+                            ) : (idEstado==4 && !valorado) ? valorar() : "esperando postulaciones...".toUpperCase();
                           },
                         ),
                       ),
@@ -226,7 +226,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
         MaterialPageRoute(builder: (context) => WebViewContainer(urlDecode)));
 
   }
-  void postularse() async {
+  /*void postularse() async {
     var data = {
       "idTrabajo":widget.index,
       "idPersona":idPersonaLogeada,
@@ -245,7 +245,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     }
     
     
-  }
+  }*/
   void valorar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Valorar(widget.index,idPersonaLogeada)));

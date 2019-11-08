@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/misTrabajos.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart'; 
 import 'package:flutter_app/api/api.dart';
 import 'dart:convert';
@@ -50,7 +51,7 @@ class _ValorarState extends State<Valorar> {
 
  @override
  Widget build(BuildContext context) {
-    print(widget.idTrabajo);
+    //print(widget.idTrabajo);
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
@@ -89,7 +90,7 @@ class _ValorarState extends State<Valorar> {
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.email, color: Colors.lightGreen,)),
+                  child: Icon(Icons.add_comment, color: Colors.lightGreen,)),
                 hintText: "Si desea agregar un comentario",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
@@ -180,7 +181,7 @@ class _ValorarState extends State<Valorar> {
         Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => LoHagoPorVos()));
+            builder: (context) => MisTrabajos()));
       }else{
       _mostrarMensaje(body['error']);
       setState(() {
