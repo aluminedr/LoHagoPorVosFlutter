@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
+import 'package:flutter_app/pages/misTrabajos.dart';
 import 'package:flutter_app/pages/verHistorial.dart';
 
 
@@ -290,7 +291,7 @@ class ItemList extends StatefulWidget {
         Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => HistorialTrabajosPage()));
+            builder: (context) => MisTrabajos()));
       }
     }
 }
