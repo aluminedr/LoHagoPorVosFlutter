@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/trabajosRealizados.dart';
 
 class MisPostulaciones extends StatefulWidget {
   @override
@@ -42,9 +43,9 @@ class _MisPostulacionesState extends State<MisPostulaciones> with SingleTickerPr
       ),
       body: TabBarView(
         children: [
-          new Text("aspirante"),
-          new Text("asignado"),
-          new Text("terminado"),
+          new TrabajosRealizados(idEstado: 1),
+          new TrabajosRealizados(idEstado: 2),
+          new TrabajosRealizados(idEstado: 3),
         ],
       controller: _tabController,),
     );

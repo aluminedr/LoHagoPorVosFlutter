@@ -717,25 +717,30 @@ _showCategoriasDialog() {
       "preferenciaPersona":_categoriasSelccionadas,
       "idLocalidad":mostrarIdLocalidad(), // invocamos a la funcion mostrarIdLocalidad que es la Localidad seleccionada
     };
-
-    var res = await CallApi().postData(data, 'crearPerfil');
-    var body = json.decode(res.body);
-    print(body);
-    if(body['success']){
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setInt('idPersona', body['idPersona']);
-       Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => LoHagoPorVos()));
+    if(_habilidadesSeleccionadas.length != 3){
+       _mostrarMensaje('Debe seleccionar 3 habilidades');
+      if(_categoriasSelccionadas.length != 3){
+        _mostrarMensaje('Debe seleccionar 3 categorias');
+      }
     }else{
-      _mostrarMensaje(body['error']);
-    }
+      var res = await CallApi().postData(data, 'crearPerfil');
+      var body = json.decode(res.body);
+      //print(body);
+      if(body['success']){
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        localStorage.setInt('idPersona', body['idPersona']);
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => LoHagoPorVos()));
+      }else{
+        _mostrarMensaje(body['error']);
+      }
 
-    setState(() {
-       _cargando = false; 
-    });
-    
+      setState(() {
+        _cargando = false; 
+      });
+    }
     
     
   }

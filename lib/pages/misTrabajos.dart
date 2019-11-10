@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/verHistorial.dart';
+import 'package:flutter_app/pages/trabajosOfrecidos.dart';
+
 
 class MisTrabajos extends StatefulWidget {
   @override

@@ -8,7 +8,6 @@ import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/misPostulaciones.dart';
 import 'package:flutter_app/pages/misTrabajos.dart';
 import 'package:flutter_app/pages/verCategorias.dart';
-import 'package:flutter_app/pages/verHistorial.dart';
 import 'package:flutter_app/pages/verPerfil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,6 +19,7 @@ class MenuLateral extends StatefulWidget {
   class _MenuLateralState extends State<MenuLateral>{
   var userData;
   var tokenData;
+  var imagenPersona;
   String nombreUsuario;
   String mailUsuario;
   final Color primary = Colors.purple[700];
@@ -34,6 +34,7 @@ class MenuLateral extends StatefulWidget {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       var userJson = localStorage.getString('user');
       var userToken = localStorage.getString('token');
+      var imagenPersona = localStorage.getString('imagenPersona');
       var user = json.decode(userJson);
       mailUsuario= user['mailUsuario'];
       nombreUsuario= user['nombreUsuario'];
@@ -67,7 +68,7 @@ class MenuLateral extends StatefulWidget {
                             colors: [Colors.pink, Colors.deepPurple])),
                     child: CircleAvatar(
                       radius: 40,
-                      /*backgroundImage: CachedNetworkImageProvider(image),*/
+                      backgroundImage: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/$imagenPersona'),
                     ),
                   ),
                   SizedBox(height: 5.0),

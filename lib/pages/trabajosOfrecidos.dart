@@ -1,38 +1,30 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/detallesTrabajo.dart';
+import 'package:flutter_app/pages/verDetallesTrabajoOfrecido.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class ListarTrabajosPage extends StatefulWidget{
+class HistorialTrabajosPage extends StatefulWidget{
+  final int idEstado;
+  HistorialTrabajosPage({this.idEstado});
+
   @override
-  State<StatefulWidget> createState() => _ListarTrabajosPageState();
+  State<StatefulWidget> createState() => _HistorialTrabajosPageState();
   
   
   }
   
-  class _ListarTrabajosPageState extends State<ListarTrabajosPage> with SingleTickerProviderStateMixin{
-  //funcion que trae el listado de trabajos en formato json para luego decodificarlo
-  Future<List> getListaTrabajos() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    // Traiga solo los trabajos que no son de esa persona, no esten eliminados y esten 'esperando postulaciones'
-    var data = {
-        'eliminado' : 0, 
-        'idEstado' : 1,
-        'idPersonaDistinto' : localStorage.getInt('idPersona')
-    };
+  class _HistorialTrabajosPageState extends State<HistorialTrabajosPage> with SingleTickerProviderStateMixin{
 
-    var res = await CallApi().postData(data,'listarTrabajos');
-    var listaTrabajos = json.decode(res.body);
-    return listaTrabajos;
-
-  }
+  int idPersonaLogeada;
+  
   AnimationController _controller;
   Animation<double> _animation;
 
   @override
   void initState() {
+    getPersona();
     super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
@@ -57,7 +49,27 @@ class ListarTrabajosPage extends StatefulWidget{
     _controller.stop();
     super.dispose();
   }
+//busco el id de la persona que se encuentra logueada
+   void getPersona() async {
+   SharedPreferences localStorage = await SharedPreferences.getInstance();
+    idPersonaLogeada = localStorage.getInt('idPersona');
+    setState(() {
+      idPersonaLogeada=idPersonaLogeada;
+    });
+  }
+    //funcion que trae el listado de trabajos en formato json para luego decodificarlo
+  Future<List> getListaTrabajos() async {
+    var data = {
+      "idPersona": idPersonaLogeada,
+      "idEstado":widget.idEstado,
+      "flutter":true,
+    };
+    var res = await CallApi().postData(data,'historialTrabajos');
+    var listaTrabajos = json.decode(res.body);
+    //print(listaTrabajos);
+      return listaTrabajos;
 
+  }
   void _handleTap() {
     setState(() {
       // valueAnimation.isAnimating is part of our build state
@@ -104,7 +116,6 @@ Widget _buildIndicators(BuildContext context, Widget child) {
               builder: (BuildContext context) => new AddData(),
             )),
       ),*/
-      
       body: new FutureBuilder<List>(
         future: listaTrabajos,
         builder: (context, snapshot) {
@@ -112,6 +123,7 @@ Widget _buildIndicators(BuildContext context, Widget child) {
           return snapshot.hasData
               ? new ItemList(
                   list: snapshot.data,
+                  idEstado: widget.idEstado,
                 )
               : new Center(
                   child:Container(
@@ -128,12 +140,20 @@ Widget _buildIndicators(BuildContext context, Widget child) {
   }
 }
 
-class ItemList extends StatelessWidget {
+class ItemList extends StatefulWidget {
   final List list;
-  ItemList({this.list});
+  final int idEstado;
+  ItemList({this.list,this.idEstado});
+  State<StatefulWidget> createState() => _ItemListState();
 
+  }
+
+  class _ItemListState extends State<ItemList>{
+  
   @override
   Widget build(BuildContext context) {
+    List list= widget.list;
+    int idEstado= widget.idEstado;
      final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
     return new ListView.builder(
@@ -149,8 +169,9 @@ class ItemList extends StatelessWidget {
           child: new GestureDetector(
             onTap: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                      builder: (BuildContext context) => new DetallesTrabajosPage(
+                      builder: (BuildContext context) => new DetallesHistorialPage(
                             index: list[i]['idTrabajo'],
+                            idEstado: widget.idEstado,
                             
                           )),
                 ),

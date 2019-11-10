@@ -91,7 +91,7 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
               color: Colors.black26
             ),
             height: 400,
-            /*child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/'+imagenTrabajo, fit: BoxFit.cover)*/),
+            child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/$imagenTrabajo', fit: BoxFit.cover)),
           ListView(
             padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
             children: <Widget>[

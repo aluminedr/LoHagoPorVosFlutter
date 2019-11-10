@@ -1,28 +1,29 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/pages/verDetalleHistorial.dart';
+import 'package:flutter_app/pages/verDetallesTrabajoRealizado.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class HistorialTrabajosPage extends StatefulWidget{
+class TrabajosRealizados extends StatefulWidget{
   final int idEstado;
-  HistorialTrabajosPage({this.idEstado});
+  TrabajosRealizados({this.idEstado});
 
   @override
-  State<StatefulWidget> createState() => _HistorialTrabajosPageState();
+  State<StatefulWidget> createState() => _TrabajosRealizadosState();
   
   
   }
   
-  class _HistorialTrabajosPageState extends State<HistorialTrabajosPage> with SingleTickerProviderStateMixin{
+  class _TrabajosRealizadosState extends State<TrabajosRealizados> with SingleTickerProviderStateMixin{
 
   int idPersonaLogeada;
   
   AnimationController _controller;
   Animation<double> _animation;
 
-  @override
+  
+   
   void initState() {
     getPersona();
     super.initState();
@@ -49,8 +50,9 @@ class HistorialTrabajosPage extends StatefulWidget{
     _controller.stop();
     super.dispose();
   }
-//busco el id de la persona que se encuentra logueada
-   void getPersona() async {
+
+  //busco el id de la persona que se encuentra logueada
+void getPersona() async {
    SharedPreferences localStorage = await SharedPreferences.getInstance();
     idPersonaLogeada = localStorage.getInt('idPersona');
     setState(() {
@@ -59,16 +61,21 @@ class HistorialTrabajosPage extends StatefulWidget{
   }
     //funcion que trae el listado de trabajos en formato json para luego decodificarlo
   Future<List> getListaTrabajos() async {
+    var res;
     var data = {
       "idPersona": idPersonaLogeada,
-      "idEstado":widget.idEstado,
-      "flutter":true,
     };
-    var res = await CallApi().postData(data,'historialTrabajos');
-    var listaTrabajos = json.decode(res.body);
-    //print(listaTrabajos);
+    int idEstado=widget.idEstado;
+    if(idEstado==1){
+      res = await CallApi().postData(data,'misPostulaciones');
+    }else if(idEstado == 2){
+      res = await CallApi().postData(data,'misAsignaciones');
+    }else{
+      res = await CallApi().postData(data,'misTrabajosFinalizados');
+    }
+      var listaTrabajos = json.decode(res.body);
+      //print(listaTrabajos);
       return listaTrabajos;
-
   }
   void _handleTap() {
     setState(() {
@@ -159,17 +166,18 @@ class ItemList extends StatefulWidget {
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
-        var monto=list[i]['monto'];
-        if(list[i]['imagenTrabajo']==null){
-          list[i]['imagenTrabajo']='hola.jpg';
-        }
+        var monto=list[i][0]['monto'];
+        var imagenTrabajo=list[i][0]['imagenTrabajo'];
+        //if(list[i]['imagenTrabajo']==null){
+        //  list[i]['imagenTrabajo']='hola.jpg';
+        //}
         return new Container(
           padding: const EdgeInsets.all(10.0),
           child: new GestureDetector(
             onTap: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                      builder: (BuildContext context) => new DetallesHistorialPage(
-                            index: list[i]['idTrabajo'],
+                      builder: (BuildContext context) => new DetallesTrabajoRealizado(
+                            index: list[i][0]['idTrabajo'],
                             idEstado: widget.idEstado,
                             
                           )),
@@ -185,7 +193,7 @@ class ItemList extends StatefulWidget {
                 title:Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: new Text(
-                  list[i]['titulo'],
+                  list[i][0]['titulo'],
                   style: TextStyle(
                       color: primary,
                       fontWeight: FontWeight.bold,
@@ -197,20 +205,20 @@ class ItemList extends StatefulWidget {
                   height: 50,
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.only(right: 15),
-                  /*decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(width: 3, color: secondary),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/trabajos/'+list[i]['imagenTrabajo']),
+                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/trabajos/$imagenTrabajo'),
                         fit: BoxFit.fill),
-                  ),*/
+                  ),
                 ),
                 subtitle:Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Column( 
                     children: <Widget>[
               new Text(
-                  list[i]['descripcion'],
+                  list[i][0]['descripcion'],
                   style: TextStyle(
                       color: primary, fontSize: 13, letterSpacing: .3)),
                SizedBox(

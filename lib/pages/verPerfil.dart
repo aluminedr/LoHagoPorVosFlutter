@@ -69,6 +69,7 @@ class VerPerfilPage extends StatefulWidget{
       };
       var res = await CallApi().postData(data,'perfil');
       var persona = json.decode(res.body);
+      localStorage.setString('imagenPersona', persona['persona']['imagenPersona']);
 
       setState(() {
         nombrePersona = persona['persona']['nombrePersona'];
@@ -119,13 +120,13 @@ class VerPerfilPage extends StatefulWidget{
                   width: 100,
                   height: 100,
                   alignment: Alignment.centerLeft,
-                  /*decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(width: 3),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/'+imagenPersona),
+                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/$imagenPersona'),
                         fit: BoxFit.fill),
-                  ),*/
+                  ),
                 ),
                         
         

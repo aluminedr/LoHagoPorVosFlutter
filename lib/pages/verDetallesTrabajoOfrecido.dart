@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 //import 'package:flutter_app/MercadoPago/enviarDatosMP.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/comentarios.dart';
 import 'package:flutter_app/pages/listaAspirantes.dart';
 import 'package:flutter_app/pages/valorar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -118,7 +118,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
               color: Colors.black26
             ),
             height: 400,
-            /*child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/'+imagenTrabajo, fit: BoxFit.cover)*/),
+            child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/$imagenTrabajo', fit: BoxFit.cover)),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
             child: Column(
@@ -137,10 +137,13 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                     const SizedBox(width: 16.0),
                     Spacer(),
                     IconButton(
-                      color: Colors.white,
-                      icon: Icon(Icons.favorite_border),
-                      onPressed: () {},
-                    )
+                        color: Colors.green,
+                        icon: Icon(Icons.comment),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));
+                        },
+                      ),
                   ],
                 ),
                 Container(
