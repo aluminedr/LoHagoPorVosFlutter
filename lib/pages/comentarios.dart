@@ -14,7 +14,9 @@ class Comentarios extends StatefulWidget {
 
 
   class _ComentariosState extends State<Comentarios> with SingleTickerProviderStateMixin{
-  
+  int idPersonaLogeada;
+  int idPersonaTrabajo;
+  bool esDuenio = false;
     Future<List> buscarComentarios() async {
         var data = {
           "idTrabajo": widget.index,
@@ -23,13 +25,29 @@ class Comentarios extends StatefulWidget {
         var listaComentarios = json.decode(res.body);
         //print(listaComentarios);
         return listaComentarios;
+    }
 
-  }
+    void verPersonaTrabajo() async{
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      idPersonaLogeada = localStorage.getInt('idPersona');
+      var data = {
+            "idTrabajo": widget.index,
+          };
+      var res = await CallApi().postData(data,'buscarPersonaTrabajo');
+      var idPersonaTrabajo = json.decode(res.body);
+      if(idPersonaLogeada == idPersonaTrabajo){
+        setState(() {
+          esDuenio=true;
+        });
+      }
+    }
+
 AnimationController _controller;
   Animation<double> _animation;
 
   @override
   void initState() {
+    verPersonaTrabajo();
     super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
@@ -102,6 +120,7 @@ Widget _buildIndicators(BuildContext context, Widget child) {
               ? new ItemList(
                   list: snapshot.data,
                   index:widget.index,
+                  duenio:esDuenio,
                 )
               : new Center(
                   child:Container(
@@ -121,7 +140,8 @@ Widget _buildIndicators(BuildContext context, Widget child) {
 class ItemList extends StatefulWidget {
   final List list;
   final int index;
-  ItemList({this.list, this.index});
+  final bool duenio;
+  ItemList({this.list, this.index, this.duenio});
   State<StatefulWidget> createState() => _ItemListState();
   }
   class _ItemListState extends State<ItemList>{
@@ -135,6 +155,7 @@ class ItemList extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     List list= widget.list;
+    bool duenio= widget.duenio;
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
@@ -157,7 +178,7 @@ class ItemList extends StatefulWidget {
           child: new Column(
             children:
               <Widget>[
-                _buildRowPadre(nombreUsuario, comentario,idComentario),
+                _buildRowPadre(nombreUsuario, comentario,idComentario,duenio),
                 hijos ?  ListView.builder(
                   itemCount: listaHijos == null ? 0 : listaHijos.length,
                   itemBuilder: (context, i) {
@@ -193,7 +214,7 @@ class ItemList extends StatefulWidget {
   }
 
 
-  Widget _buildRowPadre(nombreUsuario,comentario,idComentario) {
+  Widget _buildRowPadre(nombreUsuario,comentario,idComentario,duenio) {
     return Container(
      decoration: BoxDecoration(
         color: Colors.white60,
@@ -223,6 +244,7 @@ class ItemList extends StatefulWidget {
                 Text(comentario)
               ],
             ),
+            duenio ?
             Row(
               children: <Widget>[
                 FlatButton(
@@ -233,7 +255,8 @@ class ItemList extends StatefulWidget {
                 },
               ),
               ],
-            ),
+            ): 
+            Row(),
       ]),
     );
   }
