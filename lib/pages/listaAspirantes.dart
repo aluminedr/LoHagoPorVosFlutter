@@ -204,6 +204,8 @@ class ItemList extends StatefulWidget {
                               Center(
                                   child: SmoothStarRating(
                                     allowHalfRating: false,
+                                    color: Colors.green,
+              borderColor: Colors.purple,
                                     rating: rating,
                                     size: 20,
                                     starCount: 5,

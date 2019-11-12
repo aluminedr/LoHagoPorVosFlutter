@@ -63,6 +63,8 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
             Center(
             child: SmoothStarRating(
               allowHalfRating: false,
+              color: Colors.green,
+              borderColor: Colors.purple,
               rating: rating,
               size: 45,
               starCount: 5,
@@ -74,33 +76,34 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
             )
             ),
             SizedBox(height: 40.0),
-            TextField(
-              controller: comentarioValoracionController,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(16.0),
-                prefixIcon: Container(
-                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                  margin: const EdgeInsets.only(right: 8.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      bottomLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                      bottomRight: Radius.circular(10.0)
-                    )
-                  ),
-                  child: Icon(Icons.add_comment, color: Colors.lightGreen,)),
-                hintText: "Si desea agregar un comentario",
-                hintStyle: TextStyle(color: Colors.white),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide.none
-                ),
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
-              ),
-            ),
+            new TextFormField(
+                            controller: comentarioValoracionController,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.add_comment, color: Colors.white60,)),
+                              hintText: "Deje un comentario...",
+                              hintStyle: TextStyle(color: Colors.green),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.green.withOpacity(0.1),
+                            ),
+                            
+                          ),
 
             Center(  
                           child: Column(

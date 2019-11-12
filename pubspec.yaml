@@ -51,8 +51,9 @@ flutter:
         - assets/images/
         - ../LoHagoPorVosLaravel/public/storage/perfiles/
         - ../LoHagoPorVosLaravel/public/storage/trabajos/
-        - ../LoHagoPorVosLaravel/public/images/imagencategoria/
-        - ../LoHagoPorVosLaravel/public/images/imagenhabilidad/
+        - ../LoHagoPorVosLaravel/public/storage/valoracion/
+        - ../LoHagoPorVosLaravel/public/images/imagenCategoria/
+        - ../LoHagoPorVosLaravel/public/images/imagenHabilidad/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
