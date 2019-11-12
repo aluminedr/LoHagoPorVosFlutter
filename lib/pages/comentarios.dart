@@ -14,8 +14,8 @@ class Comentarios extends StatefulWidget {
 
 
   class _ComentariosState extends State<Comentarios> with SingleTickerProviderStateMixin{
-  int idPersonaLogeada;
-  int idPersonaTrabajo;
+  var idPersonaLogeada;
+  var idPersonaTrabajo;
   bool esDuenio = false;
     Future<List> buscarComentarios() async {
         var data = {
@@ -156,6 +156,7 @@ class ItemList extends StatefulWidget {
   Widget build(BuildContext context) {
     List list= widget.list;
     bool duenio= widget.duenio;
+    print(duenio);
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,

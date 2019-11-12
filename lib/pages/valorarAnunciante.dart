@@ -62,6 +62,7 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
           child: Column(children: <Widget>[
             Center(
             child: SmoothStarRating(
+              allowHalfRating: false,
               rating: rating,
               size: 45,
               starCount: 5,

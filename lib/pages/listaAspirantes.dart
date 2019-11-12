@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/pages/misTrabajos.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 
 
@@ -142,13 +143,16 @@ class ItemList extends StatefulWidget {
   }
   
   class _ItemListState extends State<ItemList>{
-  
+
+  void initState(){
+    //verPersonaTrabajo();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
     List list=widget.list;
     final primary = Color(0xff696b9e);
-    final secondary = Color(0xfff29a94);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
@@ -156,6 +160,9 @@ class ItemList extends StatefulWidget {
         var habilidad1= list[i][0]['habilidades'][0]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         var habilidad2= list[i][0]['habilidades'][1]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         var habilidad3= list[i][0]['habilidades'][2]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
+        var rating= list[i][0]['valoracion']+.0;
+        //if(rating)
+        //print(rating);
         return new Container(
           padding: const EdgeInsets.all(10.0),            
             child: new Card(
@@ -175,23 +182,35 @@ class ItemList extends StatefulWidget {
                       fontSize: 18),
                 ),),
                 
-                leading: Container(
+                leading:Container(
                   width: 50,
                   height: 50,
                   alignment: Alignment.centerLeft,
                   margin: EdgeInsets.only(right: 15),
-                  /*decoration: BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 3, color: secondary),
+                    border: Border.all(width: 3, color: Colors.purple),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/trabajos/'+list[i]['imagenTrabajo']),
+                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfil/'/*+list[i][0]['imagenTrabajo']*/),
                         fit: BoxFit.fill),
-                  ),*/
+                  ),
                 ),
                 subtitle:Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Column( 
                     children: <Widget>[
+                      Row(
+                            children: <Widget>[
+                              Center(
+                                  child: SmoothStarRating(
+                                    allowHalfRating: false,
+                                    rating: rating,
+                                    size: 20,
+                                    starCount: 5,
+                                  )
+                                  ),
+                                ],
+                          ),
                       new Row(
                         children: <Widget>[
                           new Icon(Icons.my_location),
