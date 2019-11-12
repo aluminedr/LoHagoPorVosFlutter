@@ -23,7 +23,7 @@ class ListarTrabajosPage extends StatefulWidget{
         'idPersonaDistinto' : localStorage.getInt('idPersona')
     };
 
-    var res = await CallApi().postData(data,'listarTrabajos');
+    var res = await CallApi().postData(data,'listarTrabajosInicio');
     var listaTrabajos = json.decode(res.body);
     return listaTrabajos;
 

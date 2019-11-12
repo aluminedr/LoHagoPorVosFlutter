@@ -212,7 +212,7 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
   }*/
   void valorar() async {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ValorarAnunciante(widget.index,idPersonaLogeada)));
+        MaterialPageRoute(builder: (context) => ValorarAnunciante(idPersonaLogeada,widget.index)));
     
   }
 

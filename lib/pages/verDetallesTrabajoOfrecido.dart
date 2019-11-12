@@ -67,6 +67,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     //Busco si el trabajo ya fue valorado
     var datosValorado={
       'idTrabajo': widget.index,
+      'idPersonaLogeada':idPersonaLogeada,
     };
     var resValorado = await CallApi().postData(datosValorado,'buscarValoracionTrabajo');
     var trabajoValorado = json.decode(resValorado.body);

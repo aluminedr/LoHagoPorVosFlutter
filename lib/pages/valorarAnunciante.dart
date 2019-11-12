@@ -176,7 +176,6 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
     };
     var res = await CallApi().postData(data, 'enviarValoracion');
     var body = json.decode(res.body);
-    print(body);
     if (body['success']){
         Navigator.push(
         context,
