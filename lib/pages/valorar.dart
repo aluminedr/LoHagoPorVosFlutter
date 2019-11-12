@@ -63,6 +63,7 @@ class _ValorarState extends State<Valorar> {
           child: Column(children: <Widget>[
             Center(
             child: SmoothStarRating(
+              allowHalfRating: false,
               rating: rating,
               size: 45,
               starCount: 5,
@@ -149,7 +150,7 @@ class _ValorarState extends State<Valorar> {
         )
     );
  }
- void enviarValoracion () async{
+ void enviarValoracion() async{
     setState(() {
       _cargando = true;
     });
