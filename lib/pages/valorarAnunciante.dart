@@ -149,7 +149,7 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
         )
     );
  }
- void enviarValoracion () async{
+ void enviarValoracion() async{
     setState(() {
       _cargando = true;
     });
