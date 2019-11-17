@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/app/ovalRightClipper.dart';
 import 'package:flutter_app/main.dart';
+import 'package:flutter_app/pages/chatScreen.dart';
+import 'package:flutter_app/pages/conversaciones.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/misPostulaciones.dart';
 import 'package:flutter_app/pages/misTrabajos.dart';
@@ -91,6 +93,8 @@ class MenuLateral extends StatefulWidget {
                   _buildDivider(),
                   _buildRow(Icons.format_list_bulleted, "Mis postulaciones",MisPostulaciones()),
                   _buildDivider(),
+                  _buildRow(Icons.chat, "Mis conversaciones",ListaConversaciones()),
+                  _buildDivider(),
                   Container(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child:new GestureDetector(
@@ -138,7 +142,7 @@ class MenuLateral extends StatefulWidget {
               Navigator.of(context).push(
                   new MaterialPageRoute(
                       builder: (BuildContext context)=>  press
-                          )),
+                          ),),
                 child: Row(children: [
                   IconButton(
                     icon: Icon(
