@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,19 +14,34 @@ final int idConversacion;
 }
 
 class _ListaMensajesState extends State<ListaMensajes> with SingleTickerProviderStateMixin{
-  
-  
+  Future<List> listaMensajes;
+  Timer timer;
+  @override
+  void initState() {
+    super.initState();
+    new Timer.periodic(Duration(seconds: 15), (Timer t) => setState((){
+      callApi();
+    }));
+  }
+
+  void callApi() {
+    setState(() {
+      listaMensajes = buscarMensajesConversacion();
+    });
+  }
+
   Future<List> buscarMensajesConversacion() async{
     var data={
       'idConversacionChat': widget.idConversacion,
     };
     var res = await CallApi().postData(data,'listarMensajesConversacion');
     var listaMensajes = json.decode(res.body);
+    //print(DateTime.now().toIso8601String());
     return listaMensajes;
   }
 
   Widget build(BuildContext context) {
-    var listaMensajes =buscarMensajesConversacion();
+    //var listaMensajes =listaMensajes;
     return new Scaffold(
       body: new FutureBuilder<List>(
         future: listaMensajes,
