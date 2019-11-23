@@ -170,6 +170,7 @@ class ItemList extends StatefulWidget {
         String nombreUsuario= list[i]['idPersona'][0]['nombreUsuario'];
         String comentario= list[i]['contenido'];
         int idComentario=list[i]['idComentario'];
+        String fechaComentario=list[i]['created_at'];
         listaHijos= list[i]['hijos'];
         if(listaHijos.length == 0){
           hijos=false;
@@ -179,18 +180,19 @@ class ItemList extends StatefulWidget {
           child: new Column(
             children:
               <Widget>[
-                _buildRowPadre(nombreUsuario, comentario,idComentario,duenio),
+                _buildRowPadre(nombreUsuario, comentario,idComentario,duenio,fechaComentario),
                 hijos ?  ListView.builder(
                   itemCount: listaHijos == null ? 0 : listaHijos.length,
                   itemBuilder: (context, i) {
                     String nombreUsuario= listaHijos[i]['idPersona'][0]['nombreUsuario'];
                     String comentario= listaHijos[i]['contenido'];
+                    String fechaComentario= listaHijos[i]['created_at'];
                     return new Container(
                       padding: const EdgeInsets.all(10.0),
                       child: new Column(
                         children:
                           <Widget>[
-                            _buildRowHijo(nombreUsuario, comentario),
+                            _buildRowHijo(nombreUsuario, comentario,fechaComentario),
                           ],
                       ),
                     );
@@ -215,7 +217,7 @@ class ItemList extends StatefulWidget {
   }
 
 
-  Widget _buildRowPadre(nombreUsuario,comentario,idComentario,duenio) {
+  Widget _buildRowPadre(nombreUsuario,comentario,idComentario,duenio,fechaComentario) {
     return Container(
      decoration: BoxDecoration(
         color: Colors.white60,
@@ -242,7 +244,15 @@ class ItemList extends StatefulWidget {
             ),
             Row(
               children: <Widget>[
-                Text(comentario)
+                Text(comentario),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textDirection: TextDirection.rtl,
+              children: <Widget>[
+                Text('$fechaComentario',style:
+                TextStyle(fontStyle: FontStyle.italic, fontWeight:FontWeight.w200))
               ],
             ),
             duenio ?
@@ -261,7 +271,7 @@ class ItemList extends StatefulWidget {
       ]),
     );
   }
- Widget _buildRowHijo(nombreUsuario,comentario) {
+ Widget _buildRowHijo(nombreUsuario,comentario,fechaComentario) {
     return Container(
      decoration: BoxDecoration(
         color: Colors.white60,
@@ -287,7 +297,8 @@ class ItemList extends StatefulWidget {
             ),
             Row(
               children: <Widget>[
-                Text(comentario)
+                Text(comentario),
+                Text(fechaComentario),
               ],
             ),
       ]),

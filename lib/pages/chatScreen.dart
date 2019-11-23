@@ -20,17 +20,27 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
   int idPersonaLogueada;
   final TextEditingController _textController = new TextEditingController(); 
   bool _isComposing = true;   
-
+   
+  void initState(){
+    super.initState();
+    verPersonaLog();
+  }
+  void verPersonaLog() async{
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      idPersonaLogueada = localStorage.getInt('idPersona');
+        setState(() {
+          idPersonaLogueada=idPersonaLogueada;
+        });
+      }
 
   Widget build(BuildContext context) {
-    //print(listaMensajes);
     return new Scaffold(
       appBar: new AppBar(title: new Text("Conversacion")),
       body: new Container(                                             
         child: new Column(                                       
         children: <Widget>[                         
           new Flexible(                                             
-            child: ListaMensajes(idConversacion: widget.idConversacion),                                          
+            child: ListaMensajes(idConversacion: widget.idConversacion,idPersonaLogueada: idPersonaLogueada),                                          
           ),                                                        
           new Divider(height: 1.0),                                 
           new Container(                                            
@@ -53,10 +63,10 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
     guardarMensaje(text);                                                                                                  
   }
 void guardarMensaje(text) async{
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    int idPersona=localStorage.getInt('idPersona');
+    /*SharedPreferences localStorage = await SharedPreferences.getInstance();
+    int idPersona=localStorage.getInt('idPersona');*/
     var data = {
-      "idPersona":idPersona,
+      "idPersona":idPersonaLogueada,
       "idConversacionChat":widget.idConversacion,
       "mensaje":text,
       'flutter':true,

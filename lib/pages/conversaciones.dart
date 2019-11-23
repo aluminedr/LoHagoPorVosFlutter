@@ -17,6 +17,7 @@ class ListaConversaciones extends StatefulWidget{
 class _ListaConversacionesState extends State<ListaConversaciones> with SingleTickerProviderStateMixin{
   AnimationController _controller;
   Animation<double> _animation;
+  int idPersonaLogueada;
   
   @override
   void initState() {
@@ -42,15 +43,20 @@ class _ListaConversacionesState extends State<ListaConversaciones> with SingleTi
   @override
   void dispose() {
     _controller.stop();
+    verPersonaLog();
     super.dispose();
   }
-
+void verPersonaLog() async{
+      SharedPreferences localStorage = await SharedPreferences.getInstance();
+      idPersonaLogueada = localStorage.getInt('idPersona');
+        setState(() {
+          idPersonaLogueada=idPersonaLogueada;
+        });
+      }
     //funcion que trae el listado de aspirantes en formato json para luego decodificarlo
   Future<List> getListaConversaciones() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    int idPersonaLogeada = localStorage.getInt('idPersona');
     var data = {
-      "idPersona": idPersonaLogeada,
+      "idPersona": idPersonaLogueada,
     };
     var res = await CallApi().postData(data,'listarConversaciones');
     var listaConversaciones = json.decode(res.body);
@@ -91,6 +97,7 @@ Widget _buildIndicators(BuildContext context, Widget child) {
           return snapshot.hasData
               ? new ItemList(
                   list: snapshot.data,
+                  idPersonaLogueada: idPersonaLogueada,
                 )
               : new Center(
                   child:Container(
@@ -109,7 +116,8 @@ Widget _buildIndicators(BuildContext context, Widget child) {
 
 class ItemList extends StatefulWidget {
   final List list;
-  ItemList({this.list});
+  final int idPersonaLogueada;
+  ItemList({this.list,this.idPersonaLogueada});
   @override
   State<StatefulWidget> createState() => _ItemListState();
   
@@ -125,11 +133,24 @@ class ItemList extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     List list=widget.list;
+    int idPersonaLogueada= widget.idPersonaLogueada;
     final primary = Color(0xff696b9e);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
+        String nombrePersona = (idPersonaLogueada == list[i]['idPersona1']) ? list[i]['persona1'][0]['nombrePersona']+' '+list[i]['persona1'][0]['apellidoPersona'] : list[i]['persona2'][0]['nombrePersona']+' '+list[i]['persona2'][0]['apellidoPersona'];
+        String imagenPersona = (idPersonaLogueada == list[i]['idPersona1']) ? list[i]['persona1'][0]['imagenPersona'] : list[i]['persona2'][0]['imagenPersona'];
         return new Container(
+          decoration: BoxDecoration(
+                                  color: Colors.green.withOpacity(0.1),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(10.0),
+                                    topRight: Radius.circular(10.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+          
           padding: const EdgeInsets.all(10.0),            
             child:new GestureDetector(
             onTap: () => Navigator.of(context).push(
@@ -138,51 +159,34 @@ class ItemList extends StatefulWidget {
                             idConversacion: list[i]['idConversacionChat'],                           
                           )),
                 ), 
-            child: new Card(
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+            child: new Container(
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          child: new Row(
+            children: <Widget>[
+              new Container(
+                margin:const EdgeInsets.only(right: 16.0),
+                child: new CircleAvatar(
+                  child: new Image.asset('assets/perfil/$imagenPersona'),
                   ),
-              child: new ListTile(
-                title:Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: new Text(
-                  'hola',//list[i][0]['nombrePersona']+' '+list[i][0]['apellidoPersona'],
-                  style: TextStyle(
-                      color: primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
-                ),),
-                
-                leading:Container(
-                  width: 50,
-                  height: 50,
-                  alignment: Alignment.centerLeft,
-                  margin: EdgeInsets.only(right: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 3, color: Colors.purple),
-                    image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfil/'/*+list[i][0]['imagenTrabajo']*/),
-                        fit: BoxFit.fill),
+              ),
+              new Expanded(                                             
+                child: new Column(  
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  textDirection:TextDirection.ltr, 
+                children: <Widget>[
+                  new Text('$nombrePersona', style: TextStyle(fontWeight:FontWeight.bold)),
+                  new Container(
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: new Text('Toca aquí para continuar conversando'),
                   ),
-                ),
-                subtitle:Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Column( 
-                    children: <Widget>[
-                      new Row(
-                        children: <Widget>[
-                          new Icon(Icons.chat),
-                          SizedBox(
-                            width: 5,
-                          ),
-                      ],),                  
-                    ],
-              ),),
-            ),
-        )
+            ],
+          ),
+              ),
+        ],
+            
+      ),
+        
+      ),
             ),
         );
       },

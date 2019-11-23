@@ -191,7 +191,7 @@ class ItemList extends StatefulWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(width: 3, color: Colors.purple),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfil/'/*+list[i][0]['imagenTrabajo']*/),
+                        image: AssetImage('assets/trabajo/'+list[i][0]['imagenTrabajo']),
                         fit: BoxFit.fill),
                   ),
                 ),
