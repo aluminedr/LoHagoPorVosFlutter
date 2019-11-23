@@ -33,6 +33,13 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
         });
       }
 
+  Future actualizarVisto() async {
+    var data = {
+      'idPersonaLogueada':idPersonaLogueada,
+      'idConversacion':widget.idConversacion,
+    };
+    await CallApi().postData(data,'actualizarvisto');
+  }
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text("Conversacion")),
@@ -47,7 +54,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin{
             decoration: new BoxDecoration(
               color: Theme.of(context).cardColor
             ),                  
-            child: _buildTextComposer(),                       
+            child: _buildTextComposer(idPersonaLogueada),                       
           ),                                                        
         ],                                                          
       ),   
@@ -82,7 +89,7 @@ void guardarMensaje(text) async{
       }
     }
 
-  Widget _buildTextComposer() {
+  Widget _buildTextComposer(idPersonaLogueada) {
     return new IconTheme(                                            
       data: new IconThemeData(color: Theme.of(context).accentColor), 
       child: new Container(                                     
@@ -90,7 +97,11 @@ void guardarMensaje(text) async{
         child: new Row(
           children: <Widget>[
             new Flexible(
-              child: new TextField(
+              child: GestureDetector(
+                onTap: () {
+                  actualizarVisto();
+                },
+              child:new TextField(
                 controller: _textController,
                 onChanged: (String text) {          
                   setState(() {                     
@@ -100,6 +111,7 @@ void guardarMensaje(text) async{
                 onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(
                   hintText: "Escribe un mensaje..."),
+              ),
               ),
             ),
             new Container(
