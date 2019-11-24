@@ -174,7 +174,7 @@ class ItemList extends StatefulWidget {
                     children: <Widget>[
                       new Row(
                         children: <Widget>[
-                          new Icon(Icons.chat),
+                          new Icon(Icons.chat, semanticLabel: "Icono chat",),
                           SizedBox(
                             width: 5,
                           ),

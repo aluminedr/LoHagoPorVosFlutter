@@ -81,6 +81,7 @@ void guardarMensaje(text) async{
           children: <Widget>[
             new Flexible(
               child: new TextField(
+                
                 controller: _textController,
                 onChanged: (String text) {          
                   setState(() {                     
@@ -89,13 +90,14 @@ void guardarMensaje(text) async{
                 },                        
                 onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(
+                  
                   hintText: "Escribe un mensaje..."),
               ),
             ),
             new Container(
               margin: new EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
-                  icon: new Icon(Icons.send),
+                  icon: new Icon(Icons.send,semanticLabel: "Enviar mensaje",),
                   onPressed: () => _isComposing
                     ? _handleSubmitted(_textController.text)    
                     : null,           
