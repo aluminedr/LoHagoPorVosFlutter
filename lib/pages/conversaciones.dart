@@ -187,6 +187,22 @@ class ItemList extends StatefulWidget {
       ),
         
       ),
+                ),
+                subtitle:Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Column( 
+                    children: <Widget>[
+                      new Row(
+                        children: <Widget>[
+                          new Icon(Icons.chat, semanticLabel: "Icono chat",),
+                          SizedBox(
+                            width: 5,
+                          ),
+                      ],),                  
+                    ],
+              ),),
+            ),
+        )
             ),
         );
       },
