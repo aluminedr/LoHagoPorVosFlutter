@@ -573,8 +573,8 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                              child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Icono seleccione una locaidad"),),
-                              semanticCounterText: "Selecione una localidad", 
+                              child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Icono seleccione una localidad"),),
+                              semanticCounterText: "Seleccione una localidad", 
                               hintText: "Seleccione una localidad",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
