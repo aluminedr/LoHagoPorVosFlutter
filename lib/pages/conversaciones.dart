@@ -156,7 +156,8 @@ class ItemList extends StatefulWidget {
             onTap: () => Navigator.of(context).push(
                   new MaterialPageRoute(
                       builder: (BuildContext context) => new ChatScreen(
-                            idConversacion: list[i]['idConversacionChat'],                           
+                            idConversacion: list[i]['idConversacionChat'],
+                            deshabilitado: list[i]['deshabilitado'],                           
                           )),
                 ), 
             child: new Container(

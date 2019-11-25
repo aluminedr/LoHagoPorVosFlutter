@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatefulWidget {           
   final int idConversacion;
-  ChatScreen({this.idConversacion});          
+  final int deshabilitado;
+  ChatScreen({this.idConversacion, this.deshabilitado});          
   @override                                                       
   State createState() => new ChatScreenState();                    
 } 
@@ -85,7 +86,7 @@ void guardarMensaje(text) async{
         Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => ChatScreen(idConversacion: widget.idConversacion)));
+            builder: (context) => ChatScreen(idConversacion: widget.idConversacion, deshabilitado: widget.deshabilitado,)));
       }
     }
 
@@ -101,7 +102,8 @@ void guardarMensaje(text) async{
                 onTap: () {
                   actualizarVisto();
                 },
-              child:new TextField(
+              child: (widget.deshabilitado == 0)? 
+              new TextField(
                 controller: _textController,
                 onChanged: (String text) {          
                   setState(() {                     
@@ -112,10 +114,25 @@ void guardarMensaje(text) async{
                 decoration: new InputDecoration.collapsed(
                   
                   hintText: "Escribe un mensaje..."),
-              ),
+              ) 
+              :
+              new TextField(
+                controller: _textController,
+                onChanged: (String text) {          
+                  setState(() {                     
+                    _isComposing = text.length > 0; 
+                  });                             
+                },                        
+                onSubmitted: _handleSubmitted,
+                decoration: new InputDecoration.collapsed(
+                  
+                  hintText: "No se pueden enviar más mensajes en esta conversación."),
+              )
               ),
             ),
+            (widget.deshabilitado == 0)? 
             new Container(
+             
               margin: new EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
                   icon: new Icon(Icons.send,semanticLabel: "Enviar mensaje",),
@@ -123,7 +140,9 @@ void guardarMensaje(text) async{
                     ? _handleSubmitted(_textController.text)    
                     : null,           
               ),
-            ),
+            )
+            :
+            new Container()
             ],
           ),
       )
