@@ -236,7 +236,6 @@ Future getImageCamera() async{
                             width: 135,
                             height: 135,
                             image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
-                            semanticLabel: "Logo de Lo Hago Por Vos",
                           ),
                         ),
                         Text("Lo hago por vos".toUpperCase(), style: TextStyle(
@@ -258,11 +257,11 @@ Future getImageCamera() async{
                               Row(
                                 children: <Widget>[
                                   RaisedButton(
-                                    child: Icon(Icons.image, semanticLabel: "Seleccionar imagen desde galeria"),
+                                    child: Icon(Icons.image),
                                     onPressed: getImageGallery,
                                   ),
                                   RaisedButton(
-                                    child: Icon(Icons.camera_alt, semanticLabel: "Seleccionar imagen desde la camara"),
+                                    child: Icon(Icons.camera_alt),
                                     onPressed: getImageCamera,
                                   ),
                                   Expanded(child: Container(),),
@@ -292,8 +291,7 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.text_fields, color: Colors.white60, semanticLabel: "Icono ingrese un titulo")),
-                              semanticCounterText: "Ingrese un titulo", 
+                                child: Icon(Icons.text_fields, color: Colors.white60,)),
                               hintText: "Ingrese un titulo",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
@@ -326,8 +324,7 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.text_fields, color: Colors.white60, semanticLabel: "Icono ingrese una descripcion",)),
-                              semanticCounterText: "Ingrese una descripcion", 
+                                child: Icon(Icons.text_fields, color: Colors.white60,)),
                               hintText: "Ingrese una descripcion",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
@@ -360,8 +357,7 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.monetization_on, color: Colors.white60,semanticLabel: "Icono ingrese un monto")),
-                              semanticCounterText: "Ingrese un monto", 
+                                child: Icon(Icons.monetization_on, color: Colors.white60,)),
                               hintText: "Ingrese un monto",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
@@ -392,9 +388,8 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.list, color: Colors.white60,semanticLabel: "Seleccione una categoria",),),
-                              semanticCounterText: "Ingrese una categoria", 
-                              hintText: "Seleccione una categoria",
+                                child: Icon(Icons.list, color: Colors.white60,),),
+                                 hintText: "Seleccione una categoria",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -437,9 +432,8 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Seleccione una provincia",),),
-                              semanticCounterText: "Seleccione una provincia", 
-                              hintText: "Seleccione una provincia",
+                                child: Icon(Icons.map, color: Colors.white60,),),
+                                 hintText: "Seleccione una provincia",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -573,9 +567,8 @@ Future getImageCamera() async{
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                              child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Icono seleccione una localidad"),),
-                              semanticCounterText: "Seleccione una localidad", 
-                              hintText: "Seleccione una localidad",
+                                child: Icon(Icons.map, color: Colors.white60,),),
+                                 hintText: "Seleccione una provincia",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),

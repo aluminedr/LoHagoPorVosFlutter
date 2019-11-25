@@ -210,7 +210,7 @@ class ItemList extends StatefulWidget {
       onPressed: () {
         _alertNuevoComentario(context);
       },
-      child: Icon(Icons.add_comment,semanticLabel: "Agregar nuevo comentario",),
+      child: Icon(Icons.add_comment),
       backgroundColor: Colors.green,
     ),
     );

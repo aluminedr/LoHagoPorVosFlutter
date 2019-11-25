@@ -83,17 +83,17 @@ class MenuLateral extends StatefulWidget {
                     style: TextStyle(color: active, fontSize: 16.0),
                   ),
                   SizedBox(height: 30.0),
-                  _buildRow(Icons.person_pin,"Icono Mi Perfil","Perfil",VerPerfilPage()),
+                  _buildRow(Icons.person_pin, "Perfil",VerPerfilPage()),
                   _buildDivider(),
-                  _buildRow(Icons.add,"Icono nuevo anuncio", "Nuevo anuncio",CrearTrabajoPage()),
+                  _buildRow(Icons.add, "Nuevo anuncio",CrearTrabajoPage()),
                   _buildDivider(),
-                  _buildRow(Icons.list, "Icono ver categorias", "Categorias",VerCategoriasPage()),
+                  _buildRow(Icons.list, "Categorias",VerCategoriasPage()),
                   _buildDivider(),
-                  _buildRow(Icons.format_list_bulleted, "Icono mis anuncios" ,"Mis anuncios",MisTrabajos()),
+                  _buildRow(Icons.format_list_bulleted, "Mis anuncios",MisTrabajos()),
                   _buildDivider(),
-                  _buildRow(Icons.format_list_bulleted, "Icono mis postulaciones", "Mis postulaciones",MisPostulaciones()),
+                  _buildRow(Icons.format_list_bulleted, "Mis postulaciones",MisPostulaciones()),
                   _buildDivider(),
-                  _buildRow(Icons.chat, "Icono mis conversaciones", "Mis conversaciones",ListaConversaciones()),
+                  _buildRow(Icons.chat, "Mis conversaciones",ListaConversaciones()),
                   _buildDivider(),
                   Container(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -104,7 +104,6 @@ class MenuLateral extends StatefulWidget {
                                   IconButton(
                                     icon: Icon(
                                                   Icons.settings_power,
-                                                  semanticLabel: "Icono cerrar sesion",
                                                   color: active,
                                                 ),
                                                 onPressed: () {
@@ -134,7 +133,7 @@ class MenuLateral extends StatefulWidget {
     );
   }
 
-  Widget _buildRow(IconData icon, String semanticLabel, String title, dynamic press) {
+  Widget _buildRow(IconData icon, String title, dynamic press) {
     final TextStyle tStyle = TextStyle(color: active, fontSize: 16.0);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -148,7 +147,6 @@ class MenuLateral extends StatefulWidget {
                   IconButton(
                     icon: Icon(
                                   icon,
-                                  semanticLabel: semanticLabel,
                                   color: active,
                                 ),
                                 onPressed: () {

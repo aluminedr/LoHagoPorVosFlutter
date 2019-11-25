@@ -110,7 +110,6 @@ void guardarMensaje(text) async{
                 },                        
                 onSubmitted: _handleSubmitted,
                 decoration: new InputDecoration.collapsed(
-                  
                   hintText: "Escribe un mensaje..."),
               ),
               ),
@@ -118,7 +117,7 @@ void guardarMensaje(text) async{
             new Container(
               margin: new EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
-                  icon: new Icon(Icons.send,semanticLabel: "Enviar mensaje",),
+                  icon: new Icon(Icons.send),
                   onPressed: () => _isComposing
                     ? _handleSubmitted(_textController.text)    
                     : null,           

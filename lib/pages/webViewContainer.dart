@@ -21,7 +21,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
             fWPlugin.stopLoading();    // Pausamos por un momento la carga
             String ipv4;
             String urlIPV4;
-            ipv4="http://192.168.1.36/"; // Definimos la ipv4
+            ipv4="http://10.10.10.113/"; // Definimos la ipv4
             var urlSinLocalHost=(url.split("http://localhost/").last); // Eliminamos 'localhost' de la url
             urlIPV4= ipv4+urlSinLocalHost; // Seteamos la ipv4 + resto de la url
             fWPlugin.reloadUrl(urlIPV4); // Cargamos la nueva url

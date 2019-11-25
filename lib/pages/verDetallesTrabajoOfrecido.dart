@@ -139,7 +139,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                     Spacer(),
                     IconButton(
                         color: Colors.green,
-                        icon: Icon(Icons.comment, semanticLabel: "Icono ver comentarios",),
+                        icon: Icon(Icons.comment),
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));

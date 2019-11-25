@@ -101,7 +101,6 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                 width: 135,
                 height: 135,
                 image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
-                semanticLabel: 'Logo de Lo Hago Por Vos',
               ),
             ),
             Text("Lo hago por vos".toUpperCase(), style: TextStyle(
@@ -127,8 +126,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.person, color: Colors.lightGreen,semanticLabel: "Icono Ingrese nombre de usuario")),
-                semanticCounterText: "Ingrese un nombre de usuario", 
+                  child: Icon(Icons.person, color: Colors.lightGreen,)),
                 hintText: "Ingrese un nombre de usuario",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
@@ -157,8 +155,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.email, color: Colors.lightGreen,semanticLabel: "Icono ingrese mail",)),
-                semanticCounterText: "Ingrese un nombre de usuario",   
+                  child: Icon(Icons.email, color: Colors.lightGreen,)),
                 hintText: "Ingrese su mail",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
@@ -188,8 +185,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,semanticLabel: "Icono ingrese contraseña",)),
-                semanticCounterText: "Ingrese su contraseña", 
+                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,)),
                 hintText: "Ingrese su contraseña",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(

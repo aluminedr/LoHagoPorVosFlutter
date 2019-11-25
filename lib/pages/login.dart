@@ -63,7 +63,6 @@ class _LoginPageState extends State<LoginPage>{
                 width: 135,
                 height: 135,
                 image: new AssetImage('assets/images/LoHagoPorVosLogo.png'),
-                semanticLabel: 'Logo de Lo Hago Por Vos',
               ),
             ),
             Text("Lo hago por vos".toUpperCase(), style: TextStyle(
@@ -88,8 +87,7 @@ class _LoginPageState extends State<LoginPage>{
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.email, color: Colors.lightGreen,semanticLabel: "Icono ingrese un mail")),
-                semanticCounterText: "Ingrese un mail", 
+                  child: Icon(Icons.email, color: Colors.lightGreen,)),
                 hintText: "Ingrese su mail",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
@@ -118,8 +116,7 @@ class _LoginPageState extends State<LoginPage>{
                       bottomRight: Radius.circular(10.0)
                     )
                   ),
-                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,semanticLabel: "Icono ingrese su contraseña",)),
-                semanticCounterText: "Ingrese su contraseña", 
+                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,)),
                 hintText: "Ingrese su contraseña",
                 hintStyle: TextStyle(color: Colors.white),
                 border: OutlineInputBorder(
