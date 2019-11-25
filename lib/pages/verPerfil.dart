@@ -91,14 +91,14 @@ class VerPerfilPage extends StatefulWidget{
       key:_scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: new Text("Perfil"),
-        actions: <Widget>[
+        title: new Text("Perfil")
+        /*actions: <Widget>[
                     IconButton(
                       icon: Icon(
                         Icons.settings,
                         color: Colors.white,
                       ), onPressed: () {},
-                    )]
+                    )]*/
       ),
         backgroundColor: Color.fromRGBO(255, 255, 255, .9),
         body: SafeArea(
