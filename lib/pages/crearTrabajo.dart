@@ -266,6 +266,7 @@ Future getImageCamera() async{
                                   ),
                                   Expanded(child: Container(),),
                                   
+
                                 ],
                               ),
                               )],
