@@ -109,7 +109,7 @@ class ItemList extends StatefulWidget {
               new Container(
                 margin: (idPersona==idPersonaLogueada) ? const EdgeInsets.only(left: 16.0): const EdgeInsets.only(right: 16.0),
                 child: new CircleAvatar(
-                  child: new Image.asset('../LoHagoPorVosLaravel/public/storage/perfil/$imagenPersona'),
+                  child: new Image.asset('assets/imagenPerfil/$imagenPersona'),
                   ),
               ),
               new Expanded(                                             
