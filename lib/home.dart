@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/filtros.dart';
 import 'package:flutter_app/pages/listaFiltros.dart';
 import 'package:flutter_app/pages/verTrabajos.dart';
 import 'package:flutter_app/trabajosBusqueda.dart';
@@ -37,69 +38,70 @@ class HomePage extends StatefulWidget {
       });
 
   }
-List _filtrosSeleccionados= List();
-  _showFiltrosDialog() {
+// List _filtrosSeleccionados= List();
+//   _showFiltrosDialog() {
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          //print(_selecteCategorys);
-          var listaFiltros=widget.list;
-          //print(listaFiltros);
-          //print(list);
-          //Here we will build the content of the dialog
-          return AlertDialog(
-            title: Text("Filtrar"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Filtrar"),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-            content:StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) { 
-              return Container(
-              height: 300.0, // Change as per your requirement
-              width: 300.0,
-              child: new ListView(children: <Widget>[
-                new Column(
-                      children: <Widget>[
-                        Container(
-                          child:new ListView.builder(
-                              itemCount: listaFiltros[0]['categorias'] == null ? 0 : listaFiltros[0]['categorias'].length,
-                              itemBuilder: (context, i) {
-                                        return CheckboxListTile(
-                                              value: _filtrosSeleccionados.contains(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']),
-                                              onChanged: (bool selected) {
-                                                if (selected == true) {
-                                                  setState(() {
-                                                    _filtrosSeleccionados.add(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
-                                                  });
-                                                } else {
-                                                  setState(() {
-                                                    _filtrosSeleccionados.remove(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
-                                                  });
-                                                }
-                                              },
-                                          title: Text(listaFiltros[0]['categorias'][i]['nombreCategoriaTrabajo']),
-                                        );
-                              }
-                            ),
-                        ),
-                      ],
-                    ),
-               ],
-               ),
+//     showDialog(
+//         context: context,
+//         builder: (BuildContext context) {
+//           //print(_selecteCategorys);
+//           var listaFiltros=widget.list;
+//           //print(listaFiltros);
+//           //print(list);
+//           //Here we will build the content of the dialog
+//           return AlertDialog(
+//             title: Text("Filtrar"),
+//             actions: <Widget>[
+//               FlatButton(
+//                 child: Text("Filtrar"),
+//                 onPressed: () => Navigator.of(context).pop(),
+//               )
+//             ],
+//             content:StatefulBuilder(
+//               builder: (BuildContext context, StateSetter setState) { 
+//               return Container(
+//               height: 300.0, // Change as per your requirement
+//               width: 300.0,
+//               child: new ListView(children: <Widget>[
+//                 new Column(
+//                       children: <Widget>[
+//                         Container(
+//                           child:new ListView.builder(
+//                               itemCount: listaFiltros[0]['categorias'] == null ? 0 : listaFiltros[0]['categorias'].length,
+//                               itemBuilder: (context, i) {
+//                                         return CheckboxListTile(
+//                                               value: _filtrosSeleccionados.contains(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']),
+//                                               onChanged: (bool selected) {
+//                                                 if (selected == true) {
+//                                                   setState(() {
+//                                                     _filtrosSeleccionados.add(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
+//                                                   });
+//                                                 } else {
+//                                                   setState(() {
+//                                                     _filtrosSeleccionados.remove(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
+//                                                   });
+//                                                 }
+//                                               },
+//                                           title: Text(listaFiltros[0]['categorias'][i]['nombreCategoriaTrabajo']),
+//                                         );
+//                               }
+//                             ),
+//                         ),
+//                       ],
+//                     ),
+//                ],
+//                ),
                 
-                );}
+//                 );}
             
-          ),);
-        });
-  }
+//           ),);
+//         });
+//   }
     
   
         @override
         Widget build(BuildContext context) {
+          var list= widget.list;
           return Scaffold(
             appBar : AppBar(
               backgroundColor: Colors.green,
@@ -120,7 +122,7 @@ List _filtrosSeleccionados= List();
                     semanticLabel: 'filtro',
                   ),
                   onPressed: (){
-                    _showFiltrosDialog();
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ModalFiltros(list: list)));
                   },
                 ),
               ],
