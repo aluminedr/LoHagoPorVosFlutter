@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home.dart';
+import 'package:flutter_app/pages/listaFiltros.dart';
 import 'package:flutter_app/pages/listaHabilidades.dart';
 import 'package:flutter_app/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +49,7 @@ class _MyAppState extends State<LoHagoPorVos> {
       debugShowCheckedModeBanner: false,
       title: 'LO HAGO POR VOS',
       home: Scaffold(
-        body: (_isLoggedIn && _hasProfile) ? HomePage() : (_isLoggedIn && !_hasProfile) ? ListaHabilidadesPage() : LoginPage(),
+        body: (_isLoggedIn && _hasProfile) ? ListaFiltros() : (_isLoggedIn && !_hasProfile) ? ListaHabilidadesPage() : LoginPage(),
       ),
       
     );
