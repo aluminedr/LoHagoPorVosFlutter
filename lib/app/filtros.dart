@@ -1,7 +1,13 @@
 import 'dart:convert';
+import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/app/ovalRightClipper.dart';
+import 'package:flutter_app/pages/verTrabajosFiltrados.dart';
+import 'package:image/image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ModalFiltros extends StatefulWidget {
   final List list;
@@ -17,7 +23,7 @@ class ModalFiltros extends StatefulWidget {
     List _filtrosSeleccionadosLocalidad= List();
     final ScrollController _scrollController= ScrollController();
   Function(String) precioValidator = (String value){
-   if(value.isEmpty){
+   if(value.isNotEmpty){
      return "Ingrese su nombre";
    }
    return null;
@@ -33,10 +39,15 @@ class ModalFiltros extends StatefulWidget {
       body: 
       Column(
         children: <Widget>[ 
-          Text('Categorias'),
+          Text('Categorias',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),),
           Expanded(
                         child:
                             new ListView.builder(
+                              physics: ScrollPhysics(),
                                   itemCount: listaFiltros[0]['categorias'] == null ? 0 : listaFiltros[0]['categorias'].length,
                                   itemBuilder: (context, i) {
                                             return CheckboxListTile(
@@ -63,12 +74,18 @@ class ModalFiltros extends StatefulWidget {
                                   }
                                 ),
           ),
-          Text('Ubicación'),
-          ExpansionTile(
+          Text('Ubicación',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),),
+          Expanded(child:
+          SingleChildScrollView(child:ExpansionTile(
                           children: <Widget>[
                                   new ListView.builder(
                                     controller: _scrollController,
                                     shrinkWrap: true,
+                                    //physics: AlwaysScrollableScrollPhysics() ,
                                     itemCount: listaFiltros[0]['provincias'][0]['localidades'] == null ? 0 : listaFiltros[0]['provincias'][0]['localidades'].length,
                                     itemBuilder: (context, i) {
                                       //print(listaFiltros[0]['provincias'][0]['localidades']);
@@ -89,8 +106,10 @@ class ModalFiltros extends StatefulWidget {
                                               );
                                     }
                                   ),
-          ], title: Text('Neuquen'),),
-       ExpansionTile(
+          ], title: Text('Neuquen'),),),),
+          
+       Expanded(child:
+          SingleChildScrollView(child:ExpansionTile(
                           children: <Widget>[
                                   new ListView.builder(
                                     controller: _scrollController,
@@ -115,8 +134,12 @@ class ModalFiltros extends StatefulWidget {
                                               );
                                     }
                                   ),
-          ], title: Text('Rio Negro'),),
-       
+          ], title: Text('Rio Negro'),),)),
+        Text('Rango monetario',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),),
           Expanded(
             child:  ListView(
               children:
@@ -124,17 +147,82 @@ class ModalFiltros extends StatefulWidget {
                 new TextFormField(
                             controller: precioMinController,
                             validator:precioValidator,
-                            
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ], // Only numbers can be entered
+                              decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon:Icon(Icons.attach_money),
+                              labelText:"Min", 
+                                hintText: "0",
+                                
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.green.withOpacity(0.1),
+                            ),
                           ),
-                    
+                    SizedBox(height: 10,),
               new TextFormField(
                             controller: precioMaxController,
                             validator:precioValidator,
-              ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              WhitelistingTextInputFormatter.digitsOnly
+                            ], // Only numbers can be entered
+                              decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon:Icon(Icons.attach_money),
+                              labelText:"Max", 
+                                hintText: "1000",
+                                
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.green.withOpacity(0.1),
+                            ),
+                          ),
                 ],),
-          )],
+          ),
+          Expanded(
+            child: Center(
+                         child: SizedBox(
+                        child: new RaisedButton(
+                          child: new Text("Filtrar"),
+                          textColor: Colors.green,
+                          padding: const EdgeInsets.all(10.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)
+                          ),
+                              onPressed: () {
+                                filtrar();
+                              },
+                          ),
+                         ),
+            ),
+                      ),],
                           )
                           );
+}
+
+void filtrar() async{
+  var data = {
+    'categoria': _filtrosSeleccionadosCategoria,
+    'localidad': _filtrosSeleccionadosLocalidad,
+    //'rangoMontoInferior': precioMinController.text,
+    //'rangoMontoSuperior': precioMaxController.text,
+  };
+  var res = await CallApi().postData(data, 'filtrar');
+  var body = json.decode(res.body);
+  //print(body);
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => ListarTrabajosFiltradosPage(listaFiltrados: body)));
+
 }
            
 }
