@@ -15,6 +15,7 @@ class ModalFiltros extends StatefulWidget {
     TextEditingController precioMaxController = new TextEditingController();
     List _filtrosSeleccionadosCategoria= List();
     List _filtrosSeleccionadosLocalidad= List();
+    final ScrollController _scrollController= ScrollController();
   Function(String) precioValidator = (String value){
    if(value.isEmpty){
      return "Ingrese su nombre";
@@ -63,28 +64,59 @@ class ModalFiltros extends StatefulWidget {
                                 ),
           ),
           Text('Ubicación'),
-          Expanded(
-                        child:    new ListView.builder(
-                                  itemCount: listaFiltros[0]['provincias'] == null ? 0 : listaFiltros[0]['provincias'].length,
-                                  itemBuilder: (context, i) {
-                                            return CheckboxListTile(
-                                                  value: _filtrosSeleccionadosLocalidad.contains(listaFiltros[0]['provincias'][i]['idProvincia']),
-                                                  onChanged: (bool selected) {
-                                                    if (selected == true) {
-                                                      setState(() {
-                                                        _filtrosSeleccionadosLocalidad.add(listaFiltros[0]['provincias'][i]['idProvincia']);
-                                                      });
-                                                    } else {
-                                                      setState(() {
-                                                        _filtrosSeleccionadosLocalidad.remove(listaFiltros[0]['provincias'][i]['idProvincia']);
-                                                      });
-                                                    }
-                                                  },
-                                              title: Text(listaFiltros[0]['provincias'][i]['nombreProvincia']),
-                                            );
-                                  }
-                                ),
-          ),
+          ExpansionTile(
+                          children: <Widget>[
+                                  new ListView.builder(
+                                    controller: _scrollController,
+                                    shrinkWrap: true,
+                                    itemCount: listaFiltros[0]['provincias'][0]['localidades'] == null ? 0 : listaFiltros[0]['provincias'][0]['localidades'].length,
+                                    itemBuilder: (context, i) {
+                                      //print(listaFiltros[0]['provincias'][0]['localidades']);
+                                              return CheckboxListTile(
+                                                    value: _filtrosSeleccionadosLocalidad.contains(listaFiltros[0]['provincias'][0]['localidades'][i]['idLocalidad']),
+                                                    onChanged: (bool selected) {
+                                                      if (selected == true) {
+                                                        setState(() {
+                                                          _filtrosSeleccionadosLocalidad.add(listaFiltros[0]['provincias'][0]['localidades'][i]['idLocalidad']);
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          _filtrosSeleccionadosLocalidad.remove(listaFiltros[0]['provincias'][0]['localidades'][i]['idLocalidad']);
+                                                        });
+                                                      }
+                                                    },
+                                                title: Text(listaFiltros[0]['provincias'][0]['localidades'][i]['nombreLocalidad']),
+                                              );
+                                    }
+                                  ),
+          ], title: Text('Neuquen'),),
+       ExpansionTile(
+                          children: <Widget>[
+                                  new ListView.builder(
+                                    controller: _scrollController,
+                                    shrinkWrap: true,
+                                    itemCount: listaFiltros[0]['provincias'][1]['localidades'] == null ? 0 : listaFiltros[0]['provincias'][1]['localidades'].length,
+                                    itemBuilder: (context, i) {
+                                      //print(listaFiltros[0]['provincias'][1]['localidades']);
+                                              return CheckboxListTile(
+                                                    value: _filtrosSeleccionadosLocalidad.contains(listaFiltros[0]['provincias'][1]['localidades'][i]['idLocalidad']),
+                                                    onChanged: (bool selected) {
+                                                      if (selected == true) {
+                                                        setState(() {
+                                                          _filtrosSeleccionadosLocalidad.add(listaFiltros[0]['provincias'][1]['localidades'][i]['idLocalidad']);
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          _filtrosSeleccionadosLocalidad.remove(listaFiltros[0]['provincias'][1]['localidades'][i]['idLocalidad']);
+                                                        });
+                                                      }
+                                                    },
+                                                title: Text(listaFiltros[0]['provincias'][1]['localidades'][i]['nombreLocalidad']),
+                                              );
+                                    }
+                                  ),
+          ], title: Text('Rio Negro'),),
+       
           Expanded(
             child:  ListView(
               children:
