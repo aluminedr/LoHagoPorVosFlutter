@@ -6,6 +6,8 @@ import 'package:flutter_app/pages/comentarios.dart';
 import 'package:flutter_app/pages/valorarAnunciante.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/pages/chatScreen.dart';
+
 
 
 
@@ -29,9 +31,12 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
   int idPersonaTrabajo;
   int idPersonaLogeada;
   int idTrabajo;
+  int idConversacion;
+  int deshabilitado;
   bool asignado= false;
   bool pagado=false;
   bool valorado=false;
+  bool mostrarBotonConversacion=false;
 
   var urlDecode;
     void _getDetalles() async {
@@ -58,6 +63,8 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
   
    void initState(){
     _getDetalles();
+    buscarConversacion();
+
     super.initState();  
   }
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -111,6 +118,27 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
                               MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));
                         },
                       ),
+                      Spacer(),
+                    IconButton(
+                        color: Colors.green,
+                        icon: Icon(Icons.comment),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => new ChatScreen(idConversacion: idConversacion, deshabilitado: deshabilitado)));
+                        },
+                      ),
+                      (mostrarBotonConversacion) ?
+                        
+                        IconButton(
+                          color: Colors.green,
+                          icon: Icon(Icons.send),
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => new ChatScreen(idConversacion: idConversacion, deshabilitado: deshabilitado)));
+                          },
+                        )
+                        :
+                        new Container(width: 0, height: 0)
                   ],
                 ),
                 Container(
@@ -210,6 +238,25 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
     
     
   }*/
+
+  void buscarConversacion() async {
+    var data = {
+        'idTrabajo' : idTrabajo,
+    };
+
+    var res = await CallApi().postData(data, 'buscarConversacion');
+    var body = json.decode(res.body);
+    if (body.length>0){
+      var conversacion=body[0];
+      setState(() {
+       mostrarBotonConversacion = true; 
+       idConversacion = conversacion['idConversacion'];
+       deshabilitado = conversacion['deshabilitado'];
+      });
+    }
+  }
+
+
   void valorar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ValorarAnunciante(idPersonaLogeada,widget.index)));

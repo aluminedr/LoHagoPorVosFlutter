@@ -11,6 +11,7 @@ import 'package:flutter_app/pages/cancelar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'webViewContainer.dart';
+import 'package:flutter_app/pages/chatScreen.dart';
 
 
 
@@ -33,10 +34,13 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   int idPersonaTrabajo;
   int idPersonaLogeada;
   int idTrabajo;
+  int idConversacion;
+  int deshabilitado;
   bool asignado= false;
   bool pagado=false;
   bool valorado=false;
   bool puedeCancelar=false;
+  bool mostrarBotonConversacion=false;
   var fechaPago;
 
   var urlDecode;
@@ -113,6 +117,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   
    void initState(){
     _getDetalles();
+    buscarConversacion();
     super.initState();  
   }
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -166,6 +171,20 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                               MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));
                         },
                       ),
+                      
+                      (mostrarBotonConversacion) ?
+                        
+                        IconButton(
+                          color: Colors.green,
+                          icon: Icon(Icons.send),
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => new ChatScreen(idConversacion: idConversacion, deshabilitado: deshabilitado)));
+                          },
+                        )
+                        :
+                        new Container(width: 0, height: 0)
+                    
                   ],
                 ),
                 Container(
@@ -281,6 +300,23 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     void cancelar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Cancelar(widget.index,idPersonaLogeada)));
+  }
+
+  void buscarConversacion() async {
+    var data = {
+        'idTrabajo' : idTrabajo,
+    };
+
+    var res = await CallApi().postData(data, 'buscarConversaciones');
+    var body = json.decode(res.body);
+    if (body.length>0){
+      var conversacion=body[0];
+      setState(() {
+       mostrarBotonConversacion = true; 
+       idConversacion = conversacion['idConversacion'];
+       deshabilitado = conversacion['deshabilitado'];
+      });
+    }
   }
 
 
