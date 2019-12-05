@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
+
 
 
 class VerPerfilPage extends StatefulWidget{
@@ -30,6 +32,7 @@ class VerPerfilPage extends StatefulWidget{
   String claveNueva;
   String claveNuevaRepetida;
   String claveVieja;
+  var columnaCambio;
 
  ScaffoldState scaffoldState;
   _mostrarMensaje(msg) async {
@@ -153,7 +156,7 @@ class VerPerfilPage extends StatefulWidget{
                             fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
-                      Container(
+                      /*Container(
                         margin: EdgeInsets.only(top: 30),
                         padding: EdgeInsets.all(10),
                         child: Card(
@@ -211,7 +214,7 @@ class VerPerfilPage extends StatefulWidget{
                             ],
                           ),
                         ),
-                      ),
+                      ),*/
                       UserInfo()
                     ],
                   )
@@ -362,18 +365,29 @@ class UserInfo extends StatefulWidget {
           'idPersona' : idPersona,
           columna : nuevoValor,
       };
-      setState((){
+      print(columna);
+      print(nuevoValor);
 
-      });
+      
+      
       var res = await CallApi().postData(data, 'actualizarPerfil');
       var body = json.decode(res.body);
-
-      nuevoValor = null;
+      
       if(body['success']){
         _mostrarMensaje(body['mensaje']);
+        setState((){
+          if (columna=='nombrePersona'){
+            nombrePersona = "$nuevoValor";
+          } else if (columna=='apellidoPersona'){
+            apellidoPersona = "$nuevoValor";
+          } else if (columna=='telefonoPersona'){
+            telefonoPersona = "$nuevoValor";
+          }
+      });
       }else{
         _mostrarMensaje(body['mensaje']);
       }
+      nuevoValor = null;
       
     }
   }
@@ -393,6 +407,7 @@ class UserInfo extends StatefulWidget {
 
       if(body['success']){
         _mostrarMensaje(body['mensaje']);
+        logout();
       }else{
         _mostrarMensaje(body['mensaje']);
       }
@@ -436,7 +451,6 @@ showAlertDialog(BuildContext context,valor,subTitulo,columna) {
     child: Text("Guardar"),
     onPressed:  () {
       if(columna == 'telefonoPersona'){
-        print('aca');
         String p = "[0-9+]{6,12}";
         RegExp regExp = new RegExp(p);
         if (regExp.hasMatch(nuevoValor)) {
@@ -677,6 +691,27 @@ showAlertDialogClave(BuildContext context,valor,subTitulo,columna) {
   );
 
 }
+
+void logout() async{
+      // logout from the server ... 
+      var res = await CallApi().getData('logout');
+      var body = json.decode(res.body);
+      print(body);
+      if(body['success']){
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        localStorage.remove('user');
+        localStorage.remove('token');
+        localStorage.remove('idPersona');
+        //localStorage.setBool('token', null);
+    
+        
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (context) => LoHagoPorVos()));
+      }
+     
+  }
 
 
 }

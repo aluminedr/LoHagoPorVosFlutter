@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController  claveUsuarioController = new TextEditingController();
   ScaffoldState scaffoldState;
+  bool _validado = false;
   _mostrarMensaje(msg) async {
     final snackBar = SnackBar(
       content: Text(msg),
@@ -38,6 +39,37 @@ class _LoginPageState extends State<LoginPage>{
     );
     Scaffold.of(context).showSnackBar(snackBar);
    }
+
+   Function(String) mailValidator = (String value){
+  if (value.isEmpty) {
+    return 'mail no puede estar vacío';
+  }
+  // Regex para validación de email
+  String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
+      "\\@" +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+      "(" +
+      "\\." +
+      "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+      ")+";
+  RegExp regExp = new RegExp(p);
+  if (regExp.hasMatch(value)) {
+    return true;
+  }
+  return 'El Email suministrado no es válido. Intente otro correo electrónico';
+};
+ 
+  Function(String) passValidator = (String value){
+   if(value.isEmpty){
+     return "Ingrese una contraseña";
+   }
+   if(value.length<8){
+    return 'La contraseña debe contener 8 o mas caracteres';
+  }
+   return true;
+ };
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +175,15 @@ class _LoginPageState extends State<LoginPage>{
                 
                 ),
                 onPressed: (){
-                  _cargando ? null : _login();
+               
+                  if (passValidator(claveUsuarioController.text)==true && mailValidator(mailUsuarioController.text)==true){
+                    setState(() {
+                    _validado = true;
+                  });
+                  } 
+                  if (_validado){
+                    _cargando ? null : _login();
+                  }
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)
@@ -197,7 +237,6 @@ void _login() async{
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
-    print(body);
     if(body ['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);

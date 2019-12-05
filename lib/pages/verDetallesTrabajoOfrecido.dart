@@ -7,6 +7,7 @@ import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/pages/comentarios.dart';
 import 'package:flutter_app/pages/listaAspirantes.dart';
 import 'package:flutter_app/pages/valorar.dart';
+import 'package:flutter_app/pages/cancelar.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'webViewContainer.dart';
@@ -35,6 +36,8 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
   bool asignado= false;
   bool pagado=false;
   bool valorado=false;
+  bool puedeCancelar=false;
+  var fechaPago;
 
   var urlDecode;
     void _getDetalles() async {
@@ -47,9 +50,27 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     idPersonaLogeada = localStorage.getInt('idPersona');
     //Busco si el trabajo ya tiene asignado un postulante
+    
+    // Busco si el trabajo ya tiene un pago
+    var datosPago={
+      'idTrabajo':widget.index,
+    };
+    var respuestaPago = await CallApi().postData(datosPago,'buscarPagoTrabajo');
+    var pago = json.decode(respuestaPago.body);
+    if(pago.length!=0){
+      fechaPago = pago[0]['created_at'];
+      var fechaActual = DateTime.now();
+      fechaPago = DateTime.parse(fechaPago);
+       final diferenciaHoras = fechaPago.difference(fechaActual).inHours;
+       if (diferenciaHoras==2){
+         puedeCancelar=true;
+       }
+    }
+    
     var datosAsignado={
       'idTrabajo': widget.index,
     };
+
     var resAsignado = await CallApi().postData(datosAsignado,'buscarTrabajoAsingado');
     var trabajoAsignado = json.decode(resAsignado.body);
     if(trabajoAsignado.length!=0){
@@ -175,7 +196,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==4 && !valorado) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
+                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==3 && puedeCancelar) ? "cancelar".toUpperCase() : (idEstado==3 && !puedeCancelar) ? "Esperando a realizarse".toUpperCase() : (idEstado==4 && !valorado) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
                              style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
@@ -184,7 +205,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                            (idEstado==2 && asignado && !pagado) ? enviarDatos() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ?  
+                            (idEstado==2 && asignado && !pagado) ? enviarDatos() : (idEstado==3 && puedeCancelar) ? cancelar() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ?  
                             Navigator.of(context).push(
                               new MaterialPageRoute(
                                   builder: (BuildContext context) => new ListaAspirantes(
@@ -250,11 +271,18 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
     
     
   }*/
+
+
   void valorar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Valorar(widget.index,idPersonaLogeada)));
-    
   }
+
+    void cancelar() async {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Cancelar(widget.index,idPersonaLogeada)));
+  }
+
 
 
 }

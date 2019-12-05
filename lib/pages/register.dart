@@ -19,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController claveUsuarioController = new TextEditingController();
   TextEditingController nombreUsuarioController = new TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _validado = false;
 var _scaffoldKey = new GlobalKey<ScaffoldState>();
  ScaffoldState scaffoldState;
   _mostrarMensaje(msg) async {
@@ -81,6 +83,8 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
       resizeToAvoidBottomInset: false,
       key:_scaffoldKey,
       body: Form(
+        key: _formKey,
+        autovalidate: _validado,
         child: Container(
         padding: const EdgeInsets.all(16.0),
         height: double.infinity,
@@ -210,10 +214,13 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   _cargando?"Guardando...".toUpperCase():"Registrarme".toUpperCase()
-                
                 ),
                 onPressed: (){
-                  _cargando ? null : _login();
+                  _validateInputs(); // Hacemos la validacion de todos los inputs
+                  if (_validado){ // Si es false significa que esta bien
+                    _cargando ? null : _login(); 
+                  }
+
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)
@@ -242,6 +249,18 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
       ),
     );
   }
+
+  void _validateInputs() {
+  final form = _formKey.currentState;
+  if (form.validate()) {
+    // Text forms was validated.
+    form.save();
+        setState(() => _validado = true);
+
+  } else {
+    setState(() => _validado = false);
+  }
+}
 
 void _login() async {
     setState(() {
