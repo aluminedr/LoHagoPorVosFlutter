@@ -13,7 +13,7 @@ class _MisTrabajosState extends State<MisTrabajos> with SingleTickerProviderStat
 
   @override
   void initState() {
-    _tabController = new TabController(length: 5, vsync: this);
+    _tabController = new TabController(length: 6, vsync: this);
     super.initState();
   }
 
@@ -40,6 +40,10 @@ class _MisTrabajosState extends State<MisTrabajos> with SingleTickerProviderStat
             text: 'ASIGNADOS',
           ),
           new Tab(
+            text: 'CANCELADOS',
+          ),
+          
+          new Tab(
             text: 'FINALIZADOS',
           )
         ],
@@ -54,6 +58,7 @@ class _MisTrabajosState extends State<MisTrabajos> with SingleTickerProviderStat
           new HistorialTrabajosPage(idEstado: 2),
           new HistorialTrabajosPage(idEstado: 3),
           new HistorialTrabajosPage(idEstado: 4),
+          new HistorialTrabajosPage(idEstado: 6),
           new HistorialTrabajosPage(idEstado: 5),
         ],
       controller: _tabController,),

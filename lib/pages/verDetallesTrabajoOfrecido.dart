@@ -215,7 +215,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                           color: Colors.purple,
                           textColor: Colors.white,
                           child:Text(
-                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==3 && puedeCancelar) ? "cancelar".toUpperCase() : (idEstado==3 && !puedeCancelar) ? "Esperando a realizarse".toUpperCase() : (idEstado==4 && !valorado) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
+                            (idEstado==2 && asignado && !pagado) ? "pagar".toUpperCase() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==6) ? 'Anuncio Cancelado' .toUpperCase() : (idEstado==2 && !asignado) ? "ver postulantes".toUpperCase() : (idEstado==3 && puedeCancelar) ? "cancelar".toUpperCase() : (idEstado==3 && !puedeCancelar) ? "Esperando a realizarse".toUpperCase() : (idEstado==4 && !valorado) ? "Confirmar trabajo finalizado".toUpperCase() : "esperando postulaciones...".toUpperCase(),
                              style: TextStyle(
                             fontWeight: FontWeight.normal
                           ),),
@@ -224,7 +224,7 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
                             horizontal: 32.0,
                           ),
                           onPressed: () {
-                            (idEstado==2 && asignado && !pagado) ? enviarDatos() : (idEstado==3 && puedeCancelar) ? cancelar() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==2 && !asignado) ?  
+                            (idEstado==2 && asignado && !pagado) ? enviarDatos() : (idEstado==3 && puedeCancelar) ? cancelar() : (idEstado==5) ? "este anuncio ha finalizado".toUpperCase() : (idEstado==6) ? "Anuncio Cancelado".toUpperCase() : (idEstado==2 && !asignado) ?  
                             Navigator.of(context).push(
                               new MaterialPageRoute(
                                   builder: (BuildContext context) => new ListaAspirantes(
