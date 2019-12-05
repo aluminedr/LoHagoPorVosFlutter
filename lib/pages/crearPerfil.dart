@@ -26,6 +26,8 @@ class CrearPerfilPage extends StatefulWidget{
   TextEditingController dniPersonaController = new TextEditingController();
   TextEditingController  telefonoPersonaController = new TextEditingController();
   TextEditingController idLocalidadController = new TextEditingController();
+  TextEditingController  numeroCBUController = new TextEditingController();
+  
   var idUsuario;
   bool _cargando = false;
   String mensajeError='';
@@ -154,6 +156,7 @@ Future getImageCamera() async{
   
     
  Function(String) nombrePersonaValidator = (String value){
+   print("si");
    if(value.isEmpty){
      return "Ingrese su nombre";
    }
@@ -171,6 +174,17 @@ Future getImageCamera() async{
    }
    return null;
  };
+
+ Function(String) numeroCBUValidator = (String value){
+   if(value.isEmpty){
+     return null;
+   }
+   if(value.length != 22){
+    return 'Un CBU tiene 22 digitos';
+  }
+   return null;
+ };
+
   Function(String) telefonoPersonaValidator = (String value){
    if(value.isEmpty){
      return "Ingrese su telefono";
@@ -455,11 +469,12 @@ _showCategoriasDialog() {
                           ),
                         ),
                         ),SizedBox(height: 10.0),
+                      
                       Container(
                         child: ListTile(
                           title: new TextFormField(
-                            controller: telefonoPersonaController,
-                            validator:telefonoPersonaValidator,
+                            controller: numeroCBUController,
+                            validator:numeroCBUValidator,
                               decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
@@ -474,7 +489,40 @@ _showCategoriasDialog() {
                                     bottomRight: Radius.circular(10.0)
                                   )
                                 ),
-                                child: Icon(Icons.phone_android, color: Colors.white60,)),
+                                child: Icon(Icons.credit_card, color: Colors.white60,)),
+                              hintText: "Numero de CBU (opcional)",
+                              hintStyle: TextStyle(color: Colors.green),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                                borderSide: BorderSide.none
+                              ),
+                              filled: true,
+                              fillColor: Colors.green.withOpacity(0.1),
+                            ), 
+                          ),
+                        ),
+                      ),SizedBox(height: 10.0),
+                      SizedBox(height: 10.0),
+                      Container(
+                        child: ListTile(
+                          title: new TextFormField(
+                            controller: telefonoPersonaController,
+                            validator: telefonoPersonaValidator,
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.all(16.0),
+                              prefixIcon: Container(
+                                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                margin: const EdgeInsets.only(right: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(10.0)
+                                  )
+                                ),
+                                child: Icon(Icons.credit_card, color: Colors.white60,)),
                               hintText: "Ingrese su telefono",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
@@ -487,7 +535,8 @@ _showCategoriasDialog() {
                             
                           ),
                         ),
-                      ),SizedBox(height: 10.0),
+                        ),SizedBox(height: 10.0),
+                      
                       Container(
                         child: ListTile(
                           title: DropdownButtonFormField(
@@ -643,7 +692,7 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.map, color: Colors.white60,),),
-                                 hintText: "Seleccione una provincia",
+                                 hintText: "Seleccione una localidad",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -710,6 +759,7 @@ _showCategoriasDialog() {
       "nombrePersona":nombrePersonaController.text,
       "apellidoPersona":apellidoPersonaController.text,
       "dniPersona":dniPersonaController.text,
+      "numeroCBU":numeroCBUController.text,
       "telefonoPersona":telefonoPersonaController.text,
       "imagenPersona":imagenPersona,
       "nombreImagen":nombreImagen,
@@ -725,6 +775,7 @@ _showCategoriasDialog() {
     }else{
       var res = await CallApi().postData(data, 'crearPerfil');
       var body = json.decode(res.body);
+      print(body);
       //print(body);
       if(body['success']){
         SharedPreferences localStorage = await SharedPreferences.getInstance();
