@@ -13,6 +13,8 @@ class ModalFiltros extends StatefulWidget {
   class _ModalFiltrosState extends State<ModalFiltros>{
     TextEditingController precioMinController = new TextEditingController();
     TextEditingController precioMaxController = new TextEditingController();
+    List _filtrosSeleccionadosCategoria= List();
+    List _filtrosSeleccionadosLocalidad= List();
   Function(String) precioValidator = (String value){
    if(value.isEmpty){
      return "Ingrese su nombre";
@@ -22,35 +24,41 @@ class ModalFiltros extends StatefulWidget {
   
   Widget build(BuildContext context) {
     var listaFiltros=widget.list;
-    List _filtrosSeleccionadosCategoria= List();
-    List _filtrosSeleccionadosLocalidad= List();
     return Scaffold(
       appBar:  AppBar(
         backgroundColor: Colors.green,
         title: new Text("Filtrar"),
       ),
-      body: Column(
+      body: 
+      Column(
         children: <Widget>[ 
           Text('Categorias'),
           Expanded(
-                        child:    new ListView.builder(
+                        child:
+                            new ListView.builder(
                                   itemCount: listaFiltros[0]['categorias'] == null ? 0 : listaFiltros[0]['categorias'].length,
                                   itemBuilder: (context, i) {
                                             return CheckboxListTile(
+                                             
                                                   value: _filtrosSeleccionadosCategoria.contains(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']),
-                                                  onChanged: (bool selected) {
-                                                    if (selected == true) {
+                                                   
+                                                  onChanged: (bool selectedCat) {
+                                                    
+                                                    if (selectedCat == true) {
                                                       setState(() {
                                                         _filtrosSeleccionadosCategoria.add(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
+                                                        
                                                       });
                                                     } else {
                                                       setState(() {
                                                         _filtrosSeleccionadosCategoria.remove(listaFiltros[0]['categorias'][i]['idCategoriaTrabajo']);
+
                                                       });
                                                     }
                                                   },
                                               title: Text(listaFiltros[0]['categorias'][i]['nombreCategoriaTrabajo']),
                                             );
+                                            
                                   }
                                 ),
           ),
@@ -93,7 +101,8 @@ class ModalFiltros extends StatefulWidget {
               ),
                 ],),
           )],
-                          ));
+                          )
+                          );
 }
            
 }

@@ -20,7 +20,7 @@ class ListaFiltros extends StatefulWidget{
     
     var res = await CallApi().getData('listarFiltros');
     var listaFiltros = json.decode(res.body);
-    print(listaFiltros);
+    //print(listaFiltros);
     return listaFiltros;
   }
   
