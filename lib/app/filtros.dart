@@ -22,12 +22,6 @@ class ModalFiltros extends StatefulWidget {
     List _filtrosSeleccionadosCategoria= List();
     List _filtrosSeleccionadosLocalidad= List();
     final ScrollController _scrollController= ScrollController();
-  Function(String) precioValidator = (String value){
-   if(value.isNotEmpty){
-     return "Ingrese su nombre";
-   }
-   return null;
- };
   
   Widget build(BuildContext context) {
     var listaFiltros=widget.list;
@@ -144,9 +138,8 @@ class ModalFiltros extends StatefulWidget {
             child:  ListView(
               children:
               <Widget>[
-                new TextFormField(
+                new TextField(
                             controller: precioMinController,
-                            validator:precioValidator,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               WhitelistingTextInputFormatter.digitsOnly
@@ -165,9 +158,8 @@ class ModalFiltros extends StatefulWidget {
                             ),
                           ),
                     SizedBox(height: 10,),
-              new TextFormField(
+              new TextField(
                             controller: precioMaxController,
-                            validator:precioValidator,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               WhitelistingTextInputFormatter.digitsOnly
@@ -212,16 +204,16 @@ void filtrar() async{
   var data = {
     'categoria': _filtrosSeleccionadosCategoria,
     'localidad': _filtrosSeleccionadosLocalidad,
-    //'rangoMontoInferior': precioMinController.text,
-    //'rangoMontoSuperior': precioMaxController.text,
+    'rangoMontoInferior': precioMinController.text,
+    'rangoMontoSuperior': precioMaxController.text,
   };
   var res = await CallApi().postData(data, 'filtrar');
-  var body = json.decode(res.body);
+  var lista = json.decode(res.body);
   //print(body);
         Navigator.push(
           context,
           new MaterialPageRoute(
-              builder: (context) => ListarTrabajosFiltradosPage(listaFiltrados: body)));
+              builder: (context) => ListarTrabajosFiltradosPage(listaFiltrados: lista)));
 
 }
            
