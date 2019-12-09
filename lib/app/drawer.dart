@@ -43,6 +43,7 @@ class MenuLateral extends StatefulWidget {
       setState(() {
         userData = user;
         tokenData = userToken;
+        imagenPersona=imagenPersona;
       });
 
   }
@@ -70,7 +71,7 @@ class MenuLateral extends StatefulWidget {
                             colors: [Colors.pink, Colors.deepPurple])),
                     child: CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/$imagenPersona'),
+                      backgroundImage: AssetImage('assets/imagenPerfil/$imagenPersona'),
                     ),
                   ),
                   SizedBox(height: 5.0),

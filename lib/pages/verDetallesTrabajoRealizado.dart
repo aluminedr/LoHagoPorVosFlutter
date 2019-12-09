@@ -92,7 +92,7 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
               color: Colors.black26
             ),
             height: 400,
-            child: Image.asset('../LoHagoPorVosLaravel/public/storage/trabajos/$imagenTrabajo', fit: BoxFit.cover)),
+            child: Image.asset('assets/imagenCategoria/$imagenTrabajo', fit: BoxFit.cover)),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 16.0,bottom: 20.0),
             child: Column(

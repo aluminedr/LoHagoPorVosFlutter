@@ -166,9 +166,19 @@ class ItemList extends StatefulWidget {
             children: <Widget>[
               new Container(
                 margin:const EdgeInsets.only(right: 16.0),
-                child: new CircleAvatar(
-                  child: new Image.asset('assets/perfil/$imagenPersona'),
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(right: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                        image: AssetImage('assets/imagenPerfil/$imagenPersona'),
+                        fit: BoxFit.fill),
                   ),
+                ),
+                  
               ),
               new Expanded(                                             
                 child: new Column(  

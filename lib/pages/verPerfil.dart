@@ -127,7 +127,7 @@ class VerPerfilPage extends StatefulWidget{
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(width: 3),
                     image: DecorationImage(
-                        image: AssetImage('../LoHagoPorVosLaravel/public/storage/perfiles/$imagenPersona'),
+                        image: AssetImage('assets/imagenPerfil/$imagenPersona'),
                         fit: BoxFit.fill),
                   ),
                 ),

@@ -161,6 +161,7 @@ class ItemList extends StatefulWidget {
         var habilidad2= list[i][0]['habilidades'][1]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         var habilidad3= list[i][0]['habilidades'][2]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         var rating= list[i][0]['valoracion']+.0;
+        var imagenPersona= list[i][0]['imagenPersona'];
         //if(rating)
         //print(rating);
         return new Container(
@@ -191,7 +192,7 @@ class ItemList extends StatefulWidget {
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(width: 3, color: Colors.purple),
                     image: DecorationImage(
-                        image: AssetImage('assets/imagenPerfil/'+list[i][0]['imagenPersona']),
+                        image: AssetImage('assets/imagenPerfil/$imagenPersona'),
                         fit: BoxFit.fill),
                   ),
                 ),
