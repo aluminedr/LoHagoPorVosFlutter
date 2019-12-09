@@ -62,25 +62,7 @@ class ListarTrabajosBusqueda extends StatefulWidget{
     super.dispose();
   }
 
-  void _handleTap() {
-    setState(() {
-      // valueAnimation.isAnimating is part of our build state
-      if (_controller.isAnimating) {
-        _controller.stop();
-      } else {
-        switch (_controller.status) {
-          case AnimationStatus.dismissed:
-          case AnimationStatus.forward:
-            _controller.forward();
-            break;
-          case AnimationStatus.reverse:
-          case AnimationStatus.completed:
-            _controller.reverse();
-            break;
-        }
-      }
-    });
-  }
+  
 Widget _buildIndicators(BuildContext context, Widget child) {
     final List<Widget> indicators = <Widget>[
       const SizedBox(

@@ -9,7 +9,6 @@ import 'package:image/image.dart' as Img;
 import 'dart:math' as Math;
 import 'package:path_provider/path_provider.dart';
 
-import '../main.dart';
 
 class Valorar extends StatefulWidget{
   final idPersonaLogeada;

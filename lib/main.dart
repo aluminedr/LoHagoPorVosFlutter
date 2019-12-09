@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home.dart';
 import 'package:flutter_app/pages/listaFiltros.dart';
 import 'package:flutter_app/pages/listaHabilidades.dart';
 import 'package:flutter_app/pages/login.dart';

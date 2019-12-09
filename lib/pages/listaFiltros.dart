@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/home.dart';
-import 'package:flutter_app/pages/crearPerfil.dart';
 
 class ListaFiltros extends StatefulWidget{
   @override

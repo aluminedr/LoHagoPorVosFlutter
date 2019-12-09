@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/home.dart';
 import 'dart:convert';
-import 'dart:io';
 
-import '../main.dart';
 
 class Cancelar extends StatefulWidget{
   final idPersonaLogeada;

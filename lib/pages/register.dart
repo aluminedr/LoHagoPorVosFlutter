@@ -19,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage>{
   TextEditingController mailUsuarioController = new TextEditingController();
   TextEditingController claveUsuarioController = new TextEditingController();
   TextEditingController nombreUsuarioController = new TextEditingController();
+  TextEditingController repetirClaveUsuarioController = new TextEditingController();
+  
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _validado = false;
 var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -41,7 +43,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
     
  Function(String) mailValidator = (String value){
   if (value.isEmpty) {
-    return 'mail no puede estar vacío';
+    return 'Ingrese su email';
   }
   // Regex para validación de email
   String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
@@ -70,11 +72,13 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
    if(value.isEmpty){
      return "Ingrese una contraseña";
    }
+   
    if(value.length<8){
     return 'La contraseña debe contener 8 o mas caracteres';
   }
    return null;
  };
+
 
 
   @override
@@ -96,7 +100,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
             ]
           )
         ),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(top: 40.0,bottom: 20.0),
@@ -177,7 +181,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
             SizedBox(height: 10.0),
             TextFormField(
               controller: claveUsuarioController,
-              validator:passValidator,
+              validator: passValidator,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(16.0),
                 prefixIcon: Container(
@@ -205,6 +209,47 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
               ),
               obscureText: true,
             ),
+            SizedBox(height: 10.0),
+            TextFormField(
+              controller: repetirClaveUsuarioController,
+              validator: (String value){
+                if(value.isEmpty){
+                  return "Repita contraseña";
+                }
+
+                if (value != claveUsuarioController.text){
+                  return "Las contraseñas no coinciden";
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.all(16.0),
+                prefixIcon: Container(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                  margin: const EdgeInsets.only(right: 8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      bottomLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                      bottomRight: Radius.circular(10.0)
+                    )
+                  ),
+                  child: Icon(Icons.vpn_key, color: Colors.lightGreen,semanticLabel: "Icono repita contraseña",)),
+                semanticCounterText: "Repita su contraseña", 
+                hintText: "Repita su contraseña",
+                hintStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none
+                ),
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.1),
+              ),
+              obscureText: true,
+            ),
+           
             SizedBox(height: 30.0),
             SizedBox(
               width: double.infinity,

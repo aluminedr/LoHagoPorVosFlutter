@@ -1,13 +1,9 @@
 import 'dart:convert';
-import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/api/api.dart';
-import 'package:flutter_app/app/ovalRightClipper.dart';
 import 'package:flutter_app/pages/verTrabajosFiltrados.dart';
-import 'package:image/image.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ModalFiltros extends StatefulWidget {
   final List list;

@@ -70,25 +70,7 @@ class HistorialTrabajosPage extends StatefulWidget{
       return listaTrabajos;
 
   }
-  void _handleTap() {
-    setState(() {
-      // valueAnimation.isAnimating is part of our build state
-      if (_controller.isAnimating) {
-        _controller.stop();
-      } else {
-        switch (_controller.status) {
-          case AnimationStatus.dismissed:
-          case AnimationStatus.forward:
-            _controller.forward();
-            break;
-          case AnimationStatus.reverse:
-          case AnimationStatus.completed:
-            _controller.reverse();
-            break;
-        }
-      }
-    });
-  }
+  
 Widget _buildIndicators(BuildContext context, Widget child) {
     final List<Widget> indicators = <Widget>[
       const SizedBox(
@@ -153,7 +135,6 @@ class ItemList extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     List list= widget.list;
-    int idEstado= widget.idEstado;
      final primary = Color(0xff696b9e);
   final secondary = Color(0xfff29a94);
     return new ListView.builder(

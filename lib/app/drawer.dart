@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/api/api.dart';
 import 'package:flutter_app/app/ovalRightClipper.dart';
 import 'package:flutter_app/main.dart';
-import 'package:flutter_app/pages/chatScreen.dart';
 import 'package:flutter_app/pages/conversaciones.dart';
 import 'package:flutter_app/pages/crearTrabajo.dart';
 import 'package:flutter_app/pages/misPostulaciones.dart';

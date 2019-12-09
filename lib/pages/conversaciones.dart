@@ -134,7 +134,6 @@ class ItemList extends StatefulWidget {
   Widget build(BuildContext context) {
     List list=widget.list;
     int idPersonaLogueada= widget.idPersonaLogueada;
-    final primary = Color(0xff696b9e);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {
