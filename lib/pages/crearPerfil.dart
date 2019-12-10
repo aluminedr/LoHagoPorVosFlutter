@@ -31,8 +31,11 @@ class CrearPerfilPage extends StatefulWidget{
   var idUsuario;
   bool _cargando = false;
   String mensajeError='';
-  var _formkey= GlobalKey<FormState>();
+  var _formKey= GlobalKey<FormState>();
   var idProvincia;
+  bool _validado = false;
+  String _errorProvinciaVacia;
+  String _errorLocalidadVacia = 'Seleccione una localidad';
 
   File _image;
   @override
@@ -156,21 +159,32 @@ Future getImageCamera() async{
   
     
  Function(String) nombrePersonaValidator = (String value){
-   print("si");
    if(value.isEmpty){
      return "Ingrese su nombre";
+   }
+
+   if (value.length>80){
+     return "Carácteres máximos permitidos: 80";
    }
    return null;
  };
   Function(String) apellidoPersonaValidator = (String value){
    if(value.isEmpty){
      return "Ingrese su apellido";
+   } 
+
+   if (value.length>80){
+     return "Carácteres máximos permitidos: 80";
    }
    return null;
  };
   Function(String) dniPersonaValidator = (String value){
    if(value.isEmpty){
      return "Ingrese su DNI";
+   }
+
+   if (value.length!=8){
+     return "Un DNI tiene 8 números";
    }
    return null;
  };
@@ -189,6 +203,14 @@ Future getImageCamera() async{
    if(value.isEmpty){
      return "Ingrese su telefono";
    }
+
+   if (value.length>32){
+     return "Carácteres máximos permitidos: 32";
+   }
+
+   if (value.length<7){
+     return "Mínimo debe ingresar 7 caracteres";
+   }
    return null;
  };
 
@@ -200,7 +222,6 @@ Future getImageCamera() async{
       action: SnackBarAction(
         label: 'Cerrar',
         onPressed: () {
-          // Some code to undo the change!
         },
       ),
     );
@@ -212,11 +233,7 @@ _showHabilidadesDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          //print(_selecteCategorys);
           List listaHabilidades=widget.listaHabilidades;
-          //print(listaHabilidades);
-          //print(list);
-          //Here we will build the content of the dialog
           return AlertDialog(
             title: Text("Habilidades"),
             actions: <Widget>[
@@ -228,7 +245,7 @@ _showHabilidadesDialog() {
             content:StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) { 
               return Container(
-              height: 300.0, // Change as per your requirement
+              height: 300.0, 
               width: 300.0,
               child: new ListView.builder(
               itemCount: listaHabilidades == null ? 0 : listaHabilidades.length,
@@ -259,10 +276,7 @@ _showCategoriasDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          //print(_selecteCategorys);
           List list=widget.list;
-          //print(list);
-          //Here we will build the content of the dialog
           return AlertDialog(
             title: Text("Categorias"),
             actions: <Widget>[
@@ -274,7 +288,7 @@ _showCategoriasDialog() {
             content:StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) { 
               return Container(
-              height: 300.0, // Change as per your requirement
+              height: 300.0,
               width: 300.0,
               child: new ListView.builder(
               itemCount: list == null ? 0 : list.length,
@@ -309,7 +323,8 @@ _showCategoriasDialog() {
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
-        key: _formkey,
+        key: _formKey,
+        autovalidate: _validado,
         child: Container(
         padding: const EdgeInsets.all(16.0),
         height: double.infinity,
@@ -390,7 +405,7 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.person, color: Colors.white60,)),
-                              hintText: "Ingrese su nombre",
+                              hintText: "Ingrese su nombre *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -423,7 +438,7 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.person, color: Colors.white60,)),
-                              hintText: "Ingrese su apellido",
+                              hintText: "Ingrese su apellido *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -440,6 +455,7 @@ _showCategoriasDialog() {
                         child: ListTile(
                           title: new TextFormField(
                             controller: dniPersonaController,
+                            keyboardType: TextInputType.number,
                             validator:dniPersonaValidator,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16.0),
@@ -456,7 +472,7 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.credit_card, color: Colors.white60,)),
-                              hintText: "Ingrese su DNI",
+                              hintText: "Ingrese su DNI *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -475,6 +491,7 @@ _showCategoriasDialog() {
                           title: new TextFormField(
                             controller: numeroCBUController,
                             validator:numeroCBUValidator,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
@@ -507,6 +524,7 @@ _showCategoriasDialog() {
                         child: ListTile(
                           title: new TextFormField(
                             controller: telefonoPersonaController,
+                            keyboardType: TextInputType.number,
                             validator: telefonoPersonaValidator,
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(16.0),
@@ -523,7 +541,7 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.credit_card, color: Colors.white60,)),
-                              hintText: "Ingrese su telefono",
+                              hintText: "Ingrese su telefono *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -541,6 +559,7 @@ _showCategoriasDialog() {
                         child: ListTile(
                           title: DropdownButtonFormField(
                             decoration: InputDecoration(
+                              errorText: _errorProvinciaVacia,
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
@@ -568,6 +587,7 @@ _showCategoriasDialog() {
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValuePro = newValue;
+                                _errorProvinciaVacia = null;
                                 var idProvinciaSeleccionada = mostrarIdProvincia();
                               listarLocalidades(idProvinciaSeleccionada);
                               });
@@ -632,7 +652,18 @@ _showCategoriasDialog() {
                             borderRadius: BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            _cargando ? null : _crearPerfil(); 
+                                if (_dropdownValue == null){
+                                  _errorProvinciaVacia = 'Seleccione una provincia';
+                                  setState(() {
+                                    _cargando = false;
+                                  });
+                                } else {
+                                  _errorProvinciaVacia = null;
+                                }
+                              _validateInputs(); // Hacemos la validacion de todos los inputs
+                              if (_validado){ // Si es false significa que esta bien
+                                _cargando ? null : _crearPerfil(); 
+                              }
                             } 
                         ),),
                         
@@ -678,6 +709,7 @@ _showCategoriasDialog() {
                           title: _dropdownValuePro != null
           ? DropdownButtonFormField(
                             decoration: InputDecoration(
+                              errorText: _errorLocalidadVacia,
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
@@ -710,24 +742,37 @@ _showCategoriasDialog() {
                                 .toList(),
               onChanged: (newValue) {
                 setState(() {
+                  _errorLocalidadVacia = null;
                   _dropdownValue = newValue;
                 });
               })
           : Container(),
-        )); // Return an empty Container instead.
+        )); 
+  }
+
+  void _validateInputs() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      // Si valida el form
+      form.save();
+          setState(() => _validado = true);
+
+    } else {
+      setState(() {
+      _validado = false;
+      _cargando = false;
+      });
+    }
   }
 
   void logout() async{
-      // logout from the server ... 
       var res = await CallApi().getData('logout');
       var body = json.decode(res.body);
-      print(body);
       if(body['success']){
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         localStorage.remove('user');
         localStorage.remove('token');
         localStorage.remove('persona');
-        //localStorage.setBool('token', null);
     
         
         Navigator.push(
@@ -742,6 +787,7 @@ _showCategoriasDialog() {
     setState(() {
        _cargando = true;
     });
+
  
       String imagenPersona; 
       String nombreImagen;
@@ -769,14 +815,19 @@ _showCategoriasDialog() {
     };
     if(_habilidadesSeleccionadas.length != 3){
        _mostrarMensaje('Debe seleccionar 3 habilidades');
+       setState(() {
+        _cargando = false;
+       });
       if(_categoriasSelccionadas.length != 3){
         _mostrarMensaje('Debe seleccionar 3 categorias');
+         setState(() {
+        _cargando = false;
+       });
       }
     }else{
       var res = await CallApi().postData(data, 'crearPerfil');
       var body = json.decode(res.body);
-      print(body);
-      //print(body);
+      
       if(body['success']){
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         localStorage.setInt('idPersona', body['idPersona']);

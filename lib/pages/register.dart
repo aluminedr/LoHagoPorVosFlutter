@@ -296,16 +296,16 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
   void _validateInputs() {
-  final form = _formKey.currentState;
-  if (form.validate()) {
-    // Text forms was validated.
-    form.save();
-        setState(() => _validado = true);
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      // Text forms was validated.
+      form.save();
+          setState(() => _validado = true);
 
-  } else {
-    setState(() => _validado = false);
+    } else {
+      setState(() => _validado = false);
+    }
   }
-}
 
 void _login() async {
     setState(() {
