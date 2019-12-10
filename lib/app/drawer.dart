@@ -168,17 +168,13 @@ class MenuLateral extends StatefulWidget {
   }
 
   void logout() async{
-      // logout from the server ... 
       var res = await CallApi().getData('logout');
       var body = json.decode(res.body);
-      print(body);
       if(body['success']){
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         localStorage.remove('user');
         localStorage.remove('token');
-        localStorage.remove('idPersona');
-        //localStorage.setBool('token', null);
-    
+        localStorage.remove('idPersona');    
         
         Navigator.push(
           context,

@@ -265,42 +265,25 @@ class _DetallesHistorialPageState extends State<DetallesHistorialPage> {
 
     var url = await CallApi().postData(data, 'datosMP');
     var urlDecode=jsonDecode(url.body);
-    print(urlDecode);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => WebViewContainer(urlDecode)));
 
   }
-  /*void postularse() async {
-    var data = {
-      "idTrabajo":widget.index,
-      "idPersona":idPersonaLogeada,
-      "flutter":true,
-    };
+  
 
-    var res = await CallApi().postData(data, 'postularme');
-    var body = json.decode(res.body);
-      if (body['success']){
-        Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => LoHagoPorVos()));
-      }else{
-      _mostrarMensaje(body['error']);
-    }
-    
-    
-  }*/
-
+  // Funcion que redirecciona al script de valorar al trabajador (Le envia el idPersonaLogeado y el anuncio)
 
   void valorar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Valorar(widget.index,idPersonaLogeada)));
   }
 
+  // Funcion que envia al script de cancelar (envia idAnuncio e idPersonaLogeada)
     void cancelar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Cancelar(widget.index,idPersonaLogeada)));
   }
+  // Buscamos la conversacion para mostrarle el boton que lo envie directamente a ella
 
   void buscarConversacion() async {
     var data = {

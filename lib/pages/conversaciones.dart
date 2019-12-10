@@ -60,7 +60,6 @@ void verPersonaLog() async{
     };
     var res = await CallApi().postData(data,'listarConversaciones');
     var listaConversaciones = json.decode(res.body);
-    //print(listaConversaciones);
     return listaConversaciones;
 
   }

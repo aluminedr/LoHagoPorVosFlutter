@@ -50,7 +50,6 @@ class _ValorarState extends State<Valorar> {
 
  @override
  Widget build(BuildContext context) {
-    //print(widget.idTrabajo);
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
@@ -145,7 +144,9 @@ class _ValorarState extends State<Valorar> {
                   horizontal: 32.0,
                 ),
                 onPressed: () {
-                _cargando ? null : enviarValoracion(); 
+                  if (!(_cargando)){
+                    enviarValoracion(); 
+                  }
                 },
               ),
             ),
@@ -153,6 +154,8 @@ class _ValorarState extends State<Valorar> {
         )
     );
  }
+  // Funcion que envia todos los datos para crear la valoracion
+
  void enviarValoracion() async{
     setState(() {
       _cargando = true;
@@ -162,10 +165,10 @@ class _ValorarState extends State<Valorar> {
     var valor = rating;
     String imagenValoracion; 
     String nombreImagen;
-    if (_image!=null){
+    if (_image!=null){ // Si tiene imagen la obtenemos junto a su nombre
       nombreImagen = _image.path.split("/").last;
       imagenValoracion= base64Encode(_image.readAsBytesSync()); 
-    } else {
+    } else { // Si no tiene seteamos a null
       nombreImagen = null;
       imagenValoracion= null;
     }
@@ -180,13 +183,12 @@ class _ValorarState extends State<Valorar> {
     };
     var res = await CallApi().postData(data, 'enviarValoracion');
     var body = json.decode(res.body);
-    print(body);
-    if (body['success']){
+    if (body['success']){ // Si se hizo todo bien redireccionamos
         Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => MisTrabajos()));
-      }else{
+      }else{ // Si hubo un error lo mostramos
       _mostrarMensaje(body['error']);
       setState(() {
         _cargando = false;
@@ -195,6 +197,7 @@ class _ValorarState extends State<Valorar> {
     
  }
 
+// Funcion para en algun momento buscar mas datos para mostrar
  void buscarDatosPostulacion() async {
     //var idTrabajo = widget.idTrabajo;
     //var data = {

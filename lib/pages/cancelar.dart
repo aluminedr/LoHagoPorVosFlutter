@@ -40,7 +40,6 @@ class _CancelarState extends State<Cancelar> {
 
  @override
  Widget build(BuildContext context) {
-    //print(widget.idTrabajo);
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
@@ -94,7 +93,9 @@ class _CancelarState extends State<Cancelar> {
                   horizontal: 32.0,
                 ),
                 onPressed: () {
-                _cargando ? null : cancelar(); 
+                  if (!(_cargando)){
+                    cancelar(); 
+                  }
                 },
               ),
             ),
@@ -117,7 +118,6 @@ class _CancelarState extends State<Cancelar> {
     };
     var res = await CallApi().postData(data, 'cancelarTrabajo');
     var body = json.decode(res.body);
-    print(body);
     if (body['success']){
         Navigator.push(
         context,

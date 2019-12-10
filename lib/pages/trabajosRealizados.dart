@@ -74,7 +74,6 @@ void getPersona() async {
       res = await CallApi().postData(data,'misTrabajosFinalizados');
     }
       var listaTrabajos = json.decode(res.body);
-      //print(listaTrabajos);
       return listaTrabajos;
   }
   

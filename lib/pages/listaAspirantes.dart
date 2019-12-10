@@ -53,30 +53,10 @@ class _ListaAspirantesState extends State<ListaAspirantes> with SingleTickerProv
     };
     var res = await CallApi().postData(data,'listarAspirantesTrabajo');
     var listaAspirantes = json.decode(res.body);
-    //print(listaAspirantes);
     return listaAspirantes;
 
   }
   
-  // void _handleTap() {
-  //   setState(() {
-  //     // valueAnimation.isAnimating is part of our build state
-  //     if (_controller.isAnimating) {
-  //       _controller.stop();
-  //     } else {
-  //       switch (_controller.status) {
-  //         case AnimationStatus.dismissed:
-  //         case AnimationStatus.forward:
-  //           _controller.forward();
-  //           break;
-  //         case AnimationStatus.reverse:
-  //         case AnimationStatus.completed:
-  //           _controller.reverse();
-  //           break;
-  //       }
-  //     }
-  //   });
-  // }
 Widget _buildIndicators(BuildContext context, Widget child) {
     final List<Widget> indicators = <Widget>[
       const SizedBox(
@@ -162,8 +142,7 @@ class ItemList extends StatefulWidget {
         var habilidad3= list[i][0]['habilidades'][2]['idHabilidad'][0]['nombreHabilidad']; //busque y traje obj habilidadPersona dentro de habilidad por eso se accede con [habilidad][0] y dentro esta el obj habilidad por eso [idHabilidad][0][nombreHabilidad]
         var rating= list[i][0]['valoracion']+.0;
         var imagenPersona= list[i][0]['imagenPersona'];
-        //if(rating)
-        //print(rating);
+       
         return new Container(
           padding: const EdgeInsets.all(10.0),            
             child: new Card(

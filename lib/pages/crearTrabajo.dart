@@ -25,11 +25,15 @@ class CrearTrabajoPage extends StatefulWidget{
   String mensajeError='';
   String idUsuario;
   String idPersona;
-  var _formkey= GlobalKey<FormState>();
+  var _formKey= GlobalKey<FormState>();
   var idProvincia;
   var horaSeleccionada;
   var diaSeleccionado;
   File _image;
+  bool _validado = false;
+  String _errorProvinciaVacia;
+  String _errorCategoriaVacia;
+  String _errorLocalidadVacia = 'Seleccione una localidad';
   @override
   void initState(){ // Se setea inicio
     
@@ -124,8 +128,6 @@ class CrearTrabajoPage extends StatefulWidget{
     return usdKey;
   }
 
-
-
   Future getImageGallery() async{
   var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -170,6 +172,10 @@ Future getImageCamera() async{
    if(value.isEmpty){
      return "Ingrese una descripcion";
    }
+
+   if (value.length>511){
+     return "Carácteres máximos permitidos: 511";
+   }
    return null;
  };
 
@@ -177,11 +183,19 @@ Future getImageCamera() async{
    if(value.isEmpty){
      return "Ingrese un titulo";
    }
+
+   if (value.length>80){
+     return "Carácteres máximos permitidos: 255";
+   }
    return null;
  };
   Function(String) montoValidator = (String value){
    if(value.isEmpty){
      return "Ingrese un monto";
+   }
+
+   if (value.length>80){
+     return "Monto máximo permitido: 800000,00";
    }
    return null;
  };
@@ -213,7 +227,8 @@ Future getImageCamera() async{
       ),
       resizeToAvoidBottomPadding: false,
       body: Form(
-        key: _formkey,
+        key: _formKey,
+        autovalidate: _validado,
         child: Container(
         padding: const EdgeInsets.all(16.0),
         height: double.infinity,
@@ -293,8 +308,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                                 child: Icon(Icons.text_fields, color: Colors.white60, semanticLabel: "Icono ingrese un titulo")),
-                              semanticCounterText: "Ingrese un titulo", 
-                              hintText: "Ingrese un titulo",
+                              semanticCounterText: "Ingrese un titulo *", 
+                              hintText: "Ingrese un titulo *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -327,8 +342,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                                 child: Icon(Icons.text_fields, color: Colors.white60, semanticLabel: "Icono ingrese una descripcion",)),
-                              semanticCounterText: "Ingrese una descripcion", 
-                              hintText: "Ingrese una descripcion",
+                              semanticCounterText: "Ingrese una descripcion *", 
+                              hintText: "Ingrese una descripcion *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -361,8 +376,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                                 child: Icon(Icons.monetization_on, color: Colors.white60,semanticLabel: "Icono ingrese un monto")),
-                              semanticCounterText: "Ingrese un monto", 
-                              hintText: "Ingrese un monto",
+                              semanticCounterText: "Ingrese un monto *", 
+                              hintText: "Ingrese un monto *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -379,6 +394,7 @@ Future getImageCamera() async{
                         child: ListTile(
                           title: DropdownButtonFormField(
                             decoration: InputDecoration(
+                              errorText: _errorCategoriaVacia,
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
@@ -393,8 +409,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                                 child: Icon(Icons.list, color: Colors.white60,semanticLabel: "Seleccione una categoria",),),
-                              semanticCounterText: "Ingrese una categoria", 
-                              hintText: "Seleccione una categoria",
+                              semanticCounterText: "Ingrese una categoria *", 
+                              hintText: "Seleccione una categoria *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -406,6 +422,7 @@ Future getImageCamera() async{
                             value: _dropdownValueCategoria,
                             onChanged: (String newValue) {
                               setState(() {
+                                _errorCategoriaVacia = null;
                                 _dropdownValueCategoria = newValue;
                               });
                             },
@@ -424,6 +441,7 @@ Future getImageCamera() async{
                         child: ListTile(
                           title: DropdownButtonFormField(
                             decoration: InputDecoration(
+                              errorText: _errorProvinciaVacia,
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
@@ -438,8 +456,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                                 child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Seleccione una provincia",),),
-                              semanticCounterText: "Seleccione una provincia", 
-                              hintText: "Seleccione una provincia",
+                              semanticCounterText: "Seleccione una provincia *", 
+                              hintText: "Seleccione una provincia *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -452,6 +470,7 @@ Future getImageCamera() async{
                             onChanged: (String newValue) {
                               setState(() {
                                 _dropdownValueProvincia = newValue;
+                                _errorProvinciaVacia = null;
                                 var idProvinciaSeleccionada = mostrarIdProvincia();
                               listarLocalidades(idProvinciaSeleccionada);
                               });
@@ -498,6 +517,7 @@ Future getImageCamera() async{
                       SizedBox(
                         width: double.infinity,
                         child: new RaisedButton(
+                          
                           color: Colors.green.withOpacity(0.1),
                           textColor: Colors.green,
                           padding: const EdgeInsets.all(20.0),
@@ -506,12 +526,14 @@ Future getImageCamera() async{
                           ),
                           child: Text('Seleccione hora de finalizacion del anuncio'),
                           onPressed: () {
+                            
                             DateTime now = DateTime.now();
                             showTimePicker(
                               context: context,
                               initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
                             ).then<String>((TimeOfDay value) {
                               if (value != null) {
+                                
                               horaSeleccionada=value;
                               }
                             });
@@ -529,7 +551,31 @@ Future getImageCamera() async{
                             borderRadius: BorderRadius.circular(30.0)
                           ),
                           onPressed: () {
-                            _cargando ? null : _crear(); 
+                            if (_dropdownValueProvincia == null){
+                              _errorProvinciaVacia = 'Seleccione una provincia';
+                              setState(() {
+                                _cargando = false;
+                              });
+                            } else {
+                              _errorProvinciaVacia = null;
+                            }
+
+                            if (_dropdownValueCategoria == null){
+                              _errorCategoriaVacia = 'Seleccione una categoria';
+                              setState(() {
+                                _cargando = false;
+                              });
+                            } else {
+                              _errorCategoriaVacia = null;
+                            }
+                              _validateInputs(); // Hacemos la validacion de todos los inputs
+                              if (_validado){ // Si es false significa que esta bien
+                                //_cargando ? null : _crear(); 
+                                if (!(_cargando)){
+                                  _crear();
+                                }
+                              }
+
                             } 
                         ),),
                          SizedBox(height: 10.0),
@@ -560,6 +606,7 @@ Future getImageCamera() async{
                           title: _dropdownValueProvincia != null
           ? DropdownButtonFormField(
                             decoration: InputDecoration(
+                              errorText: _errorLocalidadVacia,
                               contentPadding: const EdgeInsets.all(16.0),
                               prefixIcon: Container(
                                 padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
@@ -574,8 +621,8 @@ Future getImageCamera() async{
                                   )
                                 ),
                               child: Icon(Icons.map, color: Colors.white60,semanticLabel: "Icono seleccione una localidad"),),
-                              semanticCounterText: "Seleccione una localidad", 
-                              hintText: "Seleccione una localidad",
+                              semanticCounterText: "Seleccione una localidad *", 
+                              hintText: "Seleccione una localidad *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
@@ -593,11 +640,26 @@ Future getImageCamera() async{
                                 .toList(),
               onChanged: (newValue) {
                 setState(() {
+                  _errorLocalidadVacia = null;
                   _dropdownValueLocalidad = newValue;
                 });
               })
           : Container(),
         )); // Return an empty Container instead.
+  }
+
+  void _validateInputs() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      // Si valida el form
+      form.save();
+          setState(() => _validado = true);
+    } else {
+      setState(() {
+      _validado = false;
+      _cargando = false;
+      });
+    }
   }
   
 

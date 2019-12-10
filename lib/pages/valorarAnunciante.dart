@@ -50,7 +50,6 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
 
  @override
  Widget build(BuildContext context) {
-    //print(widget.idTrabajo);
     return Scaffold(
       key:_scaffoldKey,
       appBar: AppBar(
@@ -144,7 +143,9 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
                   horizontal: 32.0,
                 ),
                 onPressed: () {
-                _cargando ? null : enviarValoracion(); 
+                  if (!(_cargando)){
+                    enviarValoracion(); 
+                  }
                 },
               ),
             ),
@@ -152,6 +153,8 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
         )
     );
  }
+
+ // Funcion que envia todos los datos para crear la valoracion
  void enviarValoracion() async{
     setState(() {
       _cargando = true;
@@ -161,10 +164,10 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
     var valor = rating;
     String imagenValoracion; 
     String nombreImagen;
-    if (_image!=null){
+    if (_image!=null){ // Si tiene imagen la obtenemos junto a su nombre
       nombreImagen = _image.path.split("/").last;
       imagenValoracion= base64Encode(_image.readAsBytesSync()); 
-    } else {
+    } else { // Si no tiene seteamos a null
       nombreImagen = null;
       imagenValoracion= null;
     }
@@ -179,12 +182,12 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
     };
     var res = await CallApi().postData(data, 'enviarValoracion');
     var body = json.decode(res.body);
-    if (body['success']){
+    if (body['success']){ // Si se hizo todo bien redireccionamos
         Navigator.push(
         context,
         new MaterialPageRoute(
             builder: (context) => MisPostulaciones()));
-      }else{
+      }else{ // Si hubo un error lo mostramos
       _mostrarMensaje(body['error']);
       setState(() {
         _cargando = false;
@@ -193,6 +196,7 @@ class _ValorarAnuncianteState extends State<ValorarAnunciante> {
     
  }
 
+  // Funcion para en algun momento buscar mas datos que se quieran mostrar en este script
  void buscarDatosPostulacion() async {
     //var idTrabajo = widget.idTrabajo;
     //var data = {

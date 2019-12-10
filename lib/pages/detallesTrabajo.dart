@@ -158,7 +158,9 @@ class _DetallesTrabajosPageState extends State<DetallesTrabajosPage> {
                               horizontal: 32.0,
                             ),
                             onPressed: () {
-                               postulado ? null : postularse();
+                              if (!(postulado)){
+                                postularse();
+                              }
                             },
                           ),
                         ),

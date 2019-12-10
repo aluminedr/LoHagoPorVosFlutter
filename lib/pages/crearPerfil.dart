@@ -644,7 +644,7 @@ _showCategoriasDialog() {
                         SizedBox(
                         width: double.infinity,
                         child: new RaisedButton(
-                          child: new Text(_cargando ? 'Creando'.toUpperCase() : 'Guardar datos'.toUpperCase()),
+                          child: new Text(_cargando ? 'Creando...'.toUpperCase() : 'Guardar datos'.toUpperCase()),
                           color: Colors.green,
                           textColor: Colors.white60,
                           padding: const EdgeInsets.all(20.0),
@@ -662,7 +662,9 @@ _showCategoriasDialog() {
                                 }
                               _validateInputs(); // Hacemos la validacion de todos los inputs
                               if (_validado){ // Si es false significa que esta bien
-                                _cargando ? null : _crearPerfil(); 
+                                if(!(_cargando)){
+                                  _crearPerfil(); 
+                                }
                               }
                             } 
                         ),),
@@ -724,7 +726,8 @@ _showCategoriasDialog() {
                                   )
                                 ),
                                 child: Icon(Icons.map, color: Colors.white60,),),
-                                 hintText: "Seleccione una localidad",
+                                semanticCounterText: "Seleccione una localidad *", 
+                                hintText: "Seleccione una localidad *",
                               hintStyle: TextStyle(color: Colors.green),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),

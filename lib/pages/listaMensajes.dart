@@ -37,7 +37,6 @@ class _ListaMensajesState extends State<ListaMensajes> with SingleTickerProvider
     };
     var res = await CallApi().postData(data,'listarMensajesConversacion');
     var listaMensajes = json.decode(res.body);
-    //print(DateTime.now().toIso8601String());
     return listaMensajes;
   }
 
@@ -85,7 +84,6 @@ class ItemList extends StatefulWidget {
   Widget build(BuildContext context) {
     List list=widget.list;
     int idPersonaLogueada= widget.idPersonaLogueada;
-    //print(list);
     return new ListView.builder(
       itemCount: list == null ? 0 : list.length,
       itemBuilder: (context, i) {

@@ -81,7 +81,6 @@ void guardarMensaje(text) async{
     };  
     var res = await CallApi().postData(data, 'guardarMensaje');
     var body = json.decode(res.body);
-    print(res.body);
       if (body['success']){
         Navigator.push(
         context,

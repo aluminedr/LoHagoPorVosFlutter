@@ -66,7 +66,6 @@ class HistorialTrabajosPage extends StatefulWidget{
     };
     var res = await CallApi().postData(data,'historialTrabajos');
     var listaTrabajos = json.decode(res.body);
-    //print(listaTrabajos);
       return listaTrabajos;
 
   }

@@ -23,7 +23,6 @@ class Comentarios extends StatefulWidget {
         };
         var res = await CallApi().postData(data,'buscarComentarios');
         var listaComentarios = json.decode(res.body);
-        //print(listaComentarios);
         return listaComentarios;
     }
 
@@ -138,7 +137,6 @@ class ItemList extends StatefulWidget {
   Widget build(BuildContext context) {
     List list= widget.list;
     bool duenio= widget.duenio;
-    print(duenio);
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,

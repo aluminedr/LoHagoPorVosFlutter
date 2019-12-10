@@ -182,7 +182,9 @@ class _LoginPageState extends State<LoginPage>{
                   });
                   } 
                   if (_validado){
-                    _cargando ? null : _login();
+                    if (!(_cargando)){
+                       _login();
+                    }
                   }
                 },
                 shape: RoundedRectangleBorder(

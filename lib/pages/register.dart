@@ -214,7 +214,7 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
               controller: repetirClaveUsuarioController,
               validator: (String value){
                 if(value.isEmpty){
-                  return "Repita contraseña";
+                  return "Repita su contraseña";
                 }
 
                 if (value != claveUsuarioController.text){
@@ -258,12 +258,14 @@ var _scaffoldKey = new GlobalKey<ScaffoldState>();
                 textColor: Colors.lightGreen,
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  _cargando?"Guardando...".toUpperCase():"Registrarme".toUpperCase()
+                  _cargando?"Registrando...".toUpperCase():"Registrarme".toUpperCase()
                 ),
                 onPressed: (){
                   _validateInputs(); // Hacemos la validacion de todos los inputs
                   if (_validado){ // Si es false significa que esta bien
-                    _cargando ? null : _login(); 
+                    if (!(_cargando)){
+                      _login(); 
+                    } 
                   }
 
                 },

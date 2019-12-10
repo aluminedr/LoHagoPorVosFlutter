@@ -65,6 +65,7 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
     _getDetalles();
     buscarConversacion();
 
+
     super.initState();  
   }
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -118,17 +119,8 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
                               MaterialPageRoute(builder: (context) => Comentarios(index: widget.index)));
                         },
                       ),
-                      Spacer(),
-                    IconButton(
-                        color: Colors.green,
-                        icon: Icon(Icons.comment),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => new ChatScreen(idConversacion: idConversacion, deshabilitado: deshabilitado)));
-                        },
-                      ),
-                      (mostrarBotonConversacion) ?
-                        
+                      (!(mostrarBotonConversacion)) ?
+                          
                         IconButton(
                           color: Colors.green,
                           icon: Icon(Icons.send),
@@ -204,41 +196,8 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
       ),
     );
   }
-  /*Future enviarDatos() async {
-    var data = {
-        'idTrabajo' : widget.index,
-        'titulo' : titulo,
-        'monto' : monto,
-    };
-
-    var url = await CallApi().postData(data, 'datosMP');
-    var urlDecode=jsonDecode(url.body);
-    print(urlDecode);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => WebViewContainer(urlDecode)));
-
-  }
-  void postularse() async {
-    var data = {
-      "idTrabajo":widget.index,
-      "idPersona":idPersonaLogeada,
-      "flutter":true,
-    };
-
-    var res = await CallApi().postData(data, 'postularme');
-    var body = json.decode(res.body);
-      if (body['success']){
-        Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => LoHagoPorVos()));
-      }else{
-      _mostrarMensaje(body['error']);
-    }
-    
-    
-  }*/
-
+ 
+  // Buscamos la conversacion para mostrarle el boton que lo envie directamente a ella
   void buscarConversacion() async {
     var data = {
         'idTrabajo' : idTrabajo,
@@ -256,7 +215,7 @@ class _DetallesTrabajoRealizadoState extends State<DetallesTrabajoRealizado> {
     }
   }
 
-
+  // Funcino que redirecciona al script de valorar anunciante (Le envia el idPersonaLogeado y el anuncio realizado)
   void valorar() async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ValorarAnunciante(idPersonaLogeada,widget.index)));
